@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}Order Your Store{% endblock %}
+
+{% block content %}
+
+<h2>Get Your $20 Dropshipping Store</h2>
+
+<!-- STEP 1 -->
+<div id="step-1" class="step">
+    <h3>Step 1: Contact Information</h3>
+
+    <label>Email:</label>
+    <input type="text" id="email" value="{{ user.email }}"><br><br>
+
+    <button onclick="goToStep(2)">Next</button>
+</div>
+
+<!-- STEP 2 -->
+<div id="step-2" class="step" style="display:none;">
+    <h3>Step 2: Store Preferences</h3>
+
+    <label>Store Name:</label>
+    <input type="text" id="store_name" onkeyup="checkDomain()">
+    <span id="domain-status"></span>
+    <br><br>
+
+    <label>Niche:</label>
+    <select id="niche">
+        <option value="fashion">Fashion</option>
+        <option value="pets">Pets</option>
+        <option value="beauty">Beauty</option>
+        <option value="electronics">Electronics</option>
+        <option value="home">Home & Kitchen</option>
+        <option value="fitness">Fitness</option>
+    </select><br><br>
+
+    <label>Supplier:</label>
+    <select id="supplier">
+        <option value="cj">CJ Dropshipping</option>
+        <option value="dsers">DSers</option>
+    </select><br><br>
+
+    <label>Theme:</label>
+    <select id="theme">
+        <option value="dawn">Dawn</option>
+        <option value="refresh">Refresh</option>
+        <option value="spotlight">Spotlight</option>
+    </select><br><br>
+
+    <label>Color Palette:</label>
+    <input type="text" id="color_palette" placeholder="e.g. Blue/White"><br><br>
+
+    <label>Profit Margin %:</label>
+    <input type="text" id="profit_margin" placeholder="e.g. 40%"><br><br>
+
+    <label>Markets:</label><br>
+    <input type="checkbox" value="all" onclick="selectAllMarkets(this)"> Worldwide<br>
+    <input type="checkbox" class="market" value="us"> US<br>
+    <input type="checkbox" class="market" value="uk"> UK<br>
+    <input type="checkbox" class="market" value="ca"> Canada<br>
+    <input type="checkbox" class="market" value="eu"> Europe<br><br>
+
+    <label>Logo (optional):</label>
+    <input type="file" id="logo"><br><br>
+
+    <button onclick="goToStep(3)">Next</button>
+    <button onclick="goToStep(1)">Back</button>
+</div>
+
+<!-- STEP 3 (PAYMENT) -->
+<div id="step-3" class="step" style="display:none;">
+    <h3>Step 3: Payment</h3>
+
+    <div id="paypal-button-container"></div>
+
+    <br>
+    <button onclick="goToStep(2)">Back</button>
+</div>
+
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
+
+<script>
+function goToStep(n) {
+    document.querySelectorAll('.step').forEach(x => x.style.display = 'none');
+    document.querySelector('#step-' + n).style.display = 'block';
+}
+
+function checkDomain() {
+    let storeName = document.getElementById("store_name").value;
+    if (storeName.length < 3) return;
+
+    fetch(`/order/check-domain/?store_name=${storeName}`)
+    .then(r => r.json())
+    .then(data => {
+        let el = document.getElementById("domain-status");
+        if (data.available) {
+            el.innerHTML = "✔ Available";
+            el.style.color = "green";
+        } else {
+            el.innerHTML = "✖ Already taken";
+            el.style.color = "red";
+        }
+    });
+}
+
+paypal.Buttons({
+
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: { value: "20.00" }
+            }]
+        });
+    },
+
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+
+            let formData = {
+                email: document.getElementById("email").value,
+                store_name: document.getElementById("store_name").value,
+                niche: document.getElementById("niche").value,
+                supplier: document.getElementById("supplier").value,
+                theme: document.getElementById("theme").value,
+                color_palette: document.getElementById("color_palette").value,
+                profit_margin: document.getElementById("profit_margin").value,
+                markets: Array.from(document.querySelectorAll(".market:checked")).map(x => x.value)
+            };
+
+            return fetch("/order/paypal-complete/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    paypal_order_id: data.orderID,
+                    form_data: formData
+                })
+            }).then(r => r.json()).then(result => {
+                alert("Order placed successfully!");
+                window.location.href = "/dashboard/";
+            });
+        });
+    }
+
+}).render('#paypal-button-container');
+
+</script>
+
+{% endblock %}

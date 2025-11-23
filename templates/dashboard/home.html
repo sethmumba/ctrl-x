@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<h2>Your Orders</h2>
+
+{% if orders %}
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Store Name</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th></th>
+        </tr>
+
+        {% for order in orders %}
+        <tr>
+            <td>#{{ order.id }}</td>
+            <td>{{ order.store_name }}</td>
+            <td>
+                {% if order.progress == 'paid' %}
+                    <span class="badge bg-warning">Payment Received</span>
+                {% elif order.progress == 'assigned' %}
+                    <span class="badge bg-primary">Staff Assigned</span>
+                {% elif order.progress == 'started' %}
+                    <span class="badge bg-info">Store Creation Started</span>
+                {% elif order.progress == 'products' %}
+                    <span class="badge bg-secondary">Products Imported</span>
+                {% elif order.progress == 'branding' %}
+                    <span class="badge bg-success">Branding Configured</span>
+                {% elif order.progress == 'review' %}
+                    <span class="badge bg-light text-dark">Ready for Review</span>
+                {% elif order.progress == 'completed' %}
+                    <span class="badge bg-dark">Delivered</span>
+                {% endif %}
+            </td>
+            <td>{{ order.created_at|date:"M j, Y" }}</td>
+            <td>
+                <a href="{% url 'order-detail' order.id %}" class="btn btn-sm btn-secondary">View</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+{% else %}
+    <p>You have no orders yet.</p>
+{% endif %}
+
+{% endblock %}

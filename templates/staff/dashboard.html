@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Staff Dashboard{% endblock %}
+{% block content %}
+
+<h2>Assigned Orders</h2>
+
+{% if orders %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Store Name</th>
+        <th>Client</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>#{{ order.id }}</td>
+        <td>{{ order.store_name }}</td>
+        <td>{{ order.user.username }}</td>
+        <td>{{ order.progress }}</td>
+        <td><a href="{% url 'staff-order-detail' order.id %}">View / Update</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No assigned orders yet.</p>
+{% endif %}
+
+{% endblock %}

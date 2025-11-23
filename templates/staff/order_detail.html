@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Staff Order Detail{% endblock %}
+{% block content %}
+
+<h2>Order #{{ order.id }} — {{ order.store_name }}</h2>
+
+<ul>
+    <li><strong>Client:</strong> {{ order.user.username }} ({{ order.user.email }})</li>
+    <li><strong>Niche:</strong> {{ order.niche }}</li>
+    <li><strong>Supplier:</strong> {{ order.supplier }}</li>
+    <li><strong>Theme:</strong> {{ order.theme }}</li>
+    <li><strong>Profit Margin:</strong> {{ order.desired_profit_margin }}</li>
+    <li><strong>Markets:</strong> {{ order.markets }}</li>
+    <li><strong>Color Palette:</strong> {{ order.color_palette }}</li>
+</ul>
+
+<h3>Update Progress</h3>
+<form method="post" action="{% url 'update-order-progress' order.id %}">
+    {% csrf_token %}
+    <select name="progress">
+        {% for key, value in order.PROGRESS_STEPS %}
+        <option value="{{ key }}" {% if order.progress == key %}selected{% endif %}>{{ value }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Update</button>
+</form>
+
+{% endblock %}

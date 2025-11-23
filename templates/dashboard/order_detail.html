@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Order #{{ order.id }}{% endblock %}
+{% block content %}
+
+<h2>Order #{{ order.id }} — {{ order.store_name }}</h2>
+
+<h3>Status: {{ human_status }}</h3>
+
+<!-- Timeline -->
+<div class="timeline">
+    {% for step_key, step_label in PROGRESS_STEPS %}
+    <div class="step {% if forloop.counter0 <= order_progress_index %}active{% endif %}">
+        <span>{{ forloop.counter }}</span>
+        <p>{{ step_label }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+
+<style>
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 40px 0;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px; /* aligns with circle centers */
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #ddd;
+    z-index: 0;
+}
+.step {
+    text-align: center;
+    width: calc(100% / {{ PROGRESS_STEPS|length }});
+    position: relative;
+    opacity: 0.4;
+}
+.step.active {
+    opacity: 1;
+    font-weight: bold;
+}
+.step span {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: #ddd;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+}
+.step.active span {
+    background: #28a745;
+    color: white;
+}
+.step::after {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    height: 4px;
+    width: 100%;
+    background: #28a745;
+    z-index: 0;
+}
+.step:last-child::after {
+    display: none;
+}
+.step:not(.active)::after {
+    background: #ddd;
+}
+</style>
+
+<h3>Order Details</h3>
+<ul>
+    <li><strong>Niche:</strong> {{ order.get_niche_display }}</li>
+    <li><strong>Supplier:</strong> {{ order.get_supplier_display }}</li>
+    <li><strong>Theme:</strong> {{ order.get_theme_display }}</li>
+    <li><strong>Profit Margin:</strong> {{ order.desired_profit_margin }}</li>
+    <li><strong>Markets:</strong> {{ order.markets|join:", " }}</li>
+    <li><strong>Color Palette:</strong> {{ order.color_palette }}</li>
+</ul>
+
+{% if order.logo %}
+<p><strong>Logo:</strong></p>
+<img src="{{ order.logo.url }}" width="200">
+{% endif %}
+
+{% if order.assigned_staff %}
+<p><strong>Assigned Builder:</strong> {{ order.assigned_staff.username }}</p>
+{% endif %}
+
+{% if order.progress == 'completed' %}
+<div style="border: 2px solid green; padding: 15px; margin: 15px 0; background: #e6ffe6;">
+    <h3>🎉 Your Store is Ready!</h3>
+    <p>Please check your email for instructions to take ownership of your Shopify store.</p>
+</div>
+{% endif %}
+
+{% endblock %}
