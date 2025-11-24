@@ -7,7 +7,16 @@ from orders.models import Order, PROGRESS_STEPS
 @login_required
 def dashboard_home(request):
     orders = Order.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'dashboard/home.html', {'orders': orders})
+
+    context = {
+        'orders': orders,
+        'total_orders': orders.count(),
+        'in_progress_orders': orders.exclude(progress='completed').count(),
+        'completed_orders': orders.filter(progress='completed').count(),
+    }
+
+    return render(request, 'dashboard/home.html', context)
+
 
 @login_required
 def order_detail(request, order_id):

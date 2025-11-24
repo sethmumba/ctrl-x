@@ -1,6 +1,89 @@
 {% extends "base.html" %}
-{% block title %}Welcome{% endblock %}
+{% block title %}Droppify - Build Your Shopify Store{% endblock %}
+
 {% block content %}
-<h1>Welcome to Droppify</h1>
-<p>Click <a href="{% url 'create-order' %}">here</a> to get your $20 dropshipping store!</p>
+
+<!-- Hero Section -->
+<section class="hero-section hero-gradient">
+    <div class="hero-container">
+        <!-- Hero Image -->
+        <div class="hero-image-container">
+            <img src="https://res.cloudinary.com/djxeu9bfh/image/upload/v1760994664/empx_logo-removebg-preview_j7fmrv.png" 
+                 alt="Shopify Store Illustration" 
+                 class="hero-image">
+        </div>
+
+        <h1 class="hero-headline">
+            Your Shopify Store, Live in 
+            <span class="highlight highlight-hours">24 Hours</span>. 
+            For Just <span class="highlight highlight-price">$20</span>.
+        </h1>
+        <p class="hero-subheadline">
+            We build professional Shopify stores quickly and affordably, so you can start selling immediately.
+        </p>
+
+        <!-- Updated Get Started Button -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard-home' %}" class="hero-cta btn btn-primary">Get Started Now!</a>
+        {% else %}
+            <a href="{% url 'signup' %}" class="hero-cta btn btn-primary">Get Started Now!</a>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section section-light-gray">
+    <div class="how-it-works-container container">
+        <h2 class="section-title">How It Works</h2>
+        <div class="cards-horizontal">
+            <div class="how-card">
+                <div class="card-icon icon-1"></div>
+                <h3 class="card-title">Choose Your Idea</h3>
+                <p class="card-text">Select the type of store you want to launch and your preferred niche.</p>
+            </div>
+            <div class="how-card">
+                <div class="card-icon icon-2"></div>
+                <h3 class="card-title">Submit Your Requirements</h3>
+                <p class="card-text">Provide details such as store name, branding, logo, and desired features.</p>
+            </div>
+            <div class="how-card">
+                <div class="card-icon icon-3"></div>
+                <h3 class="card-title">Receive Your Store in 24 Hours</h3>
+                <p class="card-text">Your fully functional Shopify store will be delivered quickly and ready to go.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Features Section -->
+<section class="features-section container">
+    <h2 class="section-title">Key Features</h2>
+    <div class="cards-horizontal">
+        <div class="feature-card">
+            <div class="feature-icon icon-fast"></div>
+            <h3 class="feature-title">Fast Delivery</h3>
+            <p class="feature-text">Get your store ready and live in just 24 hours.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon icon-affordable"></div>
+            <h3 class="feature-title">Affordable Pricing</h3>
+            <p class="feature-text">High-quality stores at a flat rate of just $20.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon icon-professional"></div>
+            <h3 class="feature-title">Professional Design</h3>
+            <p class="feature-text">Modern and clean designs tailored to your niche.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon icon-responsive"></div>
+            <h3 class="feature-title">Mobile Responsive</h3>
+            <p class="feature-text">Your store looks great on all devices automatically.</p>
+        </div>
+    </div>
+    <div class="learn-more-btn-wrapper">
+        <a href="{% url 'learn-more' %}" class="btn btn-secondary">Learn More</a>
+    </div>
+</section>
+
 {% endblock %}

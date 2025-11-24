@@ -1,106 +1,77 @@
 {% extends "base.html" %}
 {% block title %}Order #{{ order.id }}{% endblock %}
+
 {% block content %}
 
-<h2>Order #{{ order.id }} — {{ order.store_name }}</h2>
+<div class="order-page-wrapper">
 
-<h3>Status: {{ human_status }}</h3>
-
-<!-- Timeline -->
-<div class="timeline">
-    {% for step_key, step_label in PROGRESS_STEPS %}
-    <div class="step {% if forloop.counter0 <= order_progress_index %}active{% endif %}">
-        <span>{{ forloop.counter }}</span>
-        <p>{{ step_label }}</p>
+    <!-- Header Card -->
+    <div class="order-header-card">
+        <h2 class="order-title">Order #{{ order.id }} — {{ order.store_name }}</h2>
+        <p class="order-status">Current Status: <span class="status-accent">{{ human_status }}</span></p>
     </div>
-    {% endfor %}
+
+    <!-- Progress Timeline Card -->
+    <div class="timeline-card">
+        <h3 class="timeline-title">Store Build Progress</h3>
+        <div class="timeline">
+            {% for step_key, step_label in PROGRESS_STEPS %}
+            <div class="timeline-step {% if forloop.counter0 <= order_progress_index %}active{% endif %}">
+                <span class="step-circle">{{ forloop.counter }}</span>
+                <p class="step-label">{{ step_label }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Details Section -->
+    <div class="details-section">
+
+        <!-- Left Column: Specifications -->
+        <div class="details-card specifications-card">
+            <h3 class="card-title">Order Specifications</h3>
+            <ul class="specifications-list">
+                <li><span class="spec-label">Niche:</span> <span class="spec-value">{{ order.get_niche_display }}</span></li>
+                <li><span class="spec-label">Supplier:</span> <span class="spec-value">{{ order.get_supplier_display }}</span></li>
+                <li><span class="spec-label">Theme:</span> <span class="spec-value">{{ order.get_theme_display }}</span></li>
+                <li><span class="spec-label">Profit Margin:</span> <span class="spec-value">{{ order.desired_profit_margin }}</span></li>
+                <li><span class="spec-label">Markets:</span> <span class="spec-value">{{ order.markets|join:", " }}</span></li>
+                <li><span class="spec-label">Color Palette:</span> <span class="spec-value">{{ order.color_palette }}</span></li>
+            </ul>
+
+            {% if order.logo %}
+            <div class="order-logo">
+                <p class="logo-label">Submitted Logo:</p>
+                <img src="{{ order.logo.url }}" alt="Client Logo" class="logo-image">
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right Column: Build Status & Handover -->
+        <div class="details-card status-card">
+            <h3 class="card-title">Build Status & Handover</h3>
+
+            {% if order.assigned_staff %}
+            <div class="assigned-builder">
+                <p class="builder-label">Assigned Builder:</p>
+                <div class="builder-info">
+                    <div class="builder-avatar"></div>
+                    <span class="builder-name">{{ order.assigned_staff.username }}</span>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if order.progress == 'completed' %}
+            <div class="completion-notification">
+                <h3 class="completion-title">🎉 Your Store is Ready!</h3>
+                <p class="completion-text">Please check your email for instructions to take ownership of your Shopify store.</p>
+                <a href="{{ order.store_link }}" class="btn btn-accent">View Store Link</a>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
 </div>
-
-
-<style>
-.timeline {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    margin: 40px 0;
-}
-.timeline::before {
-    content: '';
-    position: absolute;
-    top: 20px; /* aligns with circle centers */
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: #ddd;
-    z-index: 0;
-}
-.step {
-    text-align: center;
-    width: calc(100% / {{ PROGRESS_STEPS|length }});
-    position: relative;
-    opacity: 0.4;
-}
-.step.active {
-    opacity: 1;
-    font-weight: bold;
-}
-.step span {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    background: #ddd;
-    border-radius: 50%;
-    margin-bottom: 5px;
-    position: relative;
-    z-index: 1;
-}
-.step.active span {
-    background: #28a745;
-    color: white;
-}
-.step::after {
-    content: '';
-    position: absolute;
-    top: 22px;
-    left: 50%;
-    height: 4px;
-    width: 100%;
-    background: #28a745;
-    z-index: 0;
-}
-.step:last-child::after {
-    display: none;
-}
-.step:not(.active)::after {
-    background: #ddd;
-}
-</style>
-
-<h3>Order Details</h3>
-<ul>
-    <li><strong>Niche:</strong> {{ order.get_niche_display }}</li>
-    <li><strong>Supplier:</strong> {{ order.get_supplier_display }}</li>
-    <li><strong>Theme:</strong> {{ order.get_theme_display }}</li>
-    <li><strong>Profit Margin:</strong> {{ order.desired_profit_margin }}</li>
-    <li><strong>Markets:</strong> {{ order.markets|join:", " }}</li>
-    <li><strong>Color Palette:</strong> {{ order.color_palette }}</li>
-</ul>
-
-{% if order.logo %}
-<p><strong>Logo:</strong></p>
-<img src="{{ order.logo.url }}" width="200">
-{% endif %}
-
-{% if order.assigned_staff %}
-<p><strong>Assigned Builder:</strong> {{ order.assigned_staff.username }}</p>
-{% endif %}
-
-{% if order.progress == 'completed' %}
-<div style="border: 2px solid green; padding: 15px; margin: 15px 0; background: #e6ffe6;">
-    <h3>🎉 Your Store is Ready!</h3>
-    <p>Please check your email for instructions to take ownership of your Shopify store.</p>
-</div>
-{% endif %}
 
 {% endblock %}

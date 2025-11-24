@@ -54,8 +54,13 @@ class Order(models.Model):
     niche = models.CharField(max_length=30, choices=NICHE_CHOICES)
     supplier = models.CharField(max_length=20, choices=SUPPLIER_CHOICES)
     theme = models.CharField(max_length=20, choices=THEME_CHOICES)
-    color_palette = models.CharField(max_length=100)
-    desired_profit_margin = models.CharField(max_length=20)
+    color_palette = models.CharField(max_length=100, blank=True)
+    desired_profit_margin = models.CharField(max_length=20, blank=True)
+
+    # Step 1 contact info (NEW)
+    full_name = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=50, blank=True, null=True)
 
     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
 

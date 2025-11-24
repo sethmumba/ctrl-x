@@ -1,28 +1,64 @@
 {% extends "base.html" %}
 {% block title %}Staff Order Detail{% endblock %}
+
 {% block content %}
 
-<h2>Order #{{ order.id }} — {{ order.store_name }}</h2>
+<div class="staff-order-page">
 
-<ul>
-    <li><strong>Client:</strong> {{ order.user.username }} ({{ order.user.email }})</li>
-    <li><strong>Niche:</strong> {{ order.niche }}</li>
-    <li><strong>Supplier:</strong> {{ order.supplier }}</li>
-    <li><strong>Theme:</strong> {{ order.theme }}</li>
-    <li><strong>Profit Margin:</strong> {{ order.desired_profit_margin }}</li>
-    <li><strong>Markets:</strong> {{ order.markets }}</li>
-    <li><strong>Color Palette:</strong> {{ order.color_palette }}</li>
-</ul>
+    <!-- Header -->
+    <div class="order-header-card">
+        <h2 class="order-title">Order #{{ order.id }} — {{ order.store_name }}</h2>
+        <p class="order-client">
+            Client: {{ order.user.username }} ({{ order.user.email }})
+        </p>
+    </div>
 
-<h3>Update Progress</h3>
-<form method="post" action="{% url 'update-order-progress' order.id %}">
-    {% csrf_token %}
-    <select name="progress">
-        {% for key, value in order.PROGRESS_STEPS %}
-        <option value="{{ key }}" {% if order.progress == key %}selected{% endif %}>{{ value }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Update</button>
-</form>
+    <div class="order-content-container">
+
+        <!-- Left Column: Order Specifications -->
+        <div class="order-specs-card">
+            <h3 class="card-title">Order Specifications</h3>
+            <ul class="specs-list">
+                <li><span class="spec-label">Niche:</span> <span class="spec-value">{{ order.niche }}</span></li>
+                <li><span class="spec-label">Supplier:</span> <span class="spec-value">{{ order.supplier }}</span></li>
+                <li><span class="spec-label">Theme:</span> <span class="spec-value">{{ order.theme }}</span></li>
+                <li><span class="spec-label">Profit Margin:</span> <span class="spec-value">{{ order.desired_profit_margin }}</span></li>
+                <li><span class="spec-label">Markets:</span> <span class="spec-value">{{ order.markets|join:", " }}</span></li>
+                <li><span class="spec-label">Color Palette:</span> <span class="spec-value">{{ order.color_palette }}</span></li>
+            </ul>
+
+            {% if order.logo %}
+            <div class="logo-preview">
+                <p class="spec-label">Submitted Logo:</p>
+                <img src="{{ order.logo.url }}" alt="Client Logo" class="client-logo">
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right Column: Action Panel -->
+        <div class="order-action-panel">
+            <div class="current-status-card">
+                <p class="status-label">Current Status:</p>
+                <span class="status-value">{{ order.progress|capfirst }}</span>
+            </div>
+
+            <form method="post" action="{% url 'update-order-progress' order.id %}" class="progress-form">
+                {% csrf_token %}
+                <label for="progress" class="form-label">Move to New Stage:</label>
+                <select name="progress" id="progress" class="form-select">
+                    {% for key, value in order.PROGRESS_STEPS %}
+                    <option value="{{ key }}" {% if order.progress == key %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit" class="btn btn-primary full-width-btn">
+                    Confirm Progress Update
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

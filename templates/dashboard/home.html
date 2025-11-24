@@ -1,51 +1,85 @@
 {% extends "base.html" %}
 {% block title %}Dashboard{% endblock %}
+
 {% block content %}
 
-<h2>Your Orders</h2>
+<div class="dashboard-wrapper">
 
-{% if orders %}
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Store Name</th>
-            <th>Status</th>
-            <th>Created</th>
-            <th></th>
-        </tr>
+    <!-- Create Order Button -->
+    <div class="create-order-btn-wrapper">
+        <a href="{% url 'create-order' %}" class="create-order-btn btn btn-primary">+ Create Order</a>
+    </div>
 
-        {% for order in orders %}
-        <tr>
-            <td>#{{ order.id }}</td>
-            <td>{{ order.store_name }}</td>
-            <td>
-                {% if order.progress == 'paid' %}
-                    <span class="badge bg-warning">Payment Received</span>
-                {% elif order.progress == 'assigned' %}
-                    <span class="badge bg-primary">Staff Assigned</span>
-                {% elif order.progress == 'started' %}
-                    <span class="badge bg-info">Store Creation Started</span>
-                {% elif order.progress == 'products' %}
-                    <span class="badge bg-secondary">Products Imported</span>
-                {% elif order.progress == 'branding' %}
-                    <span class="badge bg-success">Branding Configured</span>
-                {% elif order.progress == 'review' %}
-                    <span class="badge bg-light text-dark">Ready for Review</span>
-                {% elif order.progress == 'completed' %}
-                    <span class="badge bg-dark">Delivered</span>
-                {% endif %}
-            </td>
-            <td>{{ order.created_at|date:"M j, Y" }}</td>
-            <td>
-                <a href="{% url 'order-detail' order.id %}" class="btn btn-sm btn-secondary">View</a>
-            </td>
-        </tr>
-        {% endfor %}
+ <!-- KPI Summary Cards -->
+<div class="kpi-cards">
+    <!-- Total Orders -->
+    <div class="kpi-card card">
+        <div class="kpi-card-content">
+            <p class="kpi-title">Total Orders</p>
+            <p class="kpi-value">{{ total_orders }}</p>
+        </div>
+    </div>
 
-    </table>
+    <!-- Stores In Progress -->
+    <div class="kpi-card card">
+        <div class="kpi-card-content">
+            <p class="kpi-title">Stores In Progress</p>
+            <p class="kpi-value kpi-in-progress">{{ in_progress_orders }}</p>
+        </div>
+    </div>
 
-{% else %}
-    <p>You have no orders yet.</p>
-{% endif %}
+    <!-- Delivered Stores -->
+    <div class="kpi-card card">
+        <div class="kpi-card-content">
+            <p class="kpi-title">Delivered Stores</p>
+            <p class="kpi-value kpi-delivered">{{ completed_orders }}</p>
+        </div>
+    </div>
+</div>
+
+    <!-- Orders Table as Cards -->
+    <div class="orders-container">
+        <h2 class="orders-title">Your Store Build Orders</h2>
+
+        {% if orders %}
+            <div class="orders-list">
+                {% for order in orders %}
+                    <div class="order-card card">
+                        <div class="order-card-header">
+                            <span class="order-id">#{{ order.id }}</span>
+                            <span class="order-date">{{ order.created_at|date:"M j, Y" }}</span>
+                        </div>
+                        <div class="order-card-body">
+                            <h3 class="order-store">{{ order.store_name }}</h3>
+                            <div class="order-status">
+                                {% if order.progress == 'paid' %}
+                                    <span class="status-badge status-success">Payment Received</span>
+                                {% elif order.progress == 'assigned' %}
+                                    <span class="status-badge status-primary">Staff Assigned</span>
+                                {% elif order.progress == 'started' %}
+                                    <span class="status-badge status-info">Store Creation Started</span>
+                                {% elif order.progress == 'products' %}
+                                    <span class="status-badge status-secondary">Products Imported</span>
+                                {% elif order.progress == 'branding' %}
+                                    <span class="status-badge status-accent">Branding Configured</span>
+                                {% elif order.progress == 'review' %}
+                                    <span class="status-badge status-warning">Ready for Review</span>
+                                {% elif order.progress == 'completed' %}
+                                    <span class="status-badge status-success">Delivered</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="order-card-footer">
+                            <a href="{% url 'order-detail' order.id %}" class="details-link btn btn-outline">View Details →</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-orders">You have no orders yet.</p>
+        {% endif %}
+    </div>
+
+</div>
 
 {% endblock %}

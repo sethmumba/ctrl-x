@@ -13,11 +13,12 @@ def signup_view(request):
             user.save()
 
             login(request, user)
-            return redirect('dashboard-home')
+            return redirect('dashboard-home')  # clients only
     else:
         form = SignupForm()
 
     return render(request, 'accounts/signup.html', {'form': form})
+
 
 
 def login_view(request):
@@ -26,11 +27,17 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('dashboard-home')
+
+            # Redirect based on role
+            if user.is_staff:
+                return redirect('staff-dashboard')
+            else:
+                return redirect('dashboard-home')
     else:
         form = AuthenticationForm()
 
     return render(request, 'accounts/login.html', {'form': form})
+
 
 
 def logout_view(request):

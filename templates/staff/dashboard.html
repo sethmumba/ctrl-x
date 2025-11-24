@@ -1,30 +1,66 @@
 {% extends "base.html" %}
 {% block title %}Staff Dashboard{% endblock %}
+
 {% block content %}
 
-<h2>Assigned Orders</h2>
+<div class="staff-dashboard-page">
 
-{% if orders %}
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Store Name</th>
-        <th>Client</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-    {% for order in orders %}
-    <tr>
-        <td>#{{ order.id }}</td>
-        <td>{{ order.store_name }}</td>
-        <td>{{ order.user.username }}</td>
-        <td>{{ order.progress }}</td>
-        <td><a href="{% url 'staff-order-detail' order.id %}">View / Update</a></td>
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-<p>No assigned orders yet.</p>
-{% endif %}
+    <!-- Header & Summary -->
+    <div class="dashboard-header-card">
+        <h2 class="dashboard-title">Staff Build Management</h2>
+        <div class="summary-card">
+            <p class="summary-text">Orders Assigned:</p>
+            <span class="summary-number">{{ orders|length }}</span>
+        </div>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="orders-card">
+        <h3 class="card-title">Orders Awaiting Action</h3>
+
+        {% if orders %}
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Store Name</th>
+                    <th>Client Username</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.store_name }}</td>
+                    <td>{{ order.user.username }}</td>
+                    <td>
+                        {% if order.progress == 'assigned' %}
+                            <span class="badge badge-assigned">Assigned</span>
+                        {% elif order.progress == 'branding' %}
+                            <span class="badge badge-branding">Branding</span>
+                        {% elif order.progress == 'review' %}
+                            <span class="badge badge-review">Review</span>
+                        {% elif order.progress == 'completed' %}
+                            <span class="badge badge-completed">Completed</span>
+                        {% else %}
+                            <span class="badge badge-default">{{ order.progress|capfirst }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'staff-order-detail' order.id %}" class="action-link">View / Update →</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-orders-text">No assigned orders yet.</p>
+        {% endif %}
+
+    </div>
+
+</div>
 
 {% endblock %}

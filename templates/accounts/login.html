@@ -1,14 +1,44 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
+
 {% block content %}
-<h2>Login</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="auth-wrapper auth-card">
+    <!-- Brand Logo -->
+    <div class="auth-logo">
+        <h1 class="brand-logo">DropLaunch</h1>
+    </div>
 
-    <button type="submit">Login</button>
-</form>
+    <!-- Main Heading -->
+    <h2 class="auth-title">Welcome Back!</h2>
 
-<p>Don't have an account? <a href="/accounts/signup/">Create one</a></p>
+    <!-- Login Form -->
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <div class="auth-input-box">
+                <label for="{{ field.id_for_label }}" class="auth-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="auth-error">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="auth-btn btn-primary">Login</button>
+    </form>
+
+    <!-- Forgot Password Link -->
+    <div class="auth-forgot">
+        <a href="/accounts/password-reset/" class="auth-forgot-link">Forgot Password?</a>
+    </div>
+
+    <!-- Signup Link -->
+    <div class="auth-link">
+        <p>Don't have an account? <a href="/accounts/signup/" class="auth-link-accent">Sign Up</a></p>
+    </div>
+</div>
+
 {% endblock %}
