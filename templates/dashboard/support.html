@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Contact Support{% endblock %}
+
+{% block content %}
+
+<div class="support-page-wrapper">
+    
+    <form method="POST" class="support-form">
+        {% csrf_token %}
+        <h2>Contact Support</h2>
+        <p class="support-subtext">
+            Need help with an order, or have a question about our service? Use the form below to reach our dedicated support team.
+        </p>
+        
+        {% for field in form %}
+            <div class="form-field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="auth-error">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Send Message</button>
+    </form>
+
+</div>
+
+{% endblock %}

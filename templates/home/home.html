@@ -3,12 +3,13 @@
 
 {% block content %}
 
-<!-- Hero Section -->
+<!-- ------------------------------------------------------------- -->
+<!-- HERO SECTION: Value Proposition and Social Proof Bar -->
+<!-- ------------------------------------------------------------- -->
 <section class="hero-section hero-gradient">
     <div class="hero-container">
-        <!-- Hero Image (Transparent effect achieved in CSS filter/shadow) -->
+        
         <div class="hero-image-container">
-            <!-- Ensure this image is mostly monochromatic or has a background that can be easily removed/blended -->
             <img src="https://res.cloudinary.com/djxeu9bfh/image/upload/v1760994664/empx_logo-removebg-preview_j7fmrv.png" 
                 alt="Shopify Store Illustration" 
                 class="hero-image">
@@ -16,76 +17,170 @@
 
         <h1 class="hero-headline">
             Your Shopify Store, Live in 
-            <span class="highlight highlight-hours">30 Hours</span>. 
+            <span class="highlight highlight-hours">24 Hours</span>. 
             For Just <span class="highlight highlight-price">$20</span>.
         </h1>
         <p class="hero-subheadline">
-            We build professional Shopify stores quickly and affordably, so you can start selling immediately.
+            We build professional Shopify stores quickly and affordably (thanks to our Shopify Partnership!), including up to 30 pre-imported products, so you can start selling immediately.
         </p>
 
-        <!-- Call to Action Button with Pulse and Hover Animation (Class: hero-cta) -->
+        <!-- Call to Action Button -->
         {% if user.is_authenticated %}
-            <a href="{% url 'dashboard-home' %}" class="hero-cta btn btn-primary">Get Started Now!</a>
+            <a href="{% url 'dashboard-home' %}" class="hero-cta btn btn-primary">Launch Your Store Now!</a>
         {% else %}
-            <a href="{% url 'signup' %}" class="hero-cta btn btn-primary">Get Started Now!</a>
+            <a href="{% url 'signup' %}" class="hero-cta btn btn-primary">Launch Your Store Now!</a>
         {% endif %}
+
+        <!-- NEW: Social Proof Bar -->
+        <div class="hero-stats-bar">
+            <div class="stat-item">
+                <span class="stat-value">500+</span>
+                <span class="stat-label">Stores Delivered</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">4.9/5</span>
+                <span class="stat-label">Customer Rating</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">98%</span>
+                <span class="stat-label">On-time Delivery</span>
+            </div>
+        </div>
 
     </div>
 </section>
 
-<!-- How It Works Section -->
+<!-- ------------------------------------------------------------- -->
+<!-- PROCESS SECTION: How It Works -->
+<!-- ------------------------------------------------------------- -->
 <section class="how-it-works-section container">
     <div class="how-it-works-container">
-        <h2 class="section-title">How It Works</h2>
+        <h2 class="section-title">The Droppify Process</h2>
         <div class="cards-horizontal">
             <div class="how-card">
                 <div class="card-icon icon-1"></div>
-                <h3 class="card-title">Choose Your Idea</h3>
-                <p class="card-text">Select the type of store you want to launch and your preferred niche.</p>
+                <h3 class="card-title">Choose Your Niche</h3>
+                <p class="card-text">Select your target market and preferred niche (fashion, pets, electronics, etc.).</p>
             </div>
             <div class="how-card">
                 <div class="card-icon icon-2"></div>
-                <h3 class="card-title">Submit Your Requirements</h3>
-                <p class="card-text">Provide details such as store name, branding, logo, and desired features.</p>
+                <h3 class="card-title">Submit Specs & Payment</h3>
+                <p class="card-text">Provide store name, branding, and complete the secure $20 payment. The low cost is enabled by our Shopify partnership compensation.</p>
             </div>
             <div class="how-card">
                 <div class="card-icon icon-3"></div>
-                <h3 class="card-title">Receive Your Store in 24 Hours</h3>
-                <p class="card-text">Your fully functional Shopify store will be delivered quickly and ready to go.</p>
+                <h3 class="card-title">Delivered in 24 Hours</h3>
+                <p class="card-text">Your fully functional Shopify store is built, stocked with up to 30 products, and transferred instantly. For custom orders, email: <a href="mailto:empxautomation@gmail.com" class="action-link">empxautomation@gmail.com</a></p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Key Features Section -->
+<!-- ------------------------------------------------------------- -->
+<!-- NEW SECTION: Testimonials / Social Proof -->
+<!-- ------------------------------------------------------------- -->
+<section class="testimonials-section container">
+    <h2 class="section-title">Trusted by Entrepreneurs</h2>
+    <div class="testimonials-grid">
+        
+        <div class="testimonial-card card">
+            <div class="star-rating">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-quote">"I was skeptical of the $20 price, but the quality of the theme and product setup is genuinely premium. Launched my business immediately!"</p>
+            <p class="testimonial-author">— Sarah J., Fashion Store Owner</p>
+        </div>
+        
+        <div class="testimonial-card card">
+            <div class="star-rating">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-quote">"The 24-hour turnaround is real. I sent my requirements Friday morning and was checking out a fully built store by Saturday afternoon."</p>
+            <p class="testimonial-author">— Alex R., Electronics Dropshipper</p>
+        </div>
+
+        <div class="testimonial-card card">
+            <div class="star-rating">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-quote">"They handled all the boring, technical setup. Worth every penny. I can now focus 100% on marketing and sales."</p>
+            <p class="testimonial-author">— Ken M., Home Goods Niche</p>
+        </div>
+        
+    </div>
+</section>
+
+<!-- ------------------------------------------------------------- -->
+<!-- FEATURES SECTION -->
+<!-- ------------------------------------------------------------- -->
 <section class="features-section container">
-    <h2 class="section-title">Key Features</h2>
+    <h2 class="section-title">Core Features Included</h2>
     <div class="cards-horizontal">
         <div class="feature-card">
             <div class="feature-icon icon-fast"></div>
-            <h3 class="feature-title">Fast Delivery</h3>
-            <p class="feature-text">Get your store ready and live in just 24 hours.</p>
+            <h3 class="feature-title">24-Hour Delivery</h3>
+            <p class="feature-text">We guarantee your store is ready to launch in less than 24 hours.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon icon-affordable"></div>
-            <h3 class="feature-title">Affordable Pricing</h3>
-            <p class="feature-text">High-quality stores at a flat rate of just $20.</p>
+            <h3 class="feature-title">Flat $20 Rate</h3>
+            <p class="feature-text">High-quality, professional stores at a low, flat, introductory price.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon icon-professional"></div>
-            <h3 class="feature-title">Professional Design</h3>
-            <p class="feature-text">Modern and clean designs tailored to your niche.</p>
+            <h3 class="feature-title">Premium Design</h3>
+            <p class="feature-text">Modern, high-converting design based on proven Shopify themes.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon icon-responsive"></div>
-            <h3 class="feature-title">Mobile Responsive</h3>
-            <p class="feature-text">Your store looks great on all devices automatically.</p>
+            <h3 class="feature-title">Mobile Optimized</h3>
+            <p class="feature-text">Your store looks and performs flawlessly on all desktop and mobile devices.</p>
         </div>
     </div>
     <div class="learn-more-btn-wrapper">
-        <!-- Using the secondary button style -->
-        <a href="{% url 'learn-more' %}" class="btn btn-secondary">Learn More</a>
+        <a href="{% url 'learn-more' %}" class="btn btn-secondary">See Full Service Details</a>
     </div>
 </section>
+
+<!-- ------------------------------------------------------------- -->
+<!-- NEW SECTION: FAQ/Objections (Using Accordion Style) -->
+<!-- ------------------------------------------------------------- -->
+<section class="faq-section container">
+    <h2 class="section-title">Got Questions?</h2>
+    <div class="faq-accordion">
+        <div class="faq-item card">
+            <button class="faq-question" onclick="toggleAnswer(this)">Why is the price only $20?</button>
+            <p class="faq-answer">The low cost is primarily possible because we are a Shopify Partner. We receive compensation from Shopify when you choose a paid plan after your store is delivered, allowing us to keep the service fee minimal. You get a professional store, and we cover our automation costs—a win-win!</p>
+        </div>
+        <div class="faq-item card">
+            <button class="faq-question" onclick="toggleAnswer(this)">What other costs are mandatory?</button>
+            <p class="faq-answer">The only costs outside of our service fee are the standard Shopify Basic plan (starts at $29/month after trial) and your domain name (approx. $10-$15/year), which you pay directly to the respective providers.</p>
+        </div>
+        <div class="faq-item card">
+            <button class="faq-question" onclick="toggleAnswer(this)">How do I get ownership of the store?</button>
+            <p class="faq-answer">We transfer ownership using the official Shopify Partner Network. You will receive an email invitation to become the store owner, giving you 100% control over the store and all its data.</p>
+        </div>
+        <div class="faq-item card">
+            <button class="faq-question" onclick="toggleAnswer(this)">How many products are included?</button>
+            <p class="faq-answer">The base $20 package includes the import and setup of up to 30 top-selling products relevant to your chosen niche. This provides a ready-to-sell foundation. For large-scale product imports or custom sourcing, please contact <a href="mailto:empxautomation@gmail.com" class="action-link">empxautomation@gmail.com</a>.</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Simple script to handle the FAQ accordion
+    function toggleAnswer(button) {
+        const answer = button.nextElementSibling;
+        const parentItem = button.closest('.faq-item');
+        
+        if (answer.style.maxHeight) {
+            answer.style.maxHeight = null;
+            parentItem.classList.remove('open');
+        } else {
+            // Close other open answers
+            document.querySelectorAll('.faq-item.open').forEach(item => {
+                item.classList.remove('open');
+                item.querySelector('.faq-answer').style.maxHeight = null;
+            });
+
+            answer.style.maxHeight = answer.scrollHeight + "px";
+            parentItem.classList.add('open');
+        }
+    }
+</script>
 
 {% endblock %}

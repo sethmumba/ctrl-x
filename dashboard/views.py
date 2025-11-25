@@ -39,3 +39,41 @@ def order_detail(request, order_id):
         'PROGRESS_STEPS': PROGRESS_STEPS,
         'order_progress_index': order_progress_index,
     })
+
+
+
+
+from django.core.mail import send_mail
+from django.shortcuts import render
+from .forms import SupportForm
+
+def support(request):
+    if request.method == "POST":
+        form = SupportForm(request.POST)
+        if form.is_valid():
+            subject = "Support Request: " + form.cleaned_data["subject"]
+            message = form.cleaned_data["message"]
+            user_email = request.user.email if request.user.is_authenticated else "Unknown email"
+            user_name = request.user.username if request.user.is_authenticated else "Anonymous"
+
+            final_message = f"""
+From: {user_name}
+Email: {user_email}
+
+Message:
+{message}
+"""
+
+            send_mail(
+                subject,
+                final_message,
+                "empxautomations@gmail.com",      # your sending address
+                ["empxautomations@gmail.com"],    # where YOU receive support requests
+            )
+
+            return render(request, "dashboard/success.html")
+
+    else:
+        form = SupportForm()
+
+    return render(request, "dashboard/support.html", {"form": form})

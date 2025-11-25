@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Message Sent!{% endblock %}
+
+{% block content %}
+
+<div class="auth-center-container">
+    <div class="confirmation-wrapper">
+        <span class="success-icon">✅</span>
+        <h2 class="success-title">Message Received!</h2>
+        <p class="success-subtitle">
+            Thank you for reaching out. We have received your message and a team member will get back to you within 24 hours.
+        </p>
+        
+        <a href="{% url 'dashboard-home' %}" class="btn btn-primary">
+            Go to Dashboard
+        </a>
+        <p class="success-footer">
+            <a href="/" class="auth-forgot-link" style="margin-top: 1rem; display: block;">Return to Homepage</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

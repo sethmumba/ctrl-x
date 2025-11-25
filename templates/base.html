@@ -19,18 +19,25 @@
     <div class="main-layout">
         
         <!-- Navbar (Now fixed to the left as a sidebar) -->
-         
         <nav class="navbar">
-            {% if user.is_authenticated %}
-            <h2 class="nav-link nav-dashboard">{{user.username}}</h2>
-            {% endif %}
+            <div class="navbar-header">
+                <h1 class="brand-logo">Droppify</h1>
+                {% if user.is_authenticated %}
+                    <p class="user-greeting">Welcome, {{ user.username }}</p>
+                {% endif %}
+            </div>
+            
             <a href="/" class="nav-link nav-home active">Home</a>
+            <a href="{% url 'learn-more' %}" class="nav-link nav-learn">How It Works</a>
+            <a href="/dashboard/support/
+" class="nav-link nav-learn">support</a>
+            
             {% if user.is_authenticated %}
-                    {% if user.is_staff %}
-                <a href="/staff/dashboard/" class="nav-link nav-dashboard">Dashboard</a>
-                    {% else %}
-                    <a href="/dashboard/" class="nav-link nav-dashboard">Dashboard</a>
-                    {% endif %}
+                {% if user.is_staff %}
+                    <a href="/staff/dashboard/" class="nav-link nav-dashboard">Staff Hub</a>
+                {% else %}
+                    <a href="/dashboard/" class="nav-link nav-dashboard">My Dashboard</a>
+                {% endif %}
                 <a href="/accounts/logout/" class="nav-link nav-logout">Logout</a>
             {% else %}
                 <a href="/accounts/login/" class="nav-link nav-login">Login</a>
@@ -48,7 +55,7 @@
 
             <!-- Footer (Moved inside content-area to ensure it aligns) -->
             <footer class="footer container">
-                <p class="footer-text">&copy; {{ year }} Droppify. All rights reserved.</p>
+                <p class="footer-text">&copy; 2025 Droppify. All rights reserved.</p>
             </footer>
 
         </div>
