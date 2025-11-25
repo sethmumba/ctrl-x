@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+
+{% block title %}Learn More — How Droppify Works{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="lm-hero">
+    <div class="lm-container">
+        <h1 class="lm-title">How Droppify Works</h1>
+        <p class="lm-subtitle">We build a complete, ready-to-launch dropshipping store for you — fully automated, branded, and optimized to sell.</p>
+    </div>
+</section>
+
+<!-- Process Steps -->
+<section class="lm-section">
+    <div class="lm-container">
+        <h2 class="lm-heading">Our Step-by-Step Process</h2>
+
+        <!-- Step Container with visual separation -->
+        <div class="lm-steps">
+
+            <div class="lm-step">
+                <span class="step-number">1</span>
+                <h3>Choose Your Package</h3>
+                <p>You select the store package and pay securely via PayPal or card. No hidden charges.</p>
+            </div>
+
+            <div class="lm-step">
+                <span class="step-number">2</span>
+                <h3>Submit Store Details</h3>
+                <p>You fill in your niche, store name, preferred theme, suppliers, target market, and branding style.</p>
+            </div>
+
+            <div class="lm-step">
+                <span class="step-number">3</span>
+                <h3>Staff Assignment</h3>
+                <p>Your order is automatically assigned to a staff member who handles your store from start to finish.</p>
+            </div>
+
+            <div class="lm-step">
+                <span class="step-number">4</span>
+                <h3>Store Creation</h3>
+                <p>Your staff member builds your Shopify store, imports products, sets up branding, and configures all essential apps.</p>
+            </div>
+
+            <div class="lm-step">
+                <span class="step-number">5</span>
+                <h3>Review & Approval</h3>
+                <p>Once your store is ready, you receive screenshots and a live preview link to approve the final design.</p>
+            </div>
+
+            <div class="lm-step">
+                <span class="step-number">6</span>
+                <h3>Store Delivery</h3>
+                <p>We transfer full ownership to your Shopify account so you can manage everything independently.</p>
+            </div>
+
+        </div>
+        <p class="lm-process-note">
+            <span class="highlight-accent">*</span> The entire process typically takes less than 24 hours after submission of details.
+        </p>
+    </div>
+</section>
+
+<!-- Requirements -->
+<section class="lm-section alt">
+    <div class="lm-container">
+        <h2 class="lm-heading">What You Need to Provide</h2>
+
+        <ul class="lm-list">
+            <li><span class="list-bullet">💡</span> <strong>Store Name</strong> (we can also suggest one)</li>
+            <li><span class="list-bullet">🏷️</span> <strong>Preferred Niche</strong> (fashion, pets, beauty, electronics, etc.)</li>
+            <li><span class="list-bullet">📧</span> <strong>Email Address</strong> for Shopify & order updates</li>
+            <li><span class="list-bullet">🎨</span> <strong>Branding Preferences</strong> like logo color or style (optional)</li>
+            <li><span class="list-bullet">🗺️</span> <strong>Market Selection</strong> (Worldwide, US, UK, EU, etc.)</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Extra Costs -->
+<section class="lm-section">
+    <div class="lm-container">
+        <h2 class="lm-heading">Any Other Expenses?</h2>
+
+        <div class="lm-cards">
+
+            <div class="lm-card card cost-card">
+                <h3>Shopify Monthly Plan</h3>
+                <p>Shopify costs <strong>$29/month</strong> after the free trial. This is paid directly to Shopify.</p>
+            </div>
+
+            <div class="lm-card card cost-card">
+                <h3>Domain Name</h3>
+                <p>Domains typically cost <strong>$10–$15 per year</strong>. You can buy from Shopify or another provider like Namecheap.</p>
+            </div>
+
+            <div class="lm-card card cost-card">
+                <h3>Optional Apps</h3>
+                <p>We install free apps by default. Paid apps are optional and fully your choice.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Payment Setup -->
+<section class="lm-section alt">
+    <div class="lm-container">
+        <h2 class="lm-heading">Payment Gateway Setup</h2>
+
+        <p class="lm-intro-text">We help you set up the following payment methods in your store:</p>
+
+        <ul class="lm-list lm-payments">
+            <li><span class="payment-icon">💳</span> <strong>Shopify Payments</strong> (card payments)</li>
+            <li><span class="payment-icon">🅿️</span> <strong>PayPal</strong></li>
+            <li><span class="payment-icon">📱</span> <strong>M-PESA (Kenya)</strong> via supported apps</li>
+            <li><span class="payment-icon">🔗</span> <strong>Stripe</strong> (where available)</li>
+        </ul>
+
+        <p class="lm-note-small">You just need to provide basic verification documents if Shopify requests them.</p>
+    </div>
+</section>
+
+<!-- What You Need To Do -->
+<section class="lm-section">
+    <div class="lm-container">
+        <h2 class="lm-heading">What You Need To Do After Delivery</h2>
+
+        <ol class="lm-list-numbered">
+            <li>Change your Shopify login email + password.</li>
+            <li>Add your preferred payment method.</li>
+            <li>Connect a domain (we can guide you).</li>
+            <li>Start promoting your store and driving traffic.</li>
+            <li>Fulfill orders — we can install automatic fulfillment apps.</li>
+        </ol>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="lm-cta">
+    <div class="lm-container">
+        <h2>Ready to Start Your Dropshipping Journey?</h2>
+        <p>Get a fully built, branded, ready-to-sell Shopify store in just a few days.</p>
+        <!-- Using the global btn-primary class for animation -->
+        <a href="{% url 'create-order' %}" class="btn btn-primary">Get Started</a>
+    </div>
+</section>
+
+<style>
+    /* --------------------------------------------------------------------------
+       LEARN MORE SPECIFIC STYLES (Using High-Tech Contrast Palette)
+       -------------------------------------------------------------------------- */
+
+    .lm-container { max-width: 900px; margin: auto; padding: 40px 20px; }
+    
+    /* Hero */
+    .lm-hero { 
+        text-align: center; 
+        padding: 80px 20px 60px; 
+        background: var(--color-background); 
+        border-bottom: 3px solid var(--color-border);
+    }
+    .lm-title { 
+        font-size: 3rem; 
+        font-weight: 800; 
+        color: var(--color-primary-accent); /* Electric Violet */
+        text-shadow: 0 0 10px rgba(123, 31, 162, 0.2); 
+        margin-bottom: 0.5rem;
+    }
+    .lm-subtitle { 
+        font-size: 1.25rem; 
+        color: var(--color-text-dark);
+        max-width: 700px;
+        margin: 0.5rem auto 0;
+    }
+    
+    /* Section Defaults */
+    .lm-section { padding: 4rem 0; }
+    .lm-section.alt { 
+        background-color: var(--color-background); /* Lighter contrast background */
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+    }
+    .lm-heading { 
+        font-size: 2rem; 
+        font-weight: 700;
+        margin-bottom: 3rem; 
+        color: var(--color-primary-dark); /* Deep Purple */
+        text-align: center;
+    }
+    .lm-intro-text, .lm-note-small {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: var(--color-text-muted);
+    }
+
+    /* Process Steps (Vertical Timeline-like feel) */
+    .lm-steps { 
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        position: relative;
+    }
+
+    .lm-steps::before {
+        content: '';
+        position: absolute;
+        left: 35px; /* Alignment for the dot */
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: var(--color-border);
+        z-index: 0;
+    }
+
+    .lm-step { 
+        padding: 1.5rem 1.5rem 1.5rem 60px; /* Offset for step number */
+        background: var(--color-surface);
+        border-radius: var(--border-radius); 
+        box-shadow: var(--shadow-light);
+        position: relative;
+        border-left: 5px solid var(--color-primary-accent);
+        transition: transform 0.3s ease;
+    }
+
+    .lm-step:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .lm-step h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-primary-accent); /* Violet accent */
+        margin: 0 0 0.5rem 0;
+    }
+    
+    .lm-step p {
+        color: var(--color-text-dark);
+        margin: 0;
+    }
+
+    .step-number {
+        position: absolute;
+        left: 20px;
+        top: 25px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--color-accent-highlight); /* Neon Pink Dot */
+        color: var(--color-surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1rem;
+        box-shadow: 0 0 0 5px var(--color-surface), 0 0 10px rgba(233, 30, 99, 0.6);
+        z-index: 1;
+    }
+
+    .lm-process-note {
+        text-align: center;
+        font-size: 0.95rem;
+        color: var(--color-text-muted);
+        margin-top: 3rem;
+    }
+
+    /* Requirements List */
+    .lm-list { 
+        list-style: none; 
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .lm-list li {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--color-text-dark);
+        padding: 0.75rem 1rem;
+        background-color: var(--color-surface);
+        border-radius: var(--border-radius);
+        border-left: 5px solid var(--color-accent-highlight); /* Neon Pink accent */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .list-bullet, .payment-icon {
+        margin-right: 10px;
+        font-size: 1.2rem;
+        display: inline-block;
+        color: var(--color-primary-accent); /* Violet text color for non-emoji icons */
+    }
+
+    /* Cost Cards */
+    .lm-cards { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+        gap: 20px; 
+        margin-top: 2rem;
+    }
+    .cost-card { 
+        padding: 25px; 
+        border: 1px solid var(--color-border); 
+        border-top: 3px solid var(--color-status-info); /* Teal/Cyan for info */
+        transition: box-shadow 0.3s ease;
+    }
+    .cost-card:hover {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .cost-card h3 {
+        font-size: 1.3rem;
+        color: var(--color-primary-dark);
+        margin: 0 0 0.75rem 0;
+    }
+    
+    .cost-card strong {
+        color: var(--color-accent-highlight); /* Neon Pink for monetary values */
+        font-weight: 800;
+    }
+    
+    /* Numbered List */
+    .lm-list-numbered { 
+        padding: 0;
+        margin-left: 1.5rem;
+        line-height: 2.2; 
+    }
+    .lm-list-numbered li {
+        font-size: 1.1rem;
+        color: var(--color-text-dark);
+    }
+
+    /* CTA Section */
+    .lm-cta { 
+        text-align: center; 
+        padding: 4rem 20px; 
+        background: var(--color-primary-accent); /* Electric Violet background */
+        color: var(--color-surface); /* White text */
+    }
+    .lm-cta h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        color: var(--color-surface);
+    }
+    .lm-cta p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.8;
+    }
+    .lm-cta .btn-primary { 
+        /* Inherit global button styling but override specific color properties */
+        background: var(--color-surface); 
+        color: var(--color-primary-accent); 
+        padding: 0.75rem 2rem; 
+        border-radius: 8px; 
+        font-weight: 700;
+        animation: none; /* Disable pulse here */
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 600px) {
+        .lm-title { font-size: 2.5rem; }
+        .lm-heading { font-size: 1.75rem; }
+        .lm-steps::before { left: 25px; } /* Adjust timeline line position */
+        .lm-step { padding-left: 50px; }
+        .step-number { left: 10px; top: 20px; }
+        .lm-cards { 
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+{% endblock %}

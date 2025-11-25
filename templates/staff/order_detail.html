@@ -9,22 +9,23 @@
     <div class="order-header-card">
         <h2 class="order-title">Order #{{ order.id }} — {{ order.store_name }}</h2>
         <p class="order-client">
-            Client: {{ order.user.username }} ({{ order.user.email }})
+            Client: <span class="spec-value">{{ order.user.username }}</span> (<a href="mailto:{{ order.user.email }}" class="action-link">{{ order.user.email }}</a>)
         </p>
     </div>
 
     <div class="order-content-container">
 
-        <!-- Left Column: Order Specifications -->
-        <div class="order-specs-card">
+        <!-- Left Column: Order Specifications (Data View) -->
+        <div class="order-specs-card card">
             <h3 class="card-title">Order Specifications</h3>
             <ul class="specs-list">
-                <li><span class="spec-label">Niche:</span> <span class="spec-value">{{ order.niche }}</span></li>
-                <li><span class="spec-label">Supplier:</span> <span class="spec-value">{{ order.supplier }}</span></li>
-                <li><span class="spec-label">Theme:</span> <span class="spec-value">{{ order.theme }}</span></li>
-                <li><span class="spec-label">Profit Margin:</span> <span class="spec-value">{{ order.desired_profit_margin }}</span></li>
-                <li><span class="spec-label">Markets:</span> <span class="spec-value">{{ order.markets|join:", " }}</span></li>
-                <li><span class="spec-label">Color Palette:</span> <span class="spec-value">{{ order.color_palette }}</span></li>
+                <li><span class="spec-label">Niche:</span> <span class="spec-value">{{ order.niche|default:"N/A" }}</span></li>
+                <li><span class="spec-label">Supplier:</span> <span class="spec-value">{{ order.supplier|default:"N/A" }}</span></li>
+                <li><span class="spec-label">Theme:</span> <span class="spec-value">{{ order.theme|default:"N/A" }}</span></li>
+                <li><span class="spec-label">Profit Margin:</span> <span class="spec-value">{{ order.desired_profit_margin|default:"N/A" }}%</span></li>
+                <li><span class="spec-label">Markets:</span> <span class="spec-value">{{ order.markets|join:", "|default:"N/A" }}</span></li>
+                <li><span class="spec-label">Color Palette:</span> <span class="spec-value">{{ order.color_palette|default:"N/A" }}</span></li>
+                <li><span class="spec-label">Order Date:</span> <span class="spec-value">{{ order.created_at|date:"M j, Y H:i" }}</span></li>
             </ul>
 
             {% if order.logo %}
@@ -33,15 +34,24 @@
                 <img src="{{ order.logo.url }}" alt="Client Logo" class="client-logo">
             </div>
             {% endif %}
+            
+            <h3 class="card-title" style="margin-top: 2rem;">Contact Details</h3>
+             <ul class="specs-list">
+                <li><span class="spec-label">Phone:</span> <span class="spec-value">{{ order.phone|default:"N/A" }}</span></li>
+                <li><span class="spec-label">Country:</span> <span class="spec-value">{{ order.country|default:"N/A" }}</span></li>
+            </ul>
         </div>
 
-        <!-- Right Column: Action Panel -->
+        <!-- Right Column: Action Panel (Status Update Form) -->
         <div class="order-action-panel">
+            
+            <!-- Current Status Display -->
             <div class="current-status-card">
                 <p class="status-label">Current Status:</p>
                 <span class="status-value">{{ order.progress|capfirst }}</span>
             </div>
 
+            <!-- Status Update Form -->
             <form method="post" action="{% url 'update-order-progress' order.id %}" class="progress-form">
                 {% csrf_token %}
                 <label for="progress" class="form-label">Move to New Stage:</label>
@@ -55,6 +65,15 @@
                     Confirm Progress Update
                 </button>
             </form>
+            
+            <!-- Optional: Builder Notes/Log -->
+             <div class="notes-section">
+                <h4 class="notes-title">Order History/Log</h4>
+                <p class="notes-content">
+                    Last Status Change: {{ order.updated_at|date:"M j, Y H:i" }}
+                    <!-- A link or section here for staff to view/add detailed notes -->
+                </p>
+            </div>
         </div>
 
     </div>

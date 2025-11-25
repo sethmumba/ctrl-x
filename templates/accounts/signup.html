@@ -3,36 +3,41 @@
 
 {% block content %}
 
-<div class="auth-wrapper auth-card">
-    <!-- Brand Logo -->
-    <div class="auth-logo">
-        <h1 class="brand-logo">DropLaunch</h1>
-    </div>
+<!-- Center Container for Auth Card -->
+<div class="auth-center-container">
+    <div class="auth-wrapper auth-card">
+        
+        <!-- Brand Logo -->
+        <div class="auth-logo">
+            <h1 class="brand-logo">Droppify</h1>
+        </div>
 
-    <!-- Main Heading -->
-    <h2 class="auth-title">Create Account</h2>
+        <!-- Main Heading -->
+        <h2 class="auth-title">Create Account</h2>
 
-    <!-- Signup Form -->
-    <form method="post" class="auth-form">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
+        <!-- Signup Form -->
+        <!-- Note: Django will typically use 'form' context variable for the primary form -->
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-        {% for field in form %}
-            <div class="auth-input-box">
-                <label for="{{ field.id_for_label }}" class="auth-label">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                    <p class="auth-error">{{ field.errors }}</p>
-                {% endif %}
-            </div>
-        {% endfor %}
+            {% for field in form %}
+                <div class="auth-input-box">
+                    <label for="{{ field.id_for_label }}" class="auth-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <p class="auth-error">{{ field.errors }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
 
-        <button type="submit" class="auth-btn btn-primary">Signup</button>
-    </form>
+            <button type="submit" class="auth-btn btn-primary">Signup</button>
+        </form>
 
-    <!-- Login Link -->
-    <div class="auth-link">
-        <p>Already have an account? <a href="/accounts/login/" class="auth-link-accent">Login</a></p>
+        <!-- Login Link -->
+        <div class="auth-link">
+            <p>Already have an account? <a href="/accounts/login/" class="auth-forgot-link">Login</a></p>
+        </div>
     </div>
 </div>
 

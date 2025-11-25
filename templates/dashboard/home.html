@@ -4,79 +4,100 @@
 {% block content %}
 
 <div class="dashboard-wrapper">
+    
+    <!-- Page Header -->
+    <header class="dashboard-header">
+        <h1 class="page-title">Client Dashboard</h1>
+        <p class="page-subtitle">Welcome back. View your store building progress and orders below.</p>
+    </header>
 
-    <!-- Create Order Button -->
-    <div class="create-order-btn-wrapper">
-        <a href="{% url 'create-order' %}" class="create-order-btn btn btn-primary">+ Create Order</a>
-    </div>
-
- <!-- KPI Summary Cards -->
-<div class="kpi-cards">
-    <!-- Total Orders -->
-    <div class="kpi-card card">
-        <div class="kpi-card-content">
-            <p class="kpi-title">Total Orders</p>
-            <p class="kpi-value">{{ total_orders }}</p>
+    <!-- KPI Summary Cards -->
+    <div class="kpi-cards">
+        
+        <!-- Total Orders -->
+        <div class="kpi-card card">
+            <div class="kpi-icon kpi-icon-total"></div>
+            <div class="kpi-card-content">
+                <p class="kpi-title">Total Orders</p>
+                <p class="kpi-value">{{ total_orders }}</p>
+            </div>
         </div>
-    </div>
 
-    <!-- Stores In Progress -->
-    <div class="kpi-card card">
-        <div class="kpi-card-content">
-            <p class="kpi-title">Stores In Progress</p>
-            <p class="kpi-value kpi-in-progress">{{ in_progress_orders }}</p>
+        <!-- Stores In Progress -->
+        <div class="kpi-card card">
+            <div class="kpi-icon kpi-icon-progress"></div>
+            <div class="kpi-card-content">
+                <p class="kpi-title">In Progress</p>
+                <p class="kpi-value kpi-in-progress">{{ in_progress_orders }}</p>
+            </div>
         </div>
-    </div>
 
-    <!-- Delivered Stores -->
-    <div class="kpi-card card">
-        <div class="kpi-card-content">
-            <p class="kpi-title">Delivered Stores</p>
-            <p class="kpi-value kpi-delivered">{{ completed_orders }}</p>
+        <!-- Delivered Stores -->
+        <div class="kpi-card card">
+            <div class="kpi-icon kpi-icon-delivered"></div>
+            <div class="kpi-card-content">
+                <p class="kpi-title">Delivered Stores</p>
+                <p class="kpi-value kpi-delivered">{{ completed_orders }}</p>
+            </div>
         </div>
+        
+        <!-- Create Order Button (styled as a KPI card) -->
+        <a href="{% url 'create-order' %}" class="kpi-card card create-order-card">
+            <div class="kpi-icon kpi-icon-add"></div>
+            <div class="kpi-card-content">
+                <p class="kpi-title kpi-title-cta">Start a New Store</p>
+                <button class="create-order-btn btn btn-primary">+ Create Order</button>
+            </div>
+        </a>
+        
     </div>
-</div>
 
     <!-- Orders Table as Cards -->
     <div class="orders-container">
-        <h2 class="orders-title">Your Store Build Orders</h2>
+        <h2 class="orders-title">Your Store Build History</h2>
 
         {% if orders %}
             <div class="orders-list">
                 {% for order in orders %}
                     <div class="order-card card">
+                        
+                        <!-- Header: ID and Date -->
                         <div class="order-card-header">
                             <span class="order-id">#{{ order.id }}</span>
                             <span class="order-date">{{ order.created_at|date:"M j, Y" }}</span>
                         </div>
+                        
+                        <!-- Body: Store Name and Status -->
                         <div class="order-card-body">
                             <h3 class="order-store">{{ order.store_name }}</h3>
                             <div class="order-status">
                                 {% if order.progress == 'paid' %}
-                                    <span class="status-badge status-success">Payment Received</span>
-                                {% elif order.progress == 'assigned' %}
-                                    <span class="status-badge status-primary">Staff Assigned</span>
-                                {% elif order.progress == 'started' %}
-                                    <span class="status-badge status-info">Store Creation Started</span>
-                                {% elif order.progress == 'products' %}
-                                    <span class="status-badge status-secondary">Products Imported</span>
-                                {% elif order.progress == 'branding' %}
-                                    <span class="status-badge status-accent">Branding Configured</span>
+                                    <span class="status-badge status-primary">Payment Received</span>
+                                {% elif order.progress == 'assigned' or order.progress == 'started' or order.progress == 'products' or order.progress == 'branding' %}
+                                    <span class="status-badge status-info">Building...</span>
                                 {% elif order.progress == 'review' %}
                                     <span class="status-badge status-warning">Ready for Review</span>
                                 {% elif order.progress == 'completed' %}
                                     <span class="status-badge status-success">Delivered</span>
                                 {% endif %}
                             </div>
+                            <p class="order-description">Niche: {{ order.niche|default:"Not specified" }}</p>
                         </div>
+                        
+                        <!-- Footer: View Details CTA -->
                         <div class="order-card-footer">
-                            <a href="{% url 'order-detail' order.id %}" class="details-link btn btn-outline">View Details →</a>
+                            <a href="{% url 'order-detail' order.id %}" class="details-link btn-outline">View Details →</a>
                         </div>
+                        
                     </div>
                 {% endfor %}
             </div>
         {% else %}
-            <p class="no-orders">You have no orders yet.</p>
+            <div class="no-orders-wrapper">
+                 <div class="no-orders-icon"></div>
+                <p class="no-orders-message">You haven't placed any store build orders yet.</p>
+                <a href="{% url 'create-order' %}" class="btn btn-primary">Start Your First Order</a>
+            </div>
         {% endif %}
     </div>
 

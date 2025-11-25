@@ -3,31 +3,45 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Droppify{% endblock %}</title>
+    <!-- Link to the custom luxury dark theme CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Use Inter font (modern & clean) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body class="body">
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="/" class="nav-link nav-home">Home</a>
-        {% if user.is_authenticated %}
-            <a href="/dashboard/" class="nav-link nav-dashboard">Dashboard</a>
-            <a href="/accounts/logout/" class="nav-link nav-logout">Logout</a>
-        {% else %}
-            <a href="/accounts/login/" class="nav-link nav-login">Login</a>
-            <a href="/accounts/signup/" class="nav-link nav-signup">Signup</a>
-        {% endif %}
-    </nav>
 
-    <!-- Main content block -->
-    <div class="container content-container">
-        {% block content %}{% endblock %}
+    <!-- Outer container for the full-height layout: Sidebar + Content -->
+    <div class="main-layout">
+        
+        <!-- Navbar (Now fixed to the left as a sidebar) -->
+        <nav class="navbar">
+            <a href="/" class="nav-link nav-home active">Home</a>
+            {% if user.is_authenticated %}
+                <a href="/dashboard/" class="nav-link nav-dashboard">Dashboard</a>
+                <a href="/accounts/logout/" class="nav-link nav-logout">Logout</a>
+            {% else %}
+                <a href="/accounts/login/" class="nav-link nav-login">Login</a>
+                <a href="/accounts/signup/" class="nav-link nav-signup">Signup</a>
+            {% endif %}
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="content-area">
+            
+            <!-- Main content block -->
+            <div class="container content-container">
+                {% block content %}{% endblock %}
+            </div>
+
+            <!-- Footer (Moved inside content-area to ensure it aligns) -->
+            <footer class="footer container">
+                <p class="footer-text">&copy; {{ year }} Droppify. All rights reserved.</p>
+            </footer>
+
+        </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer container">
-        <p class="footer-text">&copy; {{ year }} Droppify. All rights reserved.</p>
-    </footer>
 </body>
 </html>

@@ -15,7 +15,7 @@
     </div>
 
     <!-- Orders Table -->
-    <div class="orders-card">
+    <div class="orders-card card">
         <h3 class="card-title">Orders Awaiting Action</h3>
 
         {% if orders %}
@@ -32,23 +32,23 @@
             <tbody>
                 {% for order in orders %}
                 <tr>
-                    <td>#{{ order.id }}</td>
-                    <td>{{ order.store_name }}</td>
-                    <td>{{ order.user.username }}</td>
-                    <td>
+                    <td data-label="ID">#{{ order.id }}</td>
+                    <td data-label="Store Name">{{ order.store_name }}</td>
+                    <td data-label="Client Username">{{ order.user.username }}</td>
+                    <td data-label="Status">
                         {% if order.progress == 'assigned' %}
                             <span class="badge badge-assigned">Assigned</span>
-                        {% elif order.progress == 'branding' %}
-                            <span class="badge badge-branding">Branding</span>
+                        {% elif order.progress == 'branding' or order.progress == 'products' or order.progress == 'started' %}
+                            <span class="badge badge-branding">In Progress</span>
                         {% elif order.progress == 'review' %}
-                            <span class="badge badge-review">Review</span>
+                            <span class="badge badge-review">Review Awaiting</span>
                         {% elif order.progress == 'completed' %}
                             <span class="badge badge-completed">Completed</span>
                         {% else %}
                             <span class="badge badge-default">{{ order.progress|capfirst }}</span>
                         {% endif %}
                     </td>
-                    <td>
+                    <td data-label="Action">
                         <a href="{% url 'staff-order-detail' order.id %}" class="action-link">View / Update →</a>
                     </td>
                 </tr>
@@ -56,7 +56,7 @@
             </tbody>
         </table>
         {% else %}
-        <p class="no-orders-text">No assigned orders yet.</p>
+        <p class="no-orders-text">No assigned orders yet. Time to relax!</p>
         {% endif %}
 
     </div>

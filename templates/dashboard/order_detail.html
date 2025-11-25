@@ -12,9 +12,10 @@
     </div>
 
     <!-- Progress Timeline Card -->
-    <div class="timeline-card">
+    <div class="timeline-card card">
         <h3 class="timeline-title">Store Build Progress</h3>
         <div class="timeline">
+            <!-- PROGRESS_STEPS and order_progress_index must be provided by Django context -->
             {% for step_key, step_label in PROGRESS_STEPS %}
             <div class="timeline-step {% if forloop.counter0 <= order_progress_index %}active{% endif %}">
                 <span class="step-circle">{{ forloop.counter }}</span>
@@ -24,7 +25,7 @@
         </div>
     </div>
 
-    <!-- Details Section -->
+    <!-- Details Section (Two Columns) -->
     <div class="details-section">
 
         <!-- Left Column: Specifications -->
@@ -34,7 +35,7 @@
                 <li><span class="spec-label">Niche:</span> <span class="spec-value">{{ order.get_niche_display }}</span></li>
                 <li><span class="spec-label">Supplier:</span> <span class="spec-value">{{ order.get_supplier_display }}</span></li>
                 <li><span class="spec-label">Theme:</span> <span class="spec-value">{{ order.get_theme_display }}</span></li>
-                <li><span class="spec-label">Profit Margin:</span> <span class="spec-value">{{ order.desired_profit_margin }}</span></li>
+                <li><span class="spec-label">Profit Margin:</span> <span class="spec-value">{{ order.desired_profit_margin }}%</span></li>
                 <li><span class="spec-label">Markets:</span> <span class="spec-value">{{ order.markets|join:", " }}</span></li>
                 <li><span class="spec-label">Color Palette:</span> <span class="spec-value">{{ order.color_palette }}</span></li>
             </ul>
@@ -68,6 +69,11 @@
                 <a href="{{ order.store_link }}" class="btn btn-accent">View Store Link</a>
             </div>
             {% endif %}
+            
+             <div class="notes-section">
+                <h4 class="notes-title">Notes from Builder</h4>
+                <p class="notes-content">{{ order.latest_notes|default:"No updates available at this time." }}</p>
+            </div>
         </div>
 
     </div>
