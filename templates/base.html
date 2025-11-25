@@ -17,10 +17,18 @@
     <div class="main-layout">
         
         <!-- Navbar (Now fixed to the left as a sidebar) -->
+         
         <nav class="navbar">
+            {% if user.is_authenticated %}
+            <h2 class="nav-link nav-dashboard">{{user.username}}</h2>
+            {% endif %}
             <a href="/" class="nav-link nav-home active">Home</a>
             {% if user.is_authenticated %}
-                <a href="/dashboard/" class="nav-link nav-dashboard">Dashboard</a>
+                    {% if user.status == 'staff' %}
+                <a href="/staff/dashboard/" class="nav-link nav-dashboard">Dashboard</a>
+                    {% else %}
+                    <a href="/dashboard/" class="nav-link nav-dashboard">Dashboard</a>
+                    {% endif %}
                 <a href="/accounts/logout/" class="nav-link nav-logout">Logout</a>
             {% else %}
                 <a href="/accounts/login/" class="nav-link nav-login">Login</a>
