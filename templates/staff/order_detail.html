@@ -55,11 +55,12 @@
             <form method="post" action="{% url 'update-order-progress' order.id %}" class="progress-form">
                 {% csrf_token %}
                 <label for="progress" class="form-label">Move to New Stage:</label>
-                <select name="progress" id="progress" class="form-select">
-                    {% for key, value in order.PROGRESS_STEPS %}
-                    <option value="{{ key }}" {% if order.progress == key %}selected{% endif %}>{{ value }}</option>
+               <select name="progress" id="progress" class="form-select">
+                    {% for key, value in progress_choices %}
+                        <option value="{{ key }}" {% if order.progress == key %}selected{% endif %}>{{ value }}</option>
                     {% endfor %}
                 </select>
+
 
                 <button type="submit" class="btn btn-primary full-width-btn">
                     Confirm Progress Update

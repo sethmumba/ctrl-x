@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from orders.models import Order
+from orders.models import Order, PROGRESS_STEPS
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.mail import send_mail
 
@@ -17,8 +17,12 @@ def staff_dashboard(request):
 @user_passes_test(staff_required)
 def staff_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id, assigned_staff=request.user)
-    return render(request, 'staff/order_detail.html', {'order': order})
-
+    
+    context = {
+        'order': order,
+        'progress_choices': PROGRESS_STEPS,  # <-- add this
+    }
+    return render(request, 'staff/order_detail.html', context)
 
 @login_required
 @user_passes_test(staff_required)
@@ -26,7 +30,9 @@ def update_order_progress(request, order_id):
     if request.method == 'POST':
         order = get_object_or_404(Order, id=order_id, assigned_staff=request.user)
         new_progress = request.POST.get('progress')
-        if new_progress in dict(order.PROGRESS_STEPS).keys():
+
+        # Use PROGRESS_STEPS imported from models
+        if new_progress in dict(PROGRESS_STEPS).keys():
             order.progress = new_progress
             order.save()
 
@@ -35,7 +41,6 @@ def update_order_progress(request, order_id):
             if new_progress != 'completed':
                 message = f"Hi {order.user.username},\n\nYour store '{order.store_name}' status has been updated to: {new_progress}"
             else:
-                # Completed: special email
                 message = f"""
 Hi {order.user.username},
 
@@ -53,6 +58,7 @@ If you have any questions, reply to this email and our team will assist you.
 
 Thank you for choosing us!
 """
+
             # Send email
             send_mail(
                 subject=subject,
@@ -63,4 +69,3 @@ Thank you for choosing us!
             )
 
     return redirect('staff-order-detail', order_id=order_id)
-
