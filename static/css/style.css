@@ -114,7 +114,7 @@
 
 .navbar .brand-logo {
     color: var(--color-primary-dark);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 900;
     text-shadow: 0 0 5px rgba(74, 14, 104, 0.2); 
     margin: 0;
@@ -618,7 +618,7 @@
     color: var(--color-primary-accessible); /* Use accessible color for link text */
     font-size: 1.8rem;
     font-weight: 900;
-    text-align: center;
+    text-align: right;
     margin-bottom: 2rem;
     /* Violet text shadow: rgba(123, 31, 162, 0.3) */
     text-shadow: 0 0 5px rgba(123, 31, 162, 0.3); 
