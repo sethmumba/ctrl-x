@@ -241,6 +241,23 @@
     </div>
 </section>
 
+<!-- DAILY ORDERS PROGRESS -->
+<div class="daily-progress-wrapper">
+    <h3 class="daily-progress-title">Today's Store Orders</h3>
+
+    <div class="daily-progress-bar">
+        <div 
+            class="daily-progress-fill" 
+            style="width: calc({{ daily_orders_count }} / {{ daily_limit }} * 100%);">
+        </div>
+    </div>
+
+   <p class="daily-progress-text">
+    <span id="daily-orders-count">{{ daily_orders_count }}</span> / {{ daily_limit }} stores ordered today
+</p>
+
+</div>
+
 <script>
     // Simple script to handle the FAQ accordion
     function toggleAnswer(button) {
@@ -261,6 +278,21 @@
             parentItem.classList.add('open');
         }
     }
+
+function updateDailyOrders() {
+    fetch('/order/daily-order-status-json/')
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector('#daily-orders-count').textContent = data.daily_orders_count;
+        });
+}
+
+// Initial load
+updateDailyOrders();
+
+// Optional: refresh every 60 seconds
+setInterval(updateDailyOrders, 60000);
+    
 </script>
 
 {% endblock %}

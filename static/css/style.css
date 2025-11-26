@@ -1,20 +1,24 @@
 /* --------------------------------------------------------------------------
-   GLOBAL STYLES & HIGH-TECH CONTRAST THEME VARIABLES
-   -------------------------------------------------------------------------- */
+ GLOBAL STYLES & HIGH-TECH CONTRAST THEME VARIABLES (REVISED)
+ -------------------------------------------------------------------------- */
 
 /* Define the color palette for a bold, digital theme (Electric Violet & White) */
 :root {
     --color-primary-accent: #7B1FA2; /* Primary Accent (Electric Violet) */
     --color-primary-dark: #4A0E68; /* Primary Dark (Deep Purple) for hover/active */
+    
+    /* NEW: Accessible Violet for text/links (WCAG AA compliant on white: 4.64:1) */
+    --color-primary-accessible: #581575; 
+    
     --color-accent-highlight: #E91E63; /* Accent (Neon Pink) for highlights */
     
-    /* MODIFIED: Increased transparency for background and surface colors */
-    --color-background: rgba(250, 250, 250, 0.7); /* Light Gray with 70% opacity */
-    --color-surface: rgba(255, 255, 255, 0.85); /* Pure White with 85% opacity */
+    /* REVISED: Opaque backgrounds for better visual separation and contrast */
+    --color-background: #F4F4F9; /* Very Light Gray/Cool White (Base Layer) */
+    --color-surface: #FFFFFF; /* Pure White (Cards/Forms) */
     
     --color-text-dark: #000000; /* Main Text Color (Black) */
     --color-text-muted: #6B7280; /* Muted Text Color */
-    --color-border: rgba(237, 237, 237, 0.6); /* Soft Borders (Cool Gray) with transparency */
+    --color-border: #E0E0E7; /* Opaque Soft Borders (Cool Gray) */
     --color-error: #e53935; /* Red for errors (Unchanged) */
     
     /* Semantic Colors for Statuses - Adapted to Theme */
@@ -32,7 +36,7 @@
 /* Base Body Styles - Light Background with Image Texture */
 .body {
     font-family: var(--font-family-luxury);
-    background-color: var(--color-background); /* Now uses transparent background */
+    background-color: var(--color-background); /* Now uses opaque background */
     color: var(--color-text-dark); /* New dark text */
     margin: 0;
     min-height: 100vh;
@@ -41,8 +45,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   KEN BURNS ANIMATION KEYFRAMES
-   -------------------------------------------------------------------------- */
+ KEN BURNS ANIMATION KEYFRAMES
+ -------------------------------------------------------------------------- */
 @keyframes kenBurns {
     0% {
         transform: scale(1.05) translate(0, 0);
@@ -68,18 +72,16 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    /* MODIFIED: Increased opacity for the background image */
-    opacity: 0.2; /* Now more visible */
+    opacity: 0.2; /* Kept opacity at 0.2 to allow the opaque background color to dominate */
     z-index: -1; 
     
     /* Apply Ken Burns Animation */
     animation: kenBurns 40s infinite alternate ease-in-out; 
-    /* The large duration (40s) makes the movement slow and subtle */
 }
 
 /* --------------------------------------------------------------------------
-   LAYOUT: SIDEBAR NAVIGATION AND MAIN CONTENT
-   -------------------------------------------------------------------------- */
+ LAYOUT: SIDEBAR NAVIGATION AND MAIN CONTENT
+ -------------------------------------------------------------------------- */
 
 .main-layout {
     display: flex;
@@ -93,14 +95,14 @@
     top: 0;
     left: 0;
     height: 100%;
-    background-color: var(--color-surface); /* Now uses transparent surface */
+    background-color: var(--color-surface); /* Now uses pure white surface */
     padding: 0 0 2rem 0; /* Adjusted padding */
     box-shadow: var(--shadow-light); 
     z-index: 1000;
     display: flex;
     flex-direction: column;
     gap: 0;
-    border-right: 1px solid var(--color-border); /* Cool Gray border */
+    border-right: 1px solid var(--color-border); /* Opaque Border */
 }
 
 .navbar-header {
@@ -125,7 +127,7 @@
 }
 
 .nav-link {
-    color: var(--color-text-dark); /* Dark text color */
+    color: var(--color-text-dark); 
     text-decoration: none;
     padding: 0.75rem 2rem;
     font-size: 1.05rem;
@@ -135,10 +137,10 @@
 }
 
 .nav-link:hover, .nav-link.active {
-    /* Violet hover background: rgba(123, 31, 162, 0.05) */
+    /* Light violet hover background: rgba(123, 31, 162, 0.05) */
     background-color: rgba(123, 31, 162, 0.05); 
-    border-left: 5px solid var(--color-primary-accent); /* Electric Violet accent */
-    color: var(--color-primary-accent);
+    border-left: 5px solid var(--color-primary-accent); 
+    color: var(--color-primary-accessible); /* Use accessible color for active text */
     transform: translateX(5px);
 }
 
@@ -159,7 +161,7 @@
 
 /* Common Card Style */
 .card {
-    background-color: var(--color-surface); /* Now uses transparent surface */
+    background-color: var(--color-surface); /* Pure White Surface */
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
     border: 1px solid var(--color-border);
@@ -167,8 +169,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   HERO SECTION (Luxury Typography & Animated CTA)
-   -------------------------------------------------------------------------- */
+ HERO SECTION (Luxury Typography & Animated CTA)
+ -------------------------------------------------------------------------- */
 
 .hero-section {
     min-height: 85vh;
@@ -188,8 +190,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /* MODIFIED: Adjusted radial gradient opacity for background */
-    background: radial-gradient(circle at 50% 10%, rgba(250, 250, 250, 0.4), transparent 70%); /* Lighter background gradient */
+    /* Updated: Uses an opaque background radial gradient blending into the base background color */
+    background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.95), var(--color-background) 70%); 
     opacity: 1;
     z-index: 1;
 }
@@ -205,7 +207,6 @@
     letter-spacing: -0.05em;
     line-height: 1.1;
     margin-bottom: 1rem;
-    /* Violet text shadow: rgba(123, 31, 162, 0.2) */
     text-shadow: 0 0 10px rgba(123, 31, 162, 0.2); 
     color: var(--color-text-dark);
 }
@@ -250,7 +251,7 @@
     padding: 1rem 0;
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    background-color: rgba(255, 255, 255, 0.6); /* Slightly more opaque background for readability */
+    background-color: var(--color-surface); /* Uses opaque surface color */
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
 }
@@ -272,7 +273,7 @@
 .stat-label {
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--color-primary-dark); /* Deep Purple */
+    color: var(--color-primary-dark); 
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-top: 0.25rem;
@@ -280,8 +281,8 @@
 
 
 /* --------------------------------------------------------------------------
-   CALL TO ACTION (CTA) BUTTON - COOL ANIMATION
-   -------------------------------------------------------------------------- */
+ CALL TO ACTION (CTA) BUTTON - COOL ANIMATION
+ -------------------------------------------------------------------------- */
 
 .btn {
     display: inline-block;
@@ -343,7 +344,7 @@
 .btn-secondary {
     background-color: transparent;
     border: 2px solid var(--color-primary-accent); /* Electric Violet border */
-    color: var(--color-primary-accent);
+    color: var(--color-primary-accessible); /* Use accessible color for link text */
 }
 
 .btn-secondary:hover {
@@ -356,7 +357,7 @@
 .btn-outline {
     background-color: transparent;
     border: 1px solid var(--color-border);
-    color: var(--color-primary-accent);
+    color: var(--color-primary-accessible); /* Use accessible color for link text */
     padding: 0.6rem 1rem;
     border-radius: 8px;
     font-weight: 600;
@@ -386,8 +387,8 @@
 
 
 /* --------------------------------------------------------------------------
-   SECTIONS AND CARDS (Home Page)
-   -------------------------------------------------------------------------- */
+ SECTIONS AND CARDS (Home Page)
+ -------------------------------------------------------------------------- */
 
 .section-title {
     font-size: 2rem;
@@ -395,7 +396,7 @@
     text-align: center;
     margin-bottom: 3rem;
     padding-top: 1rem;
-    color: var(--color-primary-accent); /* Electric Violet */
+    color: var(--color-primary-accessible); /* Use accessible color for large headers */
 }
 
 .cards-horizontal {
@@ -407,7 +408,7 @@
 }
 
 .how-card, .feature-card {
-    background-color: var(--color-surface); /* Now uses transparent surface */
+    background-color: var(--color-surface); /* Pure White Surface */
     border-radius: var(--border-radius);
     padding: 1.5rem 2rem; 
     min-width: 250px;
@@ -488,12 +489,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   TESTIMONIALS SECTION
-   -------------------------------------------------------------------------- */
+ TESTIMONIALS SECTION
+ -------------------------------------------------------------------------- */
 
 .testimonials-section {
     padding: 4rem 0;
-    background-color: var(--color-background); /* Use transparent background */
+    background-color: var(--color-background); /* Uses opaque background color */
 }
 
 .testimonials-grid {
@@ -529,8 +530,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   FAQ SECTION (ACCORDION)
-   -------------------------------------------------------------------------- */
+ FAQ SECTION (ACCORDION)
+ -------------------------------------------------------------------------- */
 
 .faq-section {
     padding: 4rem 0;
@@ -568,7 +569,7 @@
 }
 
 .faq-item.open .faq-question {
-    color: var(--color-primary-accent);
+    color: var(--color-primary-accessible); /* Use accessible color for open question text */
     background-color: rgba(123, 31, 162, 0.08); 
     border-bottom: 1px solid var(--color-border);
 }
@@ -591,8 +592,8 @@
 
 
 /* --------------------------------------------------------------------------
-   AUTHENTICATION STYLES (Login/Signup)
-   -------------------------------------------------------------------------- */
+ AUTHENTICATION STYLES (Login/Signup)
+ -------------------------------------------------------------------------- */
 
 .auth-center-container {
     min-height: 90vh;
@@ -605,7 +606,7 @@
 .auth-card {
     width: 100%;
     max-width: 450px;
-    background-color: var(--color-surface); /* Now uses transparent surface */
+    background-color: var(--color-surface); /* Pure White Surface */
     border-radius: var(--border-radius);
     padding: 3rem 2rem;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); 
@@ -614,7 +615,7 @@
 }
 
 .brand-logo {
-    color: var(--color-primary-accent); /* Electric Violet */
+    color: var(--color-primary-accessible); /* Use accessible color for link text */
     font-size: 1.8rem;
     font-weight: 900;
     text-align: center;
@@ -650,7 +651,7 @@
 .auth-form input[type="password"] {
     width: 100%;
     padding: 0.75rem 1rem;
-    background-color: var(--color-background); /* Now uses transparent background */
+    background-color: var(--color-background); /* Light background for fields */
     border: 1px solid var(--color-border);
     border-radius: 8px;
     color: var(--color-text-dark);
@@ -660,7 +661,6 @@
 .auth-form input:focus {
     outline: none;
     border-color: var(--color-primary-accent);
-    /* Violet shadow: rgba(123, 31, 162, 0.2) */
     box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.2);
 }
 
@@ -681,7 +681,7 @@
 }
 
 .auth-forgot-link {
-    color: var(--color-primary-accent); /* Electric Violet link */
+    color: var(--color-primary-accessible); /* Use accessible color for links */
     font-size: 0.9rem;
     text-decoration: none;
     transition: opacity 0.3s;
@@ -692,8 +692,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   DASHBOARD STYLES
-   -------------------------------------------------------------------------- */
+ DASHBOARD STYLES
+ -------------------------------------------------------------------------- */
 
 .dashboard-wrapper {
     padding-top: 2rem;
@@ -793,12 +793,12 @@
     display: flex;
     align-items: center;
     border-bottom: 3px solid var(--color-accent-highlight);
-    /* MODIFIED: Adjusted linear gradient for transparent background */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(123, 31, 162, 0.03));
+    /* Uses subtle gradient for effect over the pure white card */
+    background: linear-gradient(135deg, var(--color-surface), rgba(123, 31, 162, 0.03));
 }
 
 .kpi-title-cta {
-    color: var(--color-primary-accent);
+    color: var(--color-primary-accessible); /* Use accessible color for link text */
     font-weight: 600;
 }
 
@@ -922,7 +922,7 @@
 }
 
 .details-link {
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accessible); /* Use accessible color for link text */
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease;
@@ -937,15 +937,15 @@
     text-align: center;
     padding: 4rem 2rem;
     margin-top: 2rem;
-    background-color: var(--color-surface); /* Now uses transparent surface */
+    background-color: var(--color-surface); 
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
     border: 2px dashed var(--color-border);
 }
 
 /* --------------------------------------------------------------------------
-   ORDER DETAIL STYLES
-   -------------------------------------------------------------------------- */
+ ORDER DETAIL STYLES
+ -------------------------------------------------------------------------- */
 
 .order-page-wrapper {
     padding-top: 2rem;
@@ -956,7 +956,7 @@
 
 /* 1. Header Card */
 .order-header-card {
-    background-color: var(--color-surface); /* Now uses transparent surface */
+    background-color: var(--color-surface); 
     border-left: 8px solid var(--color-accent-highlight); /* Neon Pink accent */
     border-radius: var(--border-radius);
     padding: 1.5rem 2rem;
@@ -983,7 +983,7 @@
 
 /* 2. Progress Timeline Card */
 .timeline-card {
-    background-color: var(--color-surface); /* Now uses transparent surface */
+    background-color: var(--color-surface); 
     padding: 2rem;
     border-radius: var(--border-radius);
     margin-bottom: 1.5rem;
@@ -1051,7 +1051,7 @@
 }
 
 .timeline-step.active .step-label {
-    color: var(--color-primary-accent);
+    color: var(--color-primary-accessible); /* Use accessible color for active label */
     font-weight: 600;
 }
 
@@ -1071,7 +1071,7 @@
 
 .details-card {
     padding: 2rem;
-    background-color: var(--color-surface); /* Now uses transparent surface */
+    background-color: var(--color-surface); 
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
 }
@@ -1206,8 +1206,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   STAFF ORDER DETAIL STYLES
-   -------------------------------------------------------------------------- */
+ STAFF ORDER DETAIL STYLES
+ -------------------------------------------------------------------------- */
 .staff-order-page .order-header-card {
     border-left: 8px solid var(--color-primary-accent);
 }
@@ -1267,8 +1267,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   STAFF DASHBOARD STYLES (Tables)
-   -------------------------------------------------------------------------- */
+ STAFF DASHBOARD STYLES (Tables)
+ -------------------------------------------------------------------------- */
 
 .staff-dashboard-page .dashboard-header-card {
     display: flex;
@@ -1330,7 +1330,7 @@
 }
 
 .action-link {
-    color: var(--color-primary-accent);
+    color: var(--color-primary-accessible); /* Use accessible color for links */
     text-decoration: none;
     font-weight: 600;
 }
@@ -1360,8 +1360,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   CREATE ORDER FORM STYLES
-   -------------------------------------------------------------------------- */
+ CREATE ORDER FORM STYLES
+ -------------------------------------------------------------------------- */
 
 .order-form-page {
     max-width: 900px;
@@ -1402,7 +1402,7 @@
 .step-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-primary-accent);
+    color: var(--color-primary-accessible); /* Use accessible color for header text */
     margin-top: 0;
     margin-bottom: 2rem;
     border-bottom: 2px solid var(--color-border);
@@ -1438,7 +1438,7 @@
 
 .form-select {
     appearance: none; /* Hide default dropdown arrow */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%237B1FA2' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23581575' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E"); /* Updated SVG fill to new accessible color */
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 1.25rem;
@@ -1509,8 +1509,8 @@
 
 
 /* --------------------------------------------------------------------------
-   FOOTER
-   -------------------------------------------------------------------------- */
+ FOOTER
+ -------------------------------------------------------------------------- */
 
 .footer {
     padding: 1rem;
@@ -1525,8 +1525,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   NEW: SUPPORT AND SUCCESS PAGE STYLES
-   -------------------------------------------------------------------------- */
+ NEW: SUPPORT AND SUCCESS PAGE STYLES
+ -------------------------------------------------------------------------- */
 
 .confirmation-wrapper {
     text-align: center;
@@ -1572,7 +1572,7 @@
 .support-form h2 {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--color-primary-accent);
+    color: var(--color-primary-accessible); /* Use accessible color for text */
     margin-top: 0;
     margin-bottom: 0.5rem;
     padding-bottom: 1rem;
@@ -1637,8 +1637,8 @@
 
 
 /* --------------------------------------------------------------------------
-   RESPONSIVE LAYOUT ADJUSTMENTS
-   -------------------------------------------------------------------------- */
+ RESPONSIVE LAYOUT ADJUSTMENTS
+ -------------------------------------------------------------------------- */
 
 @media (max-width: 1024px) {
     .hero-headline {
@@ -1684,7 +1684,7 @@
         padding: 0.5rem 1rem;
         flex-basis: auto;
         border-left: none; /* Remove left bar for horizontal menu */
-        border-bottom: 3px solid transparent;
+        border-bottom: 3px solid var(--color-primary-accent);
     }
     
     .nav-link:hover, .nav-link.active {
@@ -1760,4 +1760,46 @@
         color: var(--color-primary-dark);
         margin-right: 1rem;
     }
+}
+
+
+
+
+
+
+
+
+.daily-progress-wrapper {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.daily-progress-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.daily-progress-bar {
+    width: 80%;
+    max-width: 400px;
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.daily-progress-fill {
+    height: 100%;
+    /* REVISED: Uses on-brand Violet to Pink gradient */
+    background: linear-gradient(90deg, var(--color-primary-accent), var(--color-accent-highlight)); 
+    width: 0%;
+    transition: width 0.7s ease-in-out;
+}
+
+.daily-progress-text {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500
 }
