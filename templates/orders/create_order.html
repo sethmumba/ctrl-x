@@ -524,6 +524,43 @@
 
     fetch("/order/paypal-complete/").then(r => console.log(r.status));
 
+
+//check limit
+document.addEventListener('DOMContentLoaded', () => {
+    checkDailyLimit();
+});
+
+function checkDailyLimit() {
+    fetch("/order/daily-order-status/")
+        .then(res => res.json())
+        .then(data => {
+            if (data.limit_reached) {
+                // Disable all next/payment buttons
+                document.querySelectorAll(".btn-primary, #paypal-button-container").forEach(el => {
+                    el.disabled = true;
+                    el.style.opacity = 0.5;
+                    el.style.pointerEvents = "none";
+                });
+
+                // Show a message to the user
+                const formHeader = document.querySelector(".form-header-card");
+                if (formHeader) {
+                    const msg = document.createElement("p");
+                    msg.classList.add("limit-message");
+                    msg.style.color = "red";
+                    msg.style.fontWeight = "bold";
+                    msg.style.marginTop = "10px";
+                    msg.textContent = "🚫 Daily order limit reached. Please try again tomorrow.";
+                    formHeader.appendChild(msg);
+                }
+
+                // Optionally hide PayPal buttons
+                const paypalContainer = document.getElementById("paypal-button-container");
+                if (paypalContainer) paypalContainer.style.display = "none";
+            }
+        })
+        .catch(err => console.error("Error checking daily order limit:", err));
+}
 </script>
 
 {% endblock %}

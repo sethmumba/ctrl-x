@@ -6,6 +6,7 @@ from .utils.dns_check import shopify_subdomain_available
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import json
+from django.utils import timezone
 
 
 @login_required
@@ -61,7 +62,22 @@ def paypal_complete(request):
                 "error": f"{field} is required but missing"
             }, status=400)
 
+    # -------------------
+    # DAILY ORDER LIMIT CHECK
+    # -------------------
+    from django.utils import timezone
+    today = timezone.now().date()
+    orders_today = Order.objects.filter(created_at__date=today).count()
+
+    if orders_today >= 6:
+        return JsonResponse({
+            "status": "daily_limit_reached",
+            "message": "Sorry, only 6 store orders can be placed per day. Please try again tomorrow."
+        }, status=400)
+
+    # -------------------
     # Create order safely
+    # -------------------
     try:
         order = Order.objects.create(
             user=request.user,
@@ -91,15 +107,23 @@ def paypal_complete(request):
         return JsonResponse({"status": "success", "order_id": order.id})
 
     except Exception as e:
-        # Print real error for debugging
         print("ORDER CREATION ERROR:", e)
-
         return JsonResponse({
             "status": "error",
             "detail": str(e)
         }, status=500)
 
 
+
 def learn_more(request):
     return render(request, 'orders/learn-more.html')
 
+@login_required
+def daily_order_status(request):
+    today = timezone.now().date()
+    orders_today = Order.objects.filter(created_at__date=today).count()
+    remaining = max(6 - orders_today, 0)
+    return JsonResponse({
+        "remaining": remaining,
+        "limit_reached": remaining == 0
+    })
