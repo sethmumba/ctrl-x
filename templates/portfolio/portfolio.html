@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-container">
+    <h1>Our Work</h1>
+
+    <div class="portfolio-items">
+        {% for project in projects %}
+        <div class="project-card">
+            <div class="project-image">
+                <img src="{{ project.image_url }}" alt="{{ project.title }}">
+            </div>
+            <div class="project-content">
+                <h2>{{ project.title }}</h2>
+                <p>{{ project.description }}</p>
+                {% if project.link %}
+                <a href="{{ project.link }}" target="_blank">View Project</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

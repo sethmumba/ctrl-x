@@ -33,6 +33,10 @@ INSTALLED_APPS = [
     'dashboard',
     'staff',
     'home',
+    'portfolio',
+    'rest_framework',
+
+
 ]
 #INSTALLED_APPS += ['staff.apps.StaffConfig']
 
@@ -148,3 +152,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 # settings.py
 PAYPAL_CLIENT_ID = "AW2-9_YuGY99d0RbqNuDfM899SjY-vpKKN1XjpnV0QaZdLDwdodgTN891OISLlx50qkBdrGKx6CtYmU4"
+
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

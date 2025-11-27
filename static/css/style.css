@@ -1803,3 +1803,169 @@
     font-size: 14px;
     font-weight: 500
 }
+
+
+
+/* --------------------------------------------------------------------------
+   PORTFOLIO STYLES (New Section)
+   -------------------------------------------------------------------------- */
+
+.portfolio-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.project {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--color-border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 10px rgba(123, 31, 162, 0.2);
+}
+
+.project h2 {
+    font-size: 1.5rem;
+    color: var(--color-primary-accessible);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+}
+
+.project img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistent grid display */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-border);
+}
+
+.project p {
+    color: var(--color-text-dark);
+    font-size: 1rem;
+    line-height: 1.5;
+    flex-grow: 1; /* Pushes the button to the bottom */
+}
+
+.project a {
+    align-self: flex-start;
+    margin-top: 1rem;
+    padding: 0.6rem 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    
+    /* Use primary button styling for project links */
+    background: var(--color-primary-accent); 
+    color: var(--color-surface);
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.project a:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* Page Header Styling for the template */
+.content-container > h1:first-child {
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-primary-dark);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--color-border);
+}
+
+
+
+.portfolio-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.project-card {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    max-width: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 10px rgba(123, 31, 162, 0.2);
+}
+
+.project-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.project-content h2 {
+    font-size: 1.5rem;
+    color: var(--color-primary-accessible);
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+}
+
+.project-content p {
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    flex-grow: 1; /* Pushes button to the bottom */
+    margin-bottom: 1rem;
+}
+
+.project-content a {
+    align-self: flex-start;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    padding: 0.6rem 1.5rem;
+    background: var(--color-primary-accent);
+    color: var(--color-surface);
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.project-content a:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* Page Header Styling */
+.content-container > h1:first-child {
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-primary-dark);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--color-border);
+}
