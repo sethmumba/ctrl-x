@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('staff/', include('staff.urls')),
     path('portfolio/', include('portfolio.urls')),
+    path('prebuilt/', include('prebuilt.urls')),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),   # home + dashboard pages
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

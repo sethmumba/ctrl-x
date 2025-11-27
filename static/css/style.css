@@ -1969,3 +1969,28 @@
     margin-bottom: 1rem;
     border-bottom: 2px solid var(--color-border);
 }
+
+
+
+/* --------------------------------------------------------------------------
+ styling for get now button, prebuilt store page
+ -------------------------------------------------------------------------- */
+
+
+ .project-order-btn {
+    margin-top: 1rem;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    background-color: var(--color-primary-accent);
+    color: var(--color-surface);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.project-order-btn:hover {
+    background-color: var(--color-primary-dark);
+}

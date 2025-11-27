@@ -29,6 +29,8 @@
             
             <a href="/" class="nav-link nav-home active">Home</a>
             <a href="{% url 'portfolio_home' %}" class="nav-link nav-learn">Our Portfolio</a>
+            <a href="{% url 'prebuilt_home' %}" class="nav-link nav-learn">Prebuilt Stores</a>
+
             <a href="{% url 'learn-more' %}" class="nav-link nav-learn">How It Works</a>
            {% if user.is_authenticated %}
             <a href="/dashboard/support/

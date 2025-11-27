@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-container">
+    <h1>Prebuilt Stores</h1>
+
+    <div class="portfolio-items">
+        {% for store in stores %}
+        <div class="project-card">
+            <div class="project-image">
+                <img src="{{ store.image_url }}" alt="{{ store.name }}">
+            </div>
+            <div class="project-content">
+                <h2>{{ store.name }}</h2>
+                <p>{{ store.description }}</p>
+                
+                {% if store.store_link %}
+                    <a href="{{ store.store_link }}" target="_blank">Visit Store</a>
+                {% endif %}
+                
+                {% if store.password %}
+                    <p><strong>Password:</strong> {{ store.password }}</p>
+                {% endif %}
+
+                <!-- Order Form -->
+                <form method="POST" action="{% url 'order_prebuilt' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="store_id" value="{{ store.id }}">
+                    <button type="submit" class="project-order-btn">Get Now</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

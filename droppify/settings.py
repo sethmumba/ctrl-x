@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'home',
     'portfolio',
     'rest_framework',
+    'prebuilt',
+
 
 
 ]
@@ -144,7 +146,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'empxautomations@gmail.com'
 EMAIL_HOST_PASSWORD = 'hkae endg rbtf vkni'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
+ADMIN_EMAIL = 'empxautomations@gmail.com'
 
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
