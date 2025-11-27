@@ -1,24 +1,22 @@
 /* --------------------------------------------------------------------------
- GLOBAL STYLES & HIGH-TECH CONTRAST THEME VARIABLES (REVISED)
+ GLOBAL STYLES & MUTED MIDNIGHT GRAY DARK THEME VARIABLES
  -------------------------------------------------------------------------- */
 
-/* Define the color palette for a bold, digital theme (Electric Violet & White) */
+/* Define the color palette for a calm, professional dark theme (Midnight Gray & Lavender Accent) */
 :root {
-    --color-primary-accent: #7B1FA2; /* Primary Accent (Electric Violet) */
-    --color-primary-dark: #4A0E68; /* Primary Dark (Deep Purple) for hover/active */
+    /* Muted Midnight Gray Palette */
+    --color-background: #1D232A; /* Base Layer: Deep charcoal/blue-gray */
+    --color-surface: #2C343F; /* Cards/Containers: Slightly lighter shade for depth */
     
-    /* NEW: Accessible Violet for text/links (WCAG AA compliant on white: 4.64:1) */
-    --color-primary-accessible: #581575; 
+    --color-text-light: #E0E7FF; /* Main Text Color: Cool, soft light-blue-white */
+    --color-text-muted: #9CA3AF; /* Muted Text/Subtitle: Medium gray */
+    --color-border: #4B5563; /* Subtle Borders/Dividers: Distinct dark-medium gray */
+
+    /* Accent Colors - Lightened for Dark Background Accessibility */
+    --color-primary-accent: #A78BFA; /* Primary Accent (Lavender Violet - Highly Visible) */
+    --color-primary-dark: #7B1FA2; /* Deep Violet (Used for deep shadows/less visible elements) */
+    --color-accent-highlight: #E91E63; /* Neon Pink (High-impact highlight - UNCHANGED) */
     
-    --color-accent-highlight: #E91E63; /* Accent (Neon Pink) for highlights */
-    
-    /* REVISED: Opaque backgrounds for better visual separation and contrast */
-    --color-background: #F4F4F9; /* Very Light Gray/Cool White (Base Layer) */
-    --color-surface: #FFFFFF; /* Pure White (Cards/Forms) */
-    
-    --color-text-dark: #000000; /* Main Text Color (Black) */
-    --color-text-muted: #6B7280; /* Muted Text Color */
-    --color-border: #E0E0E7; /* Opaque Soft Borders (Cool Gray) */
     --color-error: #e53935; /* Red for errors (Unchanged) */
     
     /* Semantic Colors for Statuses - Adapted to Theme */
@@ -30,37 +28,42 @@
 
     --font-family-luxury: 'Inter', sans-serif;
     --border-radius: 12px;
-    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow for light theme */
+    /* Dark Theme Shadow: Softer, more diffuse shadow with higher opacity */
+    --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.4); 
+    /* Consistent hover shadow with primary accent glow */
+    --shadow-hover-glow: 0 0 15px rgba(167, 139, 250, 0.4); 
 }
 
-/* Base Body Styles - Light Background with Image Texture */
-.body {
+/* Base Body Styles - Dark Background with Image Texture */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body { /* Changed from .body to body */
     font-family: var(--font-family-luxury);
-    background-color: var(--color-background); /* Now uses opaque background */
-    color: var(--color-text-dark); /* New dark text */
+    background-color: var(--color-background);
+    color: var(--color-text-light); /* New light text */
     margin: 0;
     min-height: 100vh;
     position: relative; 
     z-index: 1; 
+    transition: background-color 0.3s ease;
 }
 
 /* --------------------------------------------------------------------------
  KEN BURNS ANIMATION KEYFRAMES
  -------------------------------------------------------------------------- */
 @keyframes kenBurns {
-    0% {
-        transform: scale(1.05) translate(0, 0);
+    from {
+        transform: scale(1.1) translate(-2%, 2%); 
     }
-    50% {
-        transform: scale(1.15) translate(-5%, -5%);
-    }
-    100% {
-        transform: scale(1.05) translate(0, 0);
+    to {
+        transform: scale(1.05) translate(2%, -2%); 
     }
 }
 
 /* Pseudo-element for the low-opacity background image */
-.body::before {
+body::before {
     content: '';
     position: fixed; 
     top: 0;
@@ -72,7 +75,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.2; /* Kept opacity at 0.2 to allow the opaque background color to dominate */
+    opacity: 0.1; /* Reduced opacity slightly for dark background */
     z-index: -1; 
     
     /* Apply Ken Burns Animation */
@@ -95,14 +98,14 @@
     top: 0;
     left: 0;
     height: 100%;
-    background-color: var(--color-surface); /* Now uses pure white surface */
-    padding: 0 0 2rem 0; /* Adjusted padding */
-    box-shadow: var(--shadow-light); 
+    background-color: var(--color-surface); /* Uses surface color */
+    padding: 0 0 2rem 0;
+    box-shadow: var(--shadow-dark); 
     z-index: 1000;
     display: flex;
     flex-direction: column;
     gap: 0;
-    border-right: 1px solid var(--color-border); /* Opaque Border */
+    border-right: 1px solid var(--color-border);
 }
 
 .navbar-header {
@@ -113,10 +116,10 @@
 }
 
 .navbar .brand-logo {
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent); /* Brighter accent color */
     font-size: 1.1rem;
     font-weight: 900;
-    text-shadow: 0 0 5px rgba(74, 14, 104, 0.2); 
+    text-shadow: 0 0 5px rgba(167, 139, 250, 0.4); 
     margin: 0;
 }
 
@@ -127,7 +130,7 @@
 }
 
 .nav-link {
-    color: var(--color-text-dark); 
+    color: var(--color-text-light); 
     text-decoration: none;
     padding: 0.75rem 2rem;
     font-size: 1.05rem;
@@ -137,10 +140,10 @@
 }
 
 .nav-link:hover, .nav-link.active {
-    /* Light violet hover background: rgba(123, 31, 162, 0.05) */
-    background-color: rgba(123, 31, 162, 0.05); 
+    /* Light accent hover background: rgba(167, 139, 250, 0.1) */
+    background-color: rgba(167, 139, 250, 0.1); 
     border-left: 5px solid var(--color-primary-accent); 
-    color: var(--color-primary-accessible); /* Use accessible color for active text */
+    color: var(--color-primary-accent); /* Use bright accent for active text */
     transform: translateX(5px);
 }
 
@@ -161,12 +164,19 @@
 
 /* Common Card Style */
 .card {
-    background-color: var(--color-surface); /* Pure White Surface */
+    background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark); /* Dark theme shadow */
     border: 1px solid var(--color-border);
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer; /* Added cursor pointer for clickable cards */
 }
+/* General card hover/glow */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow); 
+}
+
 
 /* --------------------------------------------------------------------------
  HERO SECTION (Luxury Typography & Animated CTA)
@@ -182,7 +192,7 @@
     position: relative; 
 }
 
-/* Subtle, transparent background gradient overlay for depth (Light Gray focus) */
+/* Subtle, transparent background gradient overlay for depth (Dark focus) */
 .hero-gradient::before {
     content: '';
     position: absolute;
@@ -190,8 +200,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /* Updated: Uses an opaque background radial gradient blending into the base background color */
-    background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.95), var(--color-background) 70%); 
+    /* Radial gradient blending into the dark background color */
+    background: radial-gradient(circle at 50% 10%, rgba(44, 52, 63, 0.95), var(--color-background) 70%); 
     opacity: 1;
     z-index: 1;
 }
@@ -207,8 +217,8 @@
     letter-spacing: -0.05em;
     line-height: 1.1;
     margin-bottom: 1rem;
-    text-shadow: 0 0 10px rgba(123, 31, 162, 0.2); 
-    color: var(--color-text-dark);
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); /* Accent glow */
+    color: var(--color-text-light);
 }
 
 .hero-subheadline {
@@ -232,8 +242,8 @@
 .hero-image {
     max-width: 180px;
     height: auto;
-    /* Blend the logo with the background - using violet shadow */
-    filter: drop-shadow(0 0 15px rgba(123, 31, 162, 0.6));
+    /* Blend the logo with the background - using primary accent shadow */
+    filter: drop-shadow(0 0 15px rgba(167, 139, 250, 0.6));
     opacity: 0.9;
     transition: transform 0.6s ease;
 }
@@ -242,7 +252,7 @@
     transform: scale(1.05);
 }
 
-/* NEW: Social Proof Bar */
+/* Social Proof Bar */
 .hero-stats-bar {
     display: flex;
     justify-content: center;
@@ -251,9 +261,9 @@
     padding: 1rem 0;
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    background-color: var(--color-surface); /* Uses opaque surface color */
+    background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark);
 }
 
 .stat-item {
@@ -273,7 +283,7 @@
 .stat-label {
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--color-primary-dark); 
+    color: var(--color-primary-accent); /* Brighter accent for emphasis */
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-top: 0.25rem;
@@ -292,14 +302,14 @@
     font-weight: 700;
     font-size: 1.1rem;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Lighter shadow */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Darker shadow */
     border: none;
     cursor: pointer;
 }
 
 .btn-primary {
-    background: var(--color-primary-accent); /* Electric Violet */
-    color: var(--color-surface); /* White text */
+    background: var(--color-primary-accent); /* Lavender Violet */
+    color: var(--color-surface); /* Dark text for contrast */
     position: relative;
     overflow: hidden;
     z-index: 20;
@@ -313,7 +323,7 @@
     left: 0;
     width: 300%;
     height: 100%;
-    /* Gradient from Violet to Deep Purple */
+    /* Gradient from Primary Accent to Deep Dark */
     background: linear-gradient(120deg, var(--color-primary-accent) 30%, var(--color-primary-dark) 50%, var(--color-primary-accent) 70%);
     background-size: 200% 100%;
     transition: background-position 0.5s ease;
@@ -326,15 +336,15 @@
 
 .btn-primary:hover {
     transform: translateY(-3px) scale(1.02);
-    /* Violet glow: rgba(123, 31, 162, 0.5) */
-    box-shadow: 0 8px 25px rgba(123, 31, 162, 0.5); 
+    /* Primary Accent glow */
+    box-shadow: 0 8px 25px rgba(167, 139, 250, 0.5); 
 }
 
-/* CTA PULSE ANIMATION (using Violet glow) */
+/* CTA PULSE ANIMATION (using Primary Accent glow) */
 @keyframes pulseGlow {
-    0% { box-shadow: 0 0 0 0 rgba(123, 31, 162, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(123, 31, 162, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(123, 31, 162, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(167, 139, 250, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0); }
 }
 
 .hero-cta {
@@ -343,21 +353,21 @@
 
 .btn-secondary {
     background-color: transparent;
-    border: 2px solid var(--color-primary-accent); /* Electric Violet border */
-    color: var(--color-primary-accessible); /* Use accessible color for link text */
+    border: 2px solid var(--color-primary-accent);
+    color: var(--color-primary-accent);
 }
 
 .btn-secondary:hover {
     background-color: var(--color-primary-accent);
-    color: var(--color-surface); /* White text */
+    color: var(--color-surface); 
     transform: translateY(-1px);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark);
 }
 
 .btn-outline {
     background-color: transparent;
     border: 1px solid var(--color-border);
-    color: var(--color-primary-accessible); /* Use accessible color for link text */
+    color: var(--color-primary-accent);
     padding: 0.6rem 1rem;
     border-radius: 8px;
     font-weight: 600;
@@ -366,7 +376,7 @@
 }
 
 .btn-outline:hover {
-    background-color: rgba(123, 31, 162, 0.05);
+    background-color: rgba(167, 139, 250, 0.1);
     border-color: var(--color-primary-accent);
 }
 
@@ -396,7 +406,7 @@
     text-align: center;
     margin-bottom: 3rem;
     padding-top: 1rem;
-    color: var(--color-primary-accessible); /* Use accessible color for large headers */
+    color: var(--color-primary-accent);
 }
 
 .cards-horizontal {
@@ -408,12 +418,12 @@
 }
 
 .how-card, .feature-card {
-    background-color: var(--color-surface); /* Pure White Surface */
+    background-color: var(--color-surface);
     border-radius: var(--border-radius);
     padding: 1.5rem 2rem; 
     min-width: 250px;
-    box-shadow: var(--shadow-light); 
-    border-top: 3px solid var(--color-primary-accent); /* Electric Violet accent */
+    box-shadow: var(--shadow-dark); 
+    border-top: 3px solid var(--color-primary-accent);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -426,15 +436,14 @@
 }
 
 .how-card:hover, .feature-card:hover {
-    transform: translateY(-10px);
-    /* Violet glow/shadow: rgba(123, 31, 162, 0.2) */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 15px rgba(123, 31, 162, 0.2); 
+    transform: translateY(-5px); /* Harmonized lift amount */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow); 
 }
 
 .card-title, .feature-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--color-text-dark); /* Dark text */
+    color: var(--color-text-light); /* Light text */
     margin-top: 1rem;
 }
 
@@ -454,8 +463,8 @@
 .card-icon::before, .feature-icon::before {
     font-size: 2rem; 
     line-height: 1;
-    /* Violet glow for the emoji: rgba(123, 31, 162, 0.3) */
-    text-shadow: 0 0 5px rgba(123, 31, 162, 0.3); 
+    /* Primary Accent glow for the emoji */
+    text-shadow: 0 0 5px rgba(167, 139, 250, 0.3); 
 }
 
 /* How It Works Icons (Emojis unchanged) */
@@ -494,7 +503,7 @@
 
 .testimonials-section {
     padding: 4rem 0;
-    background-color: var(--color-background); /* Uses opaque background color */
+    background-color: var(--color-background);
 }
 
 .testimonials-grid {
@@ -509,6 +518,11 @@
     border-top: 3px solid var(--color-accent-highlight); /* Neon Pink accent */
 }
 
+.testimonial-card:hover { /* Inheriting general card hover */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow); 
+}
+
 .star-rating {
     color: var(--color-status-warning); /* Gold color for stars */
     font-size: 1.25rem;
@@ -518,14 +532,14 @@
 .testimonial-quote {
     font-size: 1.1rem;
     font-style: italic;
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
     margin-bottom: 1rem;
     line-height: 1.5;
 }
 
 .testimonial-author {
     font-weight: 600;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
     margin: 0;
 }
 
@@ -548,13 +562,16 @@
     border-top: 3px solid var(--color-primary-accent);
     padding: 0;
     overflow: hidden;
+    background-color: var(--color-surface); /* Ensures base item matches surface */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-dark);
 }
 
 .faq-question {
     width: 100%;
     text-align: left;
     background-color: var(--color-surface); 
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
     font-size: 1.1rem;
     font-weight: 600;
     padding: 1.2rem 1.5rem;
@@ -565,12 +582,12 @@
 }
 
 .faq-question:hover {
-    background-color: rgba(123, 31, 162, 0.05); /* Light violet hover */
+    background-color: rgba(167, 139, 250, 0.1); /* Light accent hover */
 }
 
 .faq-item.open .faq-question {
-    color: var(--color-primary-accessible); /* Use accessible color for open question text */
-    background-color: rgba(123, 31, 162, 0.08); 
+    color: var(--color-primary-accent);
+    background-color: rgba(167, 139, 250, 0.15); 
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -587,7 +604,7 @@
 .faq-item.open .faq-answer {
     padding: 1rem 1.5rem 1.5rem 1.5rem;
     /* Background matches the open question */
-    background-color: rgba(123, 31, 162, 0.08);
+    background-color: rgba(167, 139, 250, 0.15);
 }
 
 
@@ -606,28 +623,28 @@
 .auth-card {
     width: 100%;
     max-width: 450px;
-    background-color: var(--color-surface); /* Pure White Surface */
+    background-color: var(--color-surface);
     border-radius: var(--border-radius);
     padding: 3rem 2rem;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); 
-    border-top: 5px solid var(--color-primary-accent); /* Electric Violet accent */
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5); /* Deep shadow */
+    border-top: 5px solid var(--color-primary-accent);
     position: relative;
 }
 
 .brand-logo {
-    color: var(--color-primary-accessible); /* Use accessible color for link text */
+    color: var(--color-primary-accent);
     font-size: 1.8rem;
     font-weight: 900;
     text-align: right;
     margin-bottom: 2rem;
-    /* Violet text shadow: rgba(123, 31, 162, 0.3) */
-    text-shadow: 0 0 5px rgba(123, 31, 162, 0.3); 
+    /* Primary Accent text shadow */
+    text-shadow: 0 0 5px rgba(167, 139, 250, 0.3); 
 }
 
 .auth-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-text-dark); 
+    color: var(--color-text-light); 
     text-align: center;
     margin-bottom: 2rem;
 }
@@ -641,7 +658,7 @@
     display: block;
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--color-text-muted); /* Muted text */
+    color: var(--color-text-muted);
     margin-bottom: 0.4rem;
     opacity: 1;
 }
@@ -651,17 +668,17 @@
 .auth-form input[type="password"] {
     width: 100%;
     padding: 0.75rem 1rem;
-    background-color: var(--color-background); /* Light background for fields */
+    background-color: var(--color-background); /* Darker background for fields */
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .auth-form input:focus {
     outline: none;
     border-color: var(--color-primary-accent);
-    box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.2);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
 }
 
 .auth-error {
@@ -681,7 +698,7 @@
 }
 
 .auth-forgot-link {
-    color: var(--color-primary-accessible); /* Use accessible color for links */
+    color: var(--color-primary-accent);
     font-size: 0.9rem;
     text-decoration: none;
     transition: opacity 0.3s;
@@ -707,7 +724,7 @@
 .page-title {
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
     margin-bottom: 0.5rem;
     border-left: 5px solid var(--color-primary-accent);
     padding-left: 1rem;
@@ -731,14 +748,15 @@
     display: flex;
     align-items: center;
     padding: 1.5rem;
-    border-top: none; /* Override general card style */
+    border-top: none; 
     border-bottom: 3px solid var(--color-primary-accent);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .kpi-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 0 10px rgba(123, 31, 162, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow);
 }
 
 .kpi-icon {
@@ -755,7 +773,7 @@
 .kpi-icon::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
-    color: var(--color-surface);
+    color: var(--color-surface); /* Surface color for icon text */
     text-shadow: 0 0 5px var(--color-primary-accent);
 }
 
@@ -781,7 +799,7 @@
 .kpi-value {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
     line-height: 1.1;
     margin: 0;
 }
@@ -793,12 +811,12 @@
     display: flex;
     align-items: center;
     border-bottom: 3px solid var(--color-accent-highlight);
-    /* Uses subtle gradient for effect over the pure white card */
-    background: linear-gradient(135deg, var(--color-surface), rgba(123, 31, 162, 0.03));
+    /* Uses subtle gradient for effect over the surface card */
+    background: linear-gradient(135deg, var(--color-surface), rgba(167, 139, 250, 0.05));
 }
 
 .kpi-title-cta {
-    color: var(--color-primary-accessible); /* Use accessible color for link text */
+    color: var(--color-primary-accent);
     font-weight: 600;
 }
 
@@ -807,7 +825,7 @@
     font-size: 1rem;
     margin-top: 0.5rem;
     box-shadow: none;
-    animation: none; /* Remove pulse animation for this context */
+    animation: none;
     border-radius: 8px;
 }
 
@@ -816,7 +834,7 @@
 .orders-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
     margin-bottom: 1.5rem;
     padding: 0 1rem;
 }
@@ -833,14 +851,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-left: 5px solid var(--color-primary-accent); /* Main card accent */
-    border-top: none; /* Removing redundant border-top */
+    border-left: 5px solid var(--color-primary-accent);
+    border-top: none; 
     transition: transform 0.2s ease;
+    cursor: pointer;
 }
 
 .order-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow);
 }
 
 .order-card-header {
@@ -854,7 +873,7 @@
 
 .order-id {
     font-weight: 600;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
 }
 
 .order-date {
@@ -864,7 +883,7 @@
 .order-store {
     font-size: 1.35rem;
     font-weight: 700;
-    color: var(--color-accent-highlight); /* Neon Pink Store Name */
+    color: var(--color-accent-highlight);
     margin: 0 0 0.5rem 0;
 }
 
@@ -878,13 +897,15 @@
     margin-bottom: 1rem;
 }
 
-.status-badge {
+/* Consolidated Status/Badge Styles */
+.status-badge, .badge {
     display: inline-block;
     padding: 0.4rem 0.8rem;
     border-radius: 50px;
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
+    transition: background-color 0.2s ease;
 }
 
 /* Status Colors */
@@ -898,7 +919,7 @@
 }
 .status-warning {
     background-color: var(--color-status-warning);
-    color: var(--color-text-dark);
+    color: var(--color-surface); /* Changed text to light for better contrast */
 }
 .status-info {
     background-color: var(--color-status-info);
@@ -922,7 +943,7 @@
 }
 
 .details-link {
-    color: var(--color-primary-accessible); /* Use accessible color for link text */
+    color: var(--color-primary-accent);
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease;
@@ -939,7 +960,7 @@
     margin-top: 2rem;
     background-color: var(--color-surface); 
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark);
     border: 2px dashed var(--color-border);
 }
 
@@ -961,13 +982,13 @@
     border-radius: var(--border-radius);
     padding: 1.5rem 2rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .order-title {
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
     margin: 0 0 0.5rem 0;
 }
 
@@ -978,7 +999,7 @@
 
 .order-status .status-accent {
     font-weight: 600;
-    color: var(--color-accent-highlight); /* Neon Pink Status */
+    color: var(--color-accent-highlight);
 }
 
 /* 2. Progress Timeline Card */
@@ -987,13 +1008,13 @@
     padding: 2rem;
     border-radius: var(--border-radius);
     margin-bottom: 1.5rem;
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark);
 }
 
 .timeline-title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -1040,18 +1061,18 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 0.5rem;
-    border: 3px solid var(--color-surface);
+    border: 3px solid var(--color-surface); /* Surface border for contrast */
     transition: all 0.4s ease;
 }
 
 .timeline-step.active .step-circle {
-    background-color: var(--color-primary-accent); /* Violet accent */
+    background-color: var(--color-primary-accent);
     color: var(--color-surface);
     box-shadow: 0 0 0 4px var(--color-surface), 0 0 15px var(--color-primary-accent);
 }
 
 .timeline-step.active .step-label {
-    color: var(--color-primary-accessible); /* Use accessible color for active label */
+    color: var(--color-primary-accent);
     font-weight: 600;
 }
 
@@ -1073,12 +1094,12 @@
     padding: 2rem;
     background-color: var(--color-surface); 
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark);
 }
 
 .details-card .card-title {
     font-size: 1.35rem;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
     margin-top: 0;
     margin-bottom: 1.5rem;
     border-bottom: 1px solid var(--color-border);
@@ -1102,7 +1123,7 @@
 
 .spec-label {
     font-weight: 600;
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
 }
 
 .spec-value {
@@ -1132,12 +1153,12 @@
     padding: 1rem;
     border: 1px solid var(--color-primary-accent);
     border-radius: 8px;
-    background-color: rgba(123, 31, 162, 0.05); /* Light violet background */
+    background-color: rgba(167, 139, 250, 0.1); /* Light accent background */
 }
 
 .builder-label {
     font-weight: 600;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
     margin-bottom: 0.5rem;
 }
 
@@ -1156,7 +1177,7 @@
 
 .builder-name {
     font-weight: 700;
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
 }
 
 .completion-notification {
@@ -1197,7 +1218,7 @@
 }
 .notes-title {
     font-size: 1.1rem;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
     margin-bottom: 0.5rem;
 }
 .notes-content {
@@ -1227,7 +1248,7 @@
     background-color: var(--color-surface);
     padding: 2rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark);
 }
 
 .current-status-card {
@@ -1237,7 +1258,7 @@
     border-radius: 8px;
     background-color: var(--color-primary-dark);
     color: var(--color-surface);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 .current-status-card .status-label {
@@ -1250,7 +1271,7 @@
 .current-status-card .status-value {
     font-size: 1.75rem;
     font-weight: 800;
-    color: var(--color-accent-highlight); /* Neon Pink highlight */
+    color: var(--color-accent-highlight);
 }
 
 .progress-form .form-select {
@@ -1311,8 +1332,8 @@
 }
 
 .orders-table thead th {
-    background-color: rgba(123, 31, 162, 0.1); /* Light Violet header */
-    color: var(--color-primary-dark);
+    background-color: rgba(167, 139, 250, 0.1); /* Light Accent header */
+    color: var(--color-primary-accent);
     font-weight: 700;
     padding: 1rem;
     text-align: left;
@@ -1322,15 +1343,16 @@
 .orders-table tbody td {
     padding: 1rem;
     border-bottom: 1px solid var(--color-border);
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
 }
 
 .orders-table tbody tr:hover {
-    background-color: rgba(123, 31, 162, 0.03); /* Very light violet hover */
+    background-color: rgba(167, 139, 250, 0.05); /* Very light accent hover */
+    cursor: pointer;
 }
 
 .action-link {
-    color: var(--color-primary-accessible); /* Use accessible color for links */
+    color: var(--color-primary-accent);
     text-decoration: none;
     font-weight: 600;
 }
@@ -1340,16 +1362,9 @@
 }
 
 /* Specific Badge Colors for Staff Table */
-.badge {
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-}
 .badge-assigned { background-color: var(--color-status-info); color: var(--color-surface); }
 .badge-branding { background-color: var(--color-primary-accent); color: var(--color-surface); }
-.badge-review { background-color: var(--color-status-warning); color: var(--color-text-dark); }
+.badge-review { background-color: var(--color-status-warning); color: var(--color-surface); } /* Changed text color */
 .badge-completed { background-color: var(--color-status-success); color: var(--color-surface); }
 .badge-default { background-color: var(--color-text-muted); color: var(--color-surface); }
 
@@ -1377,7 +1392,7 @@
 
 .form-title {
     font-size: 2rem;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
     margin: 0 0 0.5rem 0;
 }
 
@@ -1402,7 +1417,7 @@
 .step-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-primary-accessible); /* Use accessible color for header text */
+    color: var(--color-primary-accent);
     margin-top: 0;
     margin-bottom: 2rem;
     border-bottom: 2px solid var(--color-border);
@@ -1416,7 +1431,7 @@
 .form-label {
     display: block;
     font-weight: 600;
-    color: var(--color-primary-dark);
+    color: var(--color-text-light);
     margin-bottom: 0.5rem;
 }
 
@@ -1425,20 +1440,21 @@
     padding: 0.75rem 1rem;
     border-radius: 8px;
     border: 1px solid var(--color-border);
-    background-color: var(--color-background);
-    color: var(--color-text-dark);
+    background-color: var(--color-background); /* Darker background for input fields */
+    color: var(--color-text-light);
     transition: all 0.2s ease;
 }
 
 .form-input:focus, .form-select:focus {
     outline: none;
     border-color: var(--color-primary-accent);
-    box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.2);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
 }
 
 .form-select {
-    appearance: none; /* Hide default dropdown arrow */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23581575' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E"); /* Updated SVG fill to new accessible color */
+    appearance: none;
+    /* Updated SVG fill to new primary accent color */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23A78BFA' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 1.25rem;
@@ -1481,7 +1497,7 @@
 
 .checkbox-group label {
     font-weight: normal;
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
     cursor: pointer;
 }
 
@@ -1495,15 +1511,14 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--color-primary-dark);
-    color: var(--color-surface);
+    background-color: var(--color-surface);
+    color: var(--color-text-light);
     padding: 1rem 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     z-index: 5000;
     max-width: 350px;
     text-align: center;
-    /* Neon Pink highlight for the success checkmark */
     border-left: 5px solid var(--color-accent-highlight);
 }
 
@@ -1535,7 +1550,7 @@
     margin: 0 auto;
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     border-top: 5px solid var(--color-status-success);
 }
 
@@ -1549,7 +1564,7 @@
 .success-title {
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--color-primary-dark);
+    color: var(--color-text-light);
     margin-bottom: 0.5rem;
 }
 
@@ -1565,14 +1580,14 @@
     padding: 2rem;
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark);
     border-left: 5px solid var(--color-primary-accent);
 }
 
 .support-form h2 {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--color-primary-accessible); /* Use accessible color for text */
+    color: var(--color-primary-accent);
     margin-top: 0;
     margin-bottom: 0.5rem;
     padding-bottom: 1rem;
@@ -1587,7 +1602,7 @@
 .support-form label {
     display: block;
     font-weight: 600;
-    color: var(--color-primary-dark);
+    color: var(--color-text-light);
     margin-bottom: 0.5rem;
 }
 
@@ -1598,10 +1613,10 @@
     padding: 0.75rem 1rem;
     border-radius: 8px;
     border: 1px solid var(--color-border);
-    background-color: var(--color-background);
-    color: var(--color-text-dark);
+    background-color: var(--color-background); /* Darker background for input fields */
+    color: var(--color-text-light);
     transition: all 0.2s ease;
-    box-sizing: border-box; /* Crucial for full width */
+    box-sizing: border-box; 
 }
 
 .support-form textarea {
@@ -1612,7 +1627,7 @@
 .support-form input:focus, .support-form textarea:focus {
     outline: none;
     border-color: var(--color-primary-accent);
-    box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.2);
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
 }
 
 .support-form button[type="submit"] {
@@ -1661,7 +1676,7 @@
         padding: 0.5rem 1rem;
         border-right: none;
         border-bottom: 1px solid var(--color-border);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
     
     .navbar-header {
@@ -1683,8 +1698,8 @@
     .nav-link {
         padding: 0.5rem 1rem;
         flex-basis: auto;
-        border-left: none; /* Remove left bar for horizontal menu */
-        border-bottom: 3px solid var(--color-primary-accent);
+        border-left: none;
+        border-bottom: 3px solid transparent; /* Base state to prevent shift */
     }
     
     .nav-link:hover, .nav-link.active {
@@ -1692,6 +1707,7 @@
         border-bottom: 3px solid var(--color-primary-accent);
         border-left: none;
         transform: none;
+        color: var(--color-primary-accent);
     }
 
     .content-area {
@@ -1741,6 +1757,7 @@
         background-color: var(--color-surface);
         padding: 1rem;
         border-left: 5px solid var(--color-primary-accent);
+        box-shadow: var(--shadow-dark);
     }
     .orders-table td {
         display: block;
@@ -1757,17 +1774,13 @@
         content: attr(data-label);
         float: left;
         font-weight: 600;
-        color: var(--color-primary-dark);
+        color: var(--color-primary-accent);
         margin-right: 1rem;
     }
 }
 
 
-
-
-
-
-
+/* DAILY PROGRESS (REVISED FOR DARK THEME) */
 
 .daily-progress-wrapper {
     margin-top: 25px;
@@ -1778,13 +1791,14 @@
     font-size: 18px;
     margin-bottom: 8px;
     font-weight: 600;
+    color: var(--color-text-light);
 }
 
 .daily-progress-bar {
     width: 80%;
     max-width: 400px;
     height: 12px;
-    background: #e0e0e0;
+    background: var(--color-border); /* Use border color as bar track */
     border-radius: 10px;
     margin: 0 auto;
     overflow: hidden;
@@ -1792,7 +1806,7 @@
 
 .daily-progress-fill {
     height: 100%;
-    /* REVISED: Uses on-brand Violet to Pink gradient */
+    /* Uses on-brand Lavender to Pink gradient */
     background: linear-gradient(90deg, var(--color-primary-accent), var(--color-accent-highlight)); 
     width: 0%;
     transition: width 0.7s ease-in-out;
@@ -1801,63 +1815,66 @@
 .daily-progress-text {
     margin-top: 8px;
     font-size: 14px;
-    font-weight: 500
+    font-weight: 500;
+    color: var(--color-text-muted);
 }
 
 
 
 /* --------------------------------------------------------------------------
-   PORTFOLIO STYLES (New Section)
-   -------------------------------------------------------------------------- */
+ PORTFOLIO STYLES (New Section)
+ -------------------------------------------------------------------------- */
 
 .portfolio-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
+    justify-content: center;
     padding: 2rem 0;
 }
 
-.project {
+.project, .project-card {
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-dark);
     border: 1px solid var(--color-border);
-    padding: 1.5rem;
+    overflow: hidden;
+    max-width: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.project:hover {
+.project:hover, .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 10px rgba(123, 31, 162, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow);
 }
 
-.project h2 {
+.project h2, .project-content h2 {
     font-size: 1.5rem;
-    color: var(--color-primary-accessible);
-    margin-top: 0;
-    margin-bottom: 0.75rem;
+    color: var(--color-primary-accent);
+    margin: 0 0 0.75rem 0;
     font-weight: 700;
 }
 
-.project img {
+.project-image img {
     width: 100%;
-    height: 200px; /* Fixed height for consistent grid display */
+    height: 200px;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 1rem;
     border: 1px solid var(--color-border);
 }
 
-.project p {
-    color: var(--color-text-dark);
+.project p, .project-content p {
+    color: var(--color-text-light);
     font-size: 1rem;
     line-height: 1.5;
-    flex-grow: 1; /* Pushes the button to the bottom */
+    flex-grow: 1;
+    margin-bottom: 1rem;
 }
 
-.project a {
+.project a, .project-content a {
     align-self: flex-start;
     margin-top: 1rem;
     padding: 0.6rem 1.5rem;
@@ -1873,7 +1890,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.project a:hover {
+.project a:hover, .project-content a:hover {
     background-color: var(--color-primary-dark);
 }
 
@@ -1882,102 +1899,16 @@
     font-size: 3rem;
     font-weight: 800;
     text-align: center;
-    color: var(--color-primary-dark);
+    color: var(--color-primary-accent);
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     border-bottom: 2px solid var(--color-border);
 }
 
 
+/* Styling for get now button, prebuilt store page */
 
-.portfolio-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-    padding: 2rem 0;
-}
-
-.project-card {
-    background-color: var(--color-surface);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
-    border: 1px solid var(--color-border);
-    overflow: hidden;
-    max-width: 350px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 10px rgba(123, 31, 162, 0.2);
-}
-
-.project-image img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.project-content {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.project-content h2 {
-    font-size: 1.5rem;
-    color: var(--color-primary-accessible);
-    margin: 0 0 0.5rem 0;
-    font-weight: 700;
-}
-
-.project-content p {
-    font-size: 1rem;
-    color: var(--color-text-dark);
-    flex-grow: 1; /* Pushes button to the bottom */
-    margin-bottom: 1rem;
-}
-
-.project-content a {
-    align-self: flex-start;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    border-radius: 50px;
-    padding: 0.6rem 1.5rem;
-    background: var(--color-primary-accent);
-    color: var(--color-surface);
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.project-content a:hover {
-    background-color: var(--color-primary-dark);
-}
-
-/* Page Header Styling */
-.content-container > h1:first-child {
-    font-size: 3rem;
-    font-weight: 800;
-    text-align: center;
-    color: var(--color-primary-dark);
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--color-border);
-}
-
-
-
-/* --------------------------------------------------------------------------
- styling for get now button, prebuilt store page
- -------------------------------------------------------------------------- */
-
-
- .project-order-btn {
+.project-order-btn {
     margin-top: 1rem;
     padding: 0.6rem 1.5rem;
     font-weight: 600;
