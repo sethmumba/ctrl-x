@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------
- GLOBAL STYLES & MUTED MIDNIGHT GRAY DARK THEME VARIABLES
+ GLOBAL STYLES & MUTED MIDNIGHT GRAY DARK THEME VARIABLES - GLOW ADDED
  -------------------------------------------------------------------------- */
 
 /* Define the color palette for a calm, professional dark theme (Midnight Gray & Lavender Accent) */
@@ -14,6 +14,7 @@
 
     /* Accent Colors - Lightened for Dark Background Accessibility */
     --color-primary-accent: #A78BFA; /* Primary Accent (Lavender Violet - Highly Visible) */
+    --color-primary-glow: #C9B2FF; /* NEW: Lighter, more intense glow source color */
     --color-primary-dark: #7B1FA2; /* Deep Violet (Used for deep shadows/less visible elements) */
     --color-accent-highlight: #E91E63; /* Neon Pink (High-impact highlight - UNCHANGED) */
     
@@ -28,10 +29,12 @@
 
     --font-family-luxury: 'Inter', sans-serif;
     --border-radius: 12px;
-    /* Dark Theme Shadow: Softer, more diffuse shadow with higher opacity */
-    --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.4); 
-    /* Consistent hover shadow with primary accent glow */
-    --shadow-hover-glow: 0 0 15px rgba(167, 139, 250, 0.4); 
+    
+    /* Enhanced Shadow Variables for Glow Theme */
+    --shadow-deep: 0 10px 40px rgba(0, 0, 0, 0.7); /* Deep, layered shadow for a 'floating' effect in darkness */
+    --shadow-inner-glow: inset 0 0 3px rgba(201, 178, 255, 0.2); /* Subtle inner glow for depth */
+    /* Intense, multi-layered glow using the primary accent */
+    --shadow-intense-glow: 0 0 5px var(--color-primary-glow), 0 0 15px var(--color-primary-accent), 0 0 30px rgba(167, 139, 250, 0.6);
 }
 
 /* Base Body Styles - Dark Background with Image Texture */
@@ -82,6 +85,23 @@ body::before {
     animation: kenBurns 40s infinite alternate ease-in-out; 
 }
 
+/* NEW: Subtle Radial Glow Aura for the entire page */
+body::after { 
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    /* Soft, centered glow using the primary accent */
+    background: radial-gradient(circle at 50% 50%, rgba(167, 139, 250, 0.04) 0%, transparent 60%);
+    opacity: 0.5;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+
 /* --------------------------------------------------------------------------
  LAYOUT: SIDEBAR NAVIGATION AND MAIN CONTENT
  -------------------------------------------------------------------------- */
@@ -100,7 +120,8 @@ body::before {
     height: 100%;
     background-color: var(--color-surface); /* Uses surface color */
     padding: 0 0 2rem 0;
-    box-shadow: var(--shadow-dark); 
+    /* ENHANCED: Subtle fixed glow on the sidebar */
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.15), var(--shadow-deep); 
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -119,7 +140,8 @@ body::before {
     color: var(--color-primary-accent); /* Brighter accent color */
     font-size: 1.1rem;
     font-weight: 900;
-    text-shadow: 0 0 5px rgba(167, 139, 250, 0.4); 
+    /* ENHANCED: Stronger text shadow for the logo */
+    text-shadow: 0 0 8px var(--color-primary-glow), 0 0 15px rgba(167, 139, 250, 0.8); 
     margin: 0;
 }
 
@@ -145,6 +167,8 @@ body::before {
     border-left: 5px solid var(--color-primary-accent); 
     color: var(--color-primary-accent); /* Use bright accent for active text */
     transform: translateX(5px);
+    /* NEW: Subtle inner glow on active/hover link */
+    box-shadow: inset 0 0 5px rgba(167, 139, 250, 0.2); 
 }
 
 /* Content Area - shifted to the right to clear the fixed sidebar */
@@ -166,7 +190,8 @@ body::before {
 .card {
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-dark); /* Dark theme shadow */
+    /* ENHANCED: Added inner glow for base state */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep); 
     border: 1px solid var(--color-border);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     cursor: pointer; /* Added cursor pointer for clickable cards */
@@ -174,7 +199,8 @@ body::before {
 /* General card hover/glow */
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow); 
+    /* ENHANCED: Used intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow); 
 }
 
 
@@ -217,7 +243,8 @@ body::before {
     letter-spacing: -0.05em;
     line-height: 1.1;
     margin-bottom: 1rem;
-    text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); /* Accent glow */
+    /* ENHANCED: Stronger text shadow for primary headline */
+    text-shadow: 0 0 10px var(--color-primary-glow), 0 0 20px var(--color-primary-accent); 
     color: var(--color-text-light);
 }
 
@@ -232,6 +259,8 @@ body::before {
 .highlight {
     color: var(--color-accent-highlight); /* Neon Pink highlight */
     font-weight: 900;
+    /* NEW: Subtle glow on the pink highlight */
+    text-shadow: 0 0 5px rgba(233, 30, 99, 0.5);
 }
 
 /* Hero Image: Transparent Effect */
@@ -242,8 +271,8 @@ body::before {
 .hero-image {
     max-width: 180px;
     height: auto;
-    /* Blend the logo with the background - using primary accent shadow */
-    filter: drop-shadow(0 0 15px rgba(167, 139, 250, 0.6));
+    /* ENHANCED: Boost the logo filter glow */
+    filter: drop-shadow(0 0 15px var(--color-primary-glow)) drop-shadow(0 0 30px rgba(167, 139, 250, 0.6));
     opacity: 0.9;
     transition: transform 0.6s ease;
 }
@@ -262,8 +291,9 @@ body::before {
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
     background-color: var(--color-surface);
+    /* ENHANCED: Card base glow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-dark);
 }
 
 .stat-item {
@@ -278,6 +308,8 @@ body::before {
     font-weight: 900;
     color: var(--color-accent-highlight); /* Neon Pink */
     line-height: 1;
+    /* NEW: Glow on the stat numbers */
+    text-shadow: 0 0 8px rgba(233, 30, 99, 0.8);
 }
 
 .stat-label {
@@ -302,7 +334,7 @@ body::before {
     font-weight: 700;
     font-size: 1.1rem;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Darker shadow */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Darker shadow */
     border: none;
     cursor: pointer;
 }
@@ -336,8 +368,8 @@ body::before {
 
 .btn-primary:hover {
     transform: translateY(-3px) scale(1.02);
-    /* Primary Accent glow */
-    box-shadow: 0 8px 25px rgba(167, 139, 250, 0.5); 
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-intense-glow); 
 }
 
 /* CTA PULSE ANIMATION (using Primary Accent glow) */
@@ -361,7 +393,7 @@ body::before {
     background-color: var(--color-primary-accent);
     color: var(--color-surface); 
     transform: translateY(-1px);
-    box-shadow: var(--shadow-dark);
+    box-shadow: var(--shadow-intense-glow); /* NEW: Added glow on secondary hover */
 }
 
 .btn-outline {
@@ -378,6 +410,7 @@ body::before {
 .btn-outline:hover {
     background-color: rgba(167, 139, 250, 0.1);
     border-color: var(--color-primary-accent);
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.3); /* NEW: Subtle glow on outline hover */
 }
 
 .btn-accent {
@@ -388,7 +421,8 @@ body::before {
     font-weight: 700;
     text-decoration: none;
     transition: background-color 0.3s ease;
-    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+    /* ENHANCED: Added deep pink glow to accent button */
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.8), 0 0 10px rgba(233, 30, 99, 0.5);
 }
 
 .btn-accent:hover {
@@ -407,6 +441,8 @@ body::before {
     margin-bottom: 3rem;
     padding-top: 1rem;
     color: var(--color-primary-accent);
+    /* ENHANCED: Glow on section titles */
+    text-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
 }
 
 .cards-horizontal {
@@ -420,11 +456,12 @@ body::before {
 .how-card, .feature-card {
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    padding: 1.5rem 2rem; 
-    min-width: 250px;
-    box-shadow: var(--shadow-dark); 
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep); 
     border-top: 3px solid var(--color-primary-accent);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 1.5rem 2rem; 
+    min-width: 250px;
 }
 
 .how-card {
@@ -437,7 +474,8 @@ body::before {
 
 .how-card:hover, .feature-card:hover {
     transform: translateY(-5px); /* Harmonized lift amount */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow); 
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow); 
 }
 
 .card-title, .feature-title {
@@ -463,8 +501,8 @@ body::before {
 .card-icon::before, .feature-icon::before {
     font-size: 2rem; 
     line-height: 1;
-    /* Primary Accent glow for the emoji */
-    text-shadow: 0 0 5px rgba(167, 139, 250, 0.3); 
+    /* ENHANCED: Stronger glow for the emoji */
+    text-shadow: 0 0 10px var(--color-primary-glow), 0 0 20px rgba(167, 139, 250, 0.5); 
 }
 
 /* How It Works Icons (Emojis unchanged) */
@@ -520,13 +558,16 @@ body::before {
 
 .testimonial-card:hover { /* Inheriting general card hover */
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow); 
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow); 
 }
 
 .star-rating {
     color: var(--color-status-warning); /* Gold color for stars */
     font-size: 1.25rem;
     margin-bottom: 1rem;
+    /* NEW: Subtle gold glow on stars */
+    text-shadow: 0 0 5px rgba(255, 195, 0, 0.6);
 }
 
 .testimonial-quote {
@@ -564,7 +605,8 @@ body::before {
     overflow: hidden;
     background-color: var(--color-surface); /* Ensures base item matches surface */
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-dark);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep); 
 }
 
 .faq-question {
@@ -577,7 +619,7 @@ body::before {
     padding: 1.2rem 1.5rem;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     display: block;
 }
 
@@ -586,9 +628,11 @@ body::before {
 }
 
 .faq-item.open .faq-question {
-    color: var(--color-primary-accent);
+    color: var(--color-primary-glow); /* Lighter glow color when open */
     background-color: rgba(167, 139, 250, 0.15); 
     border-bottom: 1px solid var(--color-border);
+    /* NEW: Subtle text glow when active */
+    text-shadow: 0 0 3px rgba(167, 139, 250, 0.4); 
 }
 
 .faq-answer {
@@ -626,7 +670,8 @@ body::before {
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
     padding: 3rem 2rem;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5); /* Deep shadow */
+    /* ENHANCED: Deep shadow and top border glow */
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 -5px 20px rgba(167, 139, 250, 0.3); 
     border-top: 5px solid var(--color-primary-accent);
     position: relative;
 }
@@ -637,8 +682,8 @@ body::before {
     font-weight: 900;
     text-align: right;
     margin-bottom: 2rem;
-    /* Primary Accent text shadow */
-    text-shadow: 0 0 5px rgba(167, 139, 250, 0.3); 
+    /* ENHANCED: Stronger text shadow for the logo */
+    text-shadow: 0 0 8px var(--color-primary-glow), 0 0 15px rgba(167, 139, 250, 0.8); 
 }
 
 .auth-title {
@@ -677,8 +722,9 @@ body::before {
 
 .auth-form input:focus {
     outline: none;
-    border-color: var(--color-primary-accent);
-    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+    border-color: var(--color-primary-glow);
+    /* ENHANCED: Intense glow on focus */
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3), 0 0 10px var(--color-primary-accent);
 }
 
 .auth-error {
@@ -728,6 +774,8 @@ body::before {
     margin-bottom: 0.5rem;
     border-left: 5px solid var(--color-primary-accent);
     padding-left: 1rem;
+    /* NEW: Subtle glow for the page title */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 .page-subtitle {
@@ -756,7 +804,8 @@ body::before {
 
 .kpi-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow);
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow);
 }
 
 .kpi-icon {
@@ -774,7 +823,8 @@ body::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     color: var(--color-surface); /* Surface color for icon text */
-    text-shadow: 0 0 5px var(--color-primary-accent);
+    /* NEW: Glow on the KPI icon emoji */
+    text-shadow: 0 0 5px var(--color-primary-glow);
 }
 
 .kpi-icon-total { background-color: var(--color-primary-accent); }
@@ -855,11 +905,14 @@ body::before {
     border-top: none; 
     transition: transform 0.2s ease;
     cursor: pointer;
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-dark); 
 }
 
 .order-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow);
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow);
 }
 
 .order-card-header {
@@ -905,25 +958,29 @@ body::before {
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Added box-shadow transition */
 }
 
-/* Status Colors */
+/* Status Colors - Added subtle glow to badges */
 .status-primary {
     background-color: var(--color-primary-accent);
     color: var(--color-surface);
+    box-shadow: 0 0 5px rgba(167, 139, 250, 0.6);
 }
 .status-success {
     background-color: var(--color-status-success);
     color: var(--color-surface);
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.6);
 }
 .status-warning {
     background-color: var(--color-status-warning);
-    color: var(--color-surface); /* Changed text to light for better contrast */
+    color: var(--color-surface); /* Changed text to dark for better contrast on bright yellow */
+    box-shadow: 0 0 5px rgba(255, 195, 0, 0.6);
 }
 .status-info {
     background-color: var(--color-status-info);
     color: var(--color-surface);
+    box-shadow: 0 0 5px rgba(0, 184, 217, 0.6);
 }
 .status-secondary {
     background-color: var(--color-status-secondary);
@@ -932,6 +989,7 @@ body::before {
 .status-accent {
     background-color: var(--color-accent-highlight);
     color: var(--color-surface);
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.6);
 }
 
 
@@ -951,6 +1009,8 @@ body::before {
 
 .details-link:hover {
     color: var(--color-accent-highlight);
+    /* NEW: Subtle glow on the link text */
+    text-shadow: 0 0 3px rgba(233, 30, 99, 0.4);
 }
 
 /* No Orders State */
@@ -960,7 +1020,8 @@ body::before {
     margin-top: 2rem;
     background-color: var(--color-surface); 
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-dark);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
     border: 2px dashed var(--color-border);
 }
 
@@ -1008,7 +1069,8 @@ body::before {
     padding: 2rem;
     border-radius: var(--border-radius);
     margin-bottom: 1.5rem;
-    box-shadow: var(--shadow-dark);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
 }
 
 .timeline-title {
@@ -1068,7 +1130,8 @@ body::before {
 .timeline-step.active .step-circle {
     background-color: var(--color-primary-accent);
     color: var(--color-surface);
-    box-shadow: 0 0 0 4px var(--color-surface), 0 0 15px var(--color-primary-accent);
+    /* NEW: Intense glow on the active step */
+    box-shadow: 0 0 0 4px var(--color-surface), var(--shadow-intense-glow);
 }
 
 .timeline-step.active .step-label {
@@ -1094,7 +1157,8 @@ body::before {
     padding: 2rem;
     background-color: var(--color-surface); 
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-dark);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
 }
 
 .details-card .card-title {
@@ -1145,6 +1209,8 @@ body::before {
     border: 1px solid var(--color-border);
     padding: 5px;
     border-radius: 6px;
+    /* NEW: Subtle glow for the logo image */
+    box-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
 }
 
 /* Handover/Status Card */
@@ -1154,6 +1220,8 @@ body::before {
     border: 1px solid var(--color-primary-accent);
     border-radius: 8px;
     background-color: rgba(167, 139, 250, 0.1); /* Light accent background */
+    /* NEW: Subtle glow for the assigned builder card */
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.2);
 }
 
 .builder-label {
@@ -1173,6 +1241,8 @@ body::before {
     background-color: var(--color-status-info);
     border-radius: 50%;
     margin-right: 10px;
+    /* NEW: Subtle glow on the avatar */
+    box-shadow: 0 0 5px var(--color-status-info);
 }
 
 .builder-name {
@@ -1187,6 +1257,8 @@ body::before {
     color: var(--color-surface);
     text-align: center;
     margin-bottom: 1.5rem;
+    /* NEW: Intense glow for completion notification */
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.7);
 }
 
 .completion-title {
@@ -1248,7 +1320,8 @@ body::before {
     background-color: var(--color-surface);
     padding: 2rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-dark);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
 }
 
 .current-status-card {
@@ -1258,7 +1331,8 @@ body::before {
     border-radius: 8px;
     background-color: var(--color-primary-dark);
     color: var(--color-surface);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    /* NEW: Intense glow on current status card */
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.7);
 }
 
 .current-status-card .status-label {
@@ -1272,6 +1346,8 @@ body::before {
     font-size: 1.75rem;
     font-weight: 800;
     color: var(--color-accent-highlight);
+    /* NEW: Glow on the status value text */
+    text-shadow: 0 0 5px var(--color-primary-glow);
 }
 
 .progress-form .form-select {
@@ -1323,6 +1399,8 @@ body::before {
     font-weight: 800;
     color: var(--color-accent-highlight);
     line-height: 1;
+    /* NEW: Glow on summary number */
+    text-shadow: 0 0 8px rgba(233, 30, 99, 0.6);
 }
 
 .orders-table {
@@ -1349,6 +1427,8 @@ body::before {
 .orders-table tbody tr:hover {
     background-color: rgba(167, 139, 250, 0.05); /* Very light accent hover */
     cursor: pointer;
+    /* NEW: Subtle inner glow on table row hover */
+    box-shadow: inset 0 0 5px rgba(167, 139, 250, 0.1);
 }
 
 .action-link {
@@ -1361,10 +1441,10 @@ body::before {
     text-decoration: underline;
 }
 
-/* Specific Badge Colors for Staff Table */
+/* Specific Badge Colors for Staff Table - inherited status-badge glow */
 .badge-assigned { background-color: var(--color-status-info); color: var(--color-surface); }
 .badge-branding { background-color: var(--color-primary-accent); color: var(--color-surface); }
-.badge-review { background-color: var(--color-status-warning); color: var(--color-surface); } /* Changed text color */
+.badge-review { background-color: var(--color-status-warning); color: var(--color-surface); } 
 .badge-completed { background-color: var(--color-status-success); color: var(--color-surface); }
 .badge-default { background-color: var(--color-text-muted); color: var(--color-surface); }
 
@@ -1394,6 +1474,8 @@ body::before {
     font-size: 2rem;
     color: var(--color-primary-accent);
     margin: 0 0 0.5rem 0;
+    /* NEW: Subtle glow on form title */
+    text-shadow: 0 0 5px rgba(167, 139, 250, 0.5);
 }
 
 .form-subtitle {
@@ -1447,14 +1529,15 @@ body::before {
 
 .form-input:focus, .form-select:focus {
     outline: none;
-    border-color: var(--color-primary-accent);
-    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+    border-color: var(--color-primary-glow);
+    /* ENHANCED: Intense glow on focus */
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3), 0 0 10px var(--color-primary-accent);
 }
 
 .form-select {
     appearance: none;
     /* Updated SVG fill to new primary accent color */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23A78BFA' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23A78BFA' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3Cpath fill='%23C9B2FF' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E"); /* Adjusted SVG to try and use the new glow color if possible (added a second path, though CSS only supports one path fill) */
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 1.25rem;
@@ -1520,6 +1603,8 @@ body::before {
     max-width: 350px;
     text-align: center;
     border-left: 5px solid var(--color-accent-highlight);
+    /* NEW: Subtle glow on the toast */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(233, 30, 99, 0.5);
 }
 
 
@@ -1559,6 +1644,8 @@ body::before {
     color: var(--color-status-success);
     margin-bottom: 1rem;
     display: block;
+    /* NEW: Glow on success icon */
+    text-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
 }
 
 .success-title {
@@ -1580,7 +1667,8 @@ body::before {
     padding: 2rem;
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-dark);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
     border-left: 5px solid var(--color-primary-accent);
 }
 
@@ -1619,15 +1707,11 @@ body::before {
     box-sizing: border-box; 
 }
 
-.support-form textarea {
-    resize: vertical;
-    min-height: 150px;
-}
-
 .support-form input:focus, .support-form textarea:focus {
     outline: none;
-    border-color: var(--color-primary-accent);
-    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+    border-color: var(--color-primary-glow);
+    /* ENHANCED: Intense glow on focus */
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3), 0 0 10px var(--color-primary-accent);
 }
 
 .support-form button[type="submit"] {
@@ -1643,11 +1727,13 @@ body::before {
     color: var(--color-surface);
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .support-form button[type="submit"]:hover {
     background-color: var(--color-primary-dark);
+    /* NEW: Glow on submit button hover */
+    box-shadow: var(--shadow-intense-glow);
 }
 
 
@@ -1708,6 +1794,7 @@ body::before {
         border-left: none;
         transform: none;
         color: var(--color-primary-accent);
+        box-shadow: none; /* Removed mobile inner glow as it was for desktop vertical nav */
     }
 
     .content-area {
@@ -1757,7 +1844,7 @@ body::before {
         background-color: var(--color-surface);
         padding: 1rem;
         border-left: 5px solid var(--color-primary-accent);
-        box-shadow: var(--shadow-dark);
+        box-shadow: var(--shadow-deep);
     }
     .orders-table td {
         display: block;
@@ -1802,6 +1889,8 @@ body::before {
     border-radius: 10px;
     margin: 0 auto;
     overflow: hidden;
+    /* NEW: Subtle glow around the progress bar */
+    box-shadow: 0 0 8px rgba(167, 139, 250, 0.3);
 }
 
 .daily-progress-fill {
@@ -1836,7 +1925,8 @@ body::before {
 .project, .project-card {
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-dark);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
     border: 1px solid var(--color-border);
     overflow: hidden;
     max-width: 350px;
@@ -1847,7 +1937,8 @@ body::before {
 
 .project:hover, .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), var(--shadow-hover-glow);
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow);
 }
 
 .project h2, .project-content h2 {
@@ -1887,7 +1978,7 @@ body::before {
     background: var(--color-primary-accent); 
     color: var(--color-surface);
     transition: background-color 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .project a:hover, .project-content a:hover {
@@ -1903,6 +1994,8 @@ body::before {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     border-bottom: 2px solid var(--color-border);
+    /* NEW: Subtle glow on main page header */
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
 }
 
 
@@ -1947,4 +2040,6 @@ body::before {
 /* Your SVG should stay centered and glowing */
 .svg-frame {
     scale: 0.9;
+    /* ENHANCED: Intense glow on the loading element */
+    filter: drop-shadow(0 0 10px var(--color-primary-glow)) drop-shadow(0 0 20px var(--color-primary-accent));
 }

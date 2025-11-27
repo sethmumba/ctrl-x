@@ -17,15 +17,6 @@ def create_store_order(request):
     return render(request, 'orders/create_order.html', context)
 
 
-# Check DNS / domain availability
-@login_required
-def check_domain_api(request):
-    store_name = request.GET.get("store_name", "")
-    if not store_name:
-        return JsonResponse({"available": False, "error": "No store name provided"})
-
-    available = shopify_subdomain_available(store_name)
-    return JsonResponse({"available": available})
 
 
 # PayPal payment completion + order creation

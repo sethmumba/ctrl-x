@@ -425,35 +425,45 @@
     }
 
     /**
-     * Simple dummy domain check function.
+     * domain check function.
      */
-    function checkDomain() {
+let debounceTimer;
+
+function checkDomain() {
+    clearTimeout(debounceTimer); // clear previous timer
+    debounceTimer = setTimeout(() => {
         let storeName = document.getElementById("store_name").value.trim();
         let el = document.getElementById("domain-status");
-        
+
         if (storeName.length < 3) {
-             el.innerHTML = "";
-             return;
+            el.innerHTML = "";
+            return;
         }
 
-        // Simulate API call delay
         el.innerHTML = "Checking availability...";
-        el.style.color = "var(--color-status-info)"; // Use the theme's info color
+        el.style.color = "var(--color-status-info)";
 
-        setTimeout(() => {
-            // Mock response logic (e.g., store is taken if it contains 'test')
-            const available = !storeName.toLowerCase().includes('test'); 
-            
-            if (available) {
-                el.innerHTML = "✓ Domain available!";
-                el.style.color = "var(--color-status-success)"; 
-            } else {
-                el.innerHTML = "✕ Already taken. Try another name.";
-                el.style.color = "var(--color-error)"; 
-            }
-        }, 800);
-    }
-    
+        fetch(`/order/check-domain-api/?store_name=${encodeURIComponent(storeName)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.available) {
+                    el.innerHTML = "✓ Domain available!";
+                    el.style.color = "var(--color-status-success)";
+                } else {
+                    el.innerHTML = "✕ Already taken. Try another name.";
+                    el.style.color = "var(--color-error)";
+                }
+            })
+            .catch(err => {
+                console.error("Error checking domain:", err);
+                el.innerHTML = "⚠ Cannot verify domain. You’ll be notified if unavailable.";
+                el.style.color = "orange";
+            });
+    }, 500); // wait 500ms after user stops typing
+}
+
+
+
     /**
      * Selects/Deselects all market checkboxes based on the 'Worldwide' box.
      */
