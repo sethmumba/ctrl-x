@@ -41,7 +41,7 @@
             </div>
         </div>
         
-        <!-- Create Order Button (styled as a KPI card) -->
+        <!-- Create Order Button -->
         <a href="{% url 'create-order' %}" class="kpi-card card create-order-card">
             <div class="kpi-icon kpi-icon-add"></div>
             <div class="kpi-card-content">
@@ -67,9 +67,18 @@
                             <span class="order-date">{{ order.created_at|date:"M j, Y" }}</span>
                         </div>
                         
-                        <!-- Body: Store Name and Status -->
+                        <!-- Body: Store Name, Status, Countdown -->
                         <div class="order-card-body">
                             <h3 class="order-store">{{ order.store_name }}</h3>
+
+                            <!-- COUNTDOWN TIMER -->
+                          <p class="countdown"
+                                data-created="{{ order.created_at|date:'Y-m-d H:i:s' }}"
+                                data-status="{{ order.progress }}"
+                                id="countdown-{{ order.id }}">
+                                </p>
+
+
                             <div class="order-status">
                                 {% if order.progress == 'paid' %}
                                     <span class="status-badge status-primary">Payment Received</span>
@@ -81,10 +90,11 @@
                                     <span class="status-badge status-success">Delivered</span>
                                 {% endif %}
                             </div>
+                            
                             <p class="order-description">Niche: {{ order.niche|default:"Not specified" }}</p>
                         </div>
                         
-                        <!-- Footer: View Details CTA -->
+                        <!-- Footer: CTA -->
                         <div class="order-card-footer">
                             <a href="{% url 'order-detail' order.id %}" class="details-link btn-outline">View Details →</a>
                         </div>
@@ -103,4 +113,50 @@
 
 </div>
 
+<!-- ============================= -->
+<!--      COUNTDOWN JS LOGIC       -->
+<!-- ============================= -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const countdownElements = document.querySelectorAll(".countdown");
+
+    countdownElements.forEach(el => {
+
+        const createdAt = new Date(el.dataset.created.replace(/-/g, '/'));
+        const status = el.dataset.status;   // order progress
+        const targetTime = createdAt.getTime() + 24 * 60 * 60 * 1000; // 24 hours
+
+        // ✅ If order is already completed, show positive message immediately
+        if (status === "completed") {
+            el.innerHTML = "🎉 Store Delivered — Thank You!";
+            el.style.color = "limegreen";
+            return; // STOP — do not start countdown
+        }
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const difference = targetTime - now;
+
+            // When timer finishes and store is NOT completed
+            if (difference <= 0) {
+                el.innerHTML = "⛔ Delivery overdue";
+                el.style.color = "red";
+                return;
+            }
+
+            const hours = Math.floor((difference / (1000 * 60 * 60)));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            el.innerHTML = `⏳ Time left: ${hours}h ${minutes}m ${seconds}s`;
+            el.style.color = "gold";
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    });
+
+});
+</script>
 {% endblock %}
