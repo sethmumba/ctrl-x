@@ -456,8 +456,8 @@ function checkDomain() {
             })
             .catch(err => {
                 console.error("Error checking domain:", err);
-                el.innerHTML = "⚠ Cannot verify domain. You’ll be notified if unavailable.";
-                el.style.color = "orange";
+                el.innerHTML = "⚠ If your store name is unavailable, we'll rename it automatically..";
+                el.style.color = "green";
             });
     }, 500); // wait 500ms after user stops typing
 }
