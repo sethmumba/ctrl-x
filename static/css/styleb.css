@@ -1,0 +1,2079 @@
+/* --------------------------------------------------------------------------
+ GLOBAL STYLES & BLACK & GOLD ROYAL PALETTE (BOLD & PREMIUM) THEME VARIABLES
+ -------------------------------------------------------------------------- */
+
+/* Define the color palette for a bold, Black and Gold Royal Theme */
+:root {
+    /* Black & Gold Royal Palette */
+    --color-background: #101010; /* Base Layer: Rich Black */
+    --color-surface: #0B0B0C; /* Cards/Containers: Matte Black - Slightly deeper for minimal elevation */
+    
+    --color-text-light: #EAEAEA; /* Main Text Color: Soft White - Clean, highly contrasting */
+    --color-text-muted: #808080; /* Muted Text/Subtitle: Medium Gray - Subtle sophistication */
+    --color-border: #2C2C2C; /* Subtle Borders/Dividers: Steel Grey - High contrast to the dark base */
+
+    /* Accent Colors - Highlighting with Pure Royal Gold */
+    --color-primary-accent: #FFD700; /* Primary Accent (Royal Gold) - Pure, bright gold */
+    --color-primary-glow: #FFD700; /* Glow Source: Matches Royal Gold for maximum intensity */
+    --color-primary-dark: #0B0B0C; /* Shadow Black (Matches Matte Black for seamless integration) */
+    --color-accent-highlight: #FFD700; /* Matches Primary Accent (Royal Gold) */
+    
+    --color-error: #FF4500; /* Orange-Red for errors (High visibility) */
+    
+    /* Semantic Colors for Statuses - Adapted to Theme */
+    --color-status-success: #00A651; /* Bold Green for success */
+    --color-status-warning: #FFC300; /* Bright Yellow/Gold */
+    --color-status-info: #00BFFF; /* Deep Sky Blue for info */
+    --color-status-secondary: #708090; /* Slate Grey for secondary */
+
+
+    --font-family-luxury: 'Inter', sans-serif;
+    --border-radius: 12px;
+    
+    /* Enhanced Shadow Variables for Luxury Glow Theme (RGBA values adjusted for ROYAL GOLD) */
+    --shadow-deep: 0 10px 40px rgba(0, 0, 0, 0.95); /* Deeper shadow */
+    --shadow-inner-glow: inset 0 0 5px rgba(255, 215, 0, 0.25); /* Subtle inner glow (Royal Gold) */
+    /* Intense, multi-layered glow using the primary accent (Royal Gold) */
+    --shadow-intense-glow: 0 0 10px var(--color-primary-glow), 0 0 30px var(--color-primary-accent), 0 0 60px rgba(255, 215, 0, 0.6);
+}
+
+/* Base Body Styles - Dark Background with Image Texture */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-luxury);
+    background-color: var(--color-background);
+    color: var(--color-text-light); 
+    margin: 0;
+    min-height: 100vh;
+    position: relative; 
+    z-index: 1; 
+    transition: background-color 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+ KEN BURNS ANIMATION KEYFRAMES
+ -------------------------------------------------------------------------- */
+@keyframes kenBurns {
+    from {
+        transform: scale(1.1) translate(-2%, 2%); 
+    }
+    to {
+        transform: scale(1.05) translate(2%, -2%); 
+    }
+}
+
+/* Pseudo-element for the low-opacity background image */
+body::before {
+    content: '';
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Image URL applied here */
+    background-image: url('https://res.cloudinary.com/djxeu9bfh/image/upload/v1751838537/samples/cup-on-a-table.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.03; /* **Extremely low opacity for the dark luxury feel** */
+    z-index: -1; 
+    
+    /* Apply Ken Burns Animation */
+    animation: kenBurns 40s infinite alternate ease-in-out; 
+}
+
+/* NEW: Subtle Radial Glow Aura for the entire page (Adjusted to Royal Gold) */
+body::after { 
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    /* Soft, centered glow using the primary accent */
+    background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 65%);
+    opacity: 0.7; /* **Increased aura visibility for dramatic effect** */
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+
+/* --------------------------------------------------------------------------
+ LAYOUT: SIDEBAR NAVIGATION AND MAIN CONTENT
+ -------------------------------------------------------------------------- */
+
+.main-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Left-Side Navigation Bar (Fixed) */
+.navbar {
+    width: 200px; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--color-surface); /* Uses Matte Black */
+    padding: 0 0 2rem 0;
+    /* ENHANCED: Fixed glow on the sidebar (Royal Gold) */
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), var(--shadow-deep); 
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-right: 1px solid var(--color-border);
+}
+
+.navbar-header {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 1rem;
+}
+
+.navbar .brand-logo {
+    color: var(--color-primary-accent); /* Royal Gold */
+    font-size: 1.2rem; 
+    font-weight: 900;
+    /* ENHANCED: Stronger text shadow for the logo (Royal Gold) */
+    text-shadow: 0 0 10px var(--color-primary-glow), 0 0 25px rgba(255, 215, 0, 0.9); 
+    margin: 0;
+}
+
+.user-greeting {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin: 0.5rem 0 0 0;
+}
+
+.nav-link {
+    color: var(--color-text-light); 
+    text-decoration: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-left: 5px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+    /* Light accent hover background: rgba(255, 215, 0, 0.1) */
+    background-color: rgba(255, 215, 0, 0.1); 
+    border-left: 5px solid var(--color-primary-accent); 
+    color: var(--color-primary-accent); /* Use Royal Gold for active text */
+    transform: translateX(5px);
+    /* NEW: Subtle inner glow on active/hover link (Royal Gold) */
+    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.3); 
+}
+
+/* Content Area - shifted to the right to clear the fixed sidebar */
+.content-area {
+    margin-left: 200px; 
+    flex-grow: 1;
+    padding: 0; 
+}
+
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem 1rem;
+}
+
+/* Common Card Style */
+.card {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    /* ENHANCED: Added inner glow for base state */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep); 
+    border: 1px solid var(--color-border);
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+    cursor: pointer; 
+}
+/* General card hover/glow */
+.card:hover {
+    transform: translateY(-8px); 
+    /* ENHANCED: Used intense glow on hover (Royal Gold) */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow); 
+}
+
+
+/* --------------------------------------------------------------------------
+ HERO SECTION (Luxury Typography & Animated CTA)
+ -------------------------------------------------------------------------- */
+
+.hero-section {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 1rem;
+    position: relative; 
+}
+
+/* Subtle, transparent background gradient overlay for depth (Dark focus) - Rich Black */
+.hero-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Radial gradient blending into the dark background color */
+    background: radial-gradient(circle at 50% 10%, rgba(16, 16, 16, 0.98), var(--color-background) 70%); 
+    opacity: 1;
+    z-index: 1;
+}
+
+.hero-container {
+    z-index: 5;
+    max-width: 800px;
+}
+
+.hero-headline {
+    font-size: 4rem; 
+    font-weight: 900;
+    letter-spacing: -0.06em; 
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    /* ENHANCED: Stronger text shadow for primary headline (Royal Gold) */
+    text-shadow: 0 0 15px var(--color-primary-glow), 0 0 30px var(--color-primary-accent); 
+    color: var(--color-text-light);
+}
+
+.hero-subheadline {
+    font-size: 1.5rem; 
+    font-weight: 300;
+    margin-bottom: 3rem;
+    opacity: 0.9; 
+    color: var(--color-text-muted);
+}
+
+.highlight {
+    color: var(--color-accent-highlight); /* Royal Gold highlight */
+    font-weight: 900;
+    /* NEW: Subtle glow on the highlight (Royal Gold) */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+/* Hero Image: Transparent Effect */
+.hero-image-container {
+    margin-bottom: 2.5rem;
+}
+
+.hero-image {
+    max-width: 200px; 
+    height: auto;
+    /* ENHANCED: Boost the logo filter glow (Royal Gold) */
+    filter: drop-shadow(0 0 25px var(--color-primary-glow)) drop-shadow(0 0 50px rgba(255, 215, 0, 0.8));
+    opacity: 1;
+    transition: transform 0.6s ease;
+}
+
+.hero-image:hover {
+    transform: scale(1.1);
+}
+
+/* Social Proof Bar */
+.hero-stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 4rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    /* ENHANCED: Card base glow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
+    border-radius: var(--border-radius);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.stat-value {
+    font-size: 2.2rem; 
+    font-weight: 900;
+    color: var(--color-accent-highlight); /* Royal Gold */
+    line-height: 1;
+    /* NEW: Glow on the stat numbers (Royal Gold) */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-primary-accent); /* Royal Gold for emphasis */
+    text-transform: uppercase;
+    letter-spacing: 0.1em; 
+    margin-top: 0.4rem;
+}
+
+
+/* --------------------------------------------------------------------------
+ CALL TO ACTION (CTA) BUTTON - COOL ANIMATION
+ -------------------------------------------------------------------------- */
+
+.btn {
+    display: inline-block;
+    padding: 1.1rem 3rem; 
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8); 
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--color-primary-accent); /* Royal Gold */
+    color: var(--color-surface); /* Matte Black text for contrast */
+    position: relative;
+    overflow: hidden;
+    z-index: 20;
+}
+
+/* CTA HOVER EFFECT: Gradient Shift and Glow (using Gold and Dark Shades) */
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 100%;
+    /* Gradient from Royal Gold to Matte Black */
+    background: linear-gradient(120deg, var(--color-primary-accent) 30%, var(--color-primary-dark) 50%, var(--color-primary-accent) 70%);
+    background-size: 200% 100%;
+    transition: background-position 0.5s ease;
+    z-index: -1;
+}
+
+.btn-primary:hover::before {
+    background-position: -100% 0; 
+}
+
+.btn-primary:hover {
+    transform: translateY(-5px) scale(1.03); 
+    /* ENHANCED: Use intense glow on hover (Royal Gold) */
+    box-shadow: var(--shadow-intense-glow); 
+}
+
+/* CTA PULSE ANIMATION (Adjusted to Royal Gold glow) */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); } 
+    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
+.hero-cta {
+    animation: pulseGlow 2.5s infinite;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--color-primary-accent);
+    color: var(--color-primary-accent);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary-accent);
+    color: var(--color-surface); 
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-intense-glow); /* NEW: Added glow on secondary hover */
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-primary-accent);
+    padding: 0.75rem 1.25rem; 
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 215, 0, 0.1); /* Light accent hover (Royal Gold) */
+    border-color: var(--color-primary-accent);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); 
+}
+
+.btn-accent {
+    background: var(--color-accent-highlight); /* Royal Gold */
+    color: var(--color-surface);
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    /* ENHANCED: Added deep black glow to accent button (Royal Gold) */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.9);
+}
+
+.btn-accent:hover {
+    background-color: #A67C00; /* Dark Gold */
+}
+
+
+/* --------------------------------------------------------------------------
+ SECTIONS AND CARDS (Home Page)
+ -------------------------------------------------------------------------- */
+
+.section-title {
+    font-size: 2.5rem; 
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 4rem; 
+    padding-top: 1rem;
+    color: var(--color-primary-accent);
+    /* ENHANCED: Glow on section titles (Royal Gold) */
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+.cards-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.how-card, .feature-card {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep); 
+    border-top: 5px solid var(--color-primary-accent); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 2rem; 
+    min-width: 250px;
+}
+
+.how-card {
+    width: calc(33.33% - 1.33rem); 
+}
+
+.feature-card {
+    width: calc(25% - 1.5rem);
+}
+
+.how-card:hover, .feature-card:hover {
+    transform: translateY(-8px); 
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow); 
+}
+
+.card-title, .feature-title {
+    font-size: 1.4rem; 
+    font-weight: 700;
+    color: var(--color-text-light); 
+    margin-top: 1rem;
+}
+
+/* Card Icons - Styling for Emojis */
+.card-icon, .feature-icon {
+    width: 60px; 
+    height: 60px;
+    background-color: transparent;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.card-icon::before, .feature-icon::before {
+    font-size: 2.5rem; 
+    line-height: 1;
+    /* ENHANCED: Stronger glow for the emoji (Royal Gold) */
+    text-shadow: 0 0 15px var(--color-primary-glow), 0 0 40px rgba(255, 215, 0, 0.8); 
+}
+
+/* How It Works Icons (Emojis unchanged) */
+.icon-1::before {
+    content: "💡"; 
+}
+.icon-2::before {
+    content: "📝"; 
+}
+.icon-3::before {
+    content: "🚀"; 
+}
+
+/* Key Features Icons (Emojis unchanged) */
+.icon-fast::before {
+    content: "⏱️"; 
+}
+.icon-affordable::before {
+    content: "💰"; 
+}
+.icon-professional::before {
+    content: "💎"; 
+}
+.icon-responsive::before {
+    content: "📱"; 
+}
+
+.learn-more-btn-wrapper {
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+ TESTIMONIALS SECTION
+ -------------------------------------------------------------------------- */
+
+.testimonials-section {
+    padding: 4rem 0;
+    background-color: var(--color-background);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.testimonial-card {
+    padding: 2.5rem;
+    border-top: 5px solid var(--color-accent-highlight); /* Royal Gold accent */
+}
+
+.testimonial-card:hover { /* Inheriting general card hover */
+    transform: translateY(-8px);
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow); 
+}
+
+.star-rating {
+    color: var(--color-status-warning); /* Gold color for stars */
+    font-size: 1.5rem; 
+    margin-bottom: 1rem;
+    /* NEW: Subtle gold glow on stars */
+    text-shadow: 0 0 10px rgba(255, 195, 0, 0.9);
+}
+
+.testimonial-quote {
+    font-size: 1.2rem; 
+    font-style: italic;
+    color: var(--color-text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    font-weight: 700;
+    color: var(--color-primary-accent);
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+ FAQ SECTION (ACCORDION)
+ -------------------------------------------------------------------------- */
+
+.faq-section {
+    padding: 4rem 0;
+}
+
+.faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.faq-item {
+    margin-bottom: 1.5rem; 
+    border-top: 5px solid var(--color-primary-accent);
+    padding: 0;
+    overflow: visible;
+    background-color: var(--color-surface); 
+    border-radius: var(--border-radius);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep); 
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    background-color: var(--color-surface); 
+    color: var(--color-text-light);
+    font-size: 1.2rem; 
+    font-weight: 600;
+    padding: 1.5rem 2rem; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: block;
+}
+
+.faq-question:hover {
+    background-color: rgba(255, 215, 0, 0.1); /* Light accent hover (Royal Gold) */
+}
+
+.faq-item.open .faq-question {
+    color: var(--color-primary-glow); 
+    background-color: rgba(255, 215, 0, 0.15); 
+    border-bottom: 1px solid var(--color-border);
+    /* NEW: Subtle text glow when active (Royal Gold) */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); 
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    padding: 0 2rem; /* keep horizontal padding only */
+}
+
+.faq-item.open .faq-answer {
+    padding: 1rem 2rem 2rem 2rem;
+    /* Background matches the open question */
+    background-color: rgba(255, 215, 0, 0.15);
+}
+
+
+/* --------------------------------------------------------------------------
+ AUTHENTICATION STYLES (Login/Signup)
+ -------------------------------------------------------------------------- */
+
+.auth-center-container {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 500px; 
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    padding: 4rem 3rem; 
+    /* ENHANCED: Deep shadow and top border glow (Royal Gold) */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 -5px 25px rgba(255, 215, 0, 0.7); 
+    border-top: 5px solid var(--color-primary-accent);
+    position: relative;
+}
+
+.brand-logo {
+    color: var(--color-primary-accent);
+    font-size: 2rem; 
+    font-weight: 900;
+    text-align: right;
+    margin-bottom: 2.5rem;
+    /* ENHANCED: Stronger text shadow for the logo (Royal Gold) */
+    text-shadow: 0 0 10px var(--color-primary-glow), 0 0 25px rgba(255, 215, 0, 0.9); 
+}
+
+.auth-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-text-light); 
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+/* Form Fields */
+.auth-input-box {
+    margin-bottom: 2rem;
+}
+
+.auth-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+    opacity: 1;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+    width: 100%;
+    padding: 0.9rem 1.25rem; 
+    background-color: var(--color-background); /* Rich Black */
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-light);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--color-primary-glow);
+    /* ENHANCED: Intense glow on focus (Royal Gold) */
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3), 0 0 15px var(--color-primary-accent);
+}
+
+.auth-error {
+    color: var(--color-error);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.auth-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.auth-forgot {
+    text-align: right;
+    margin-top: 1.5rem;
+}
+
+.auth-forgot-link {
+    color: var(--color-primary-accent);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.auth-forgot-link:hover {
+    opacity: 0.8;
+}
+
+/* --------------------------------------------------------------------------
+ DASHBOARD STYLES
+ -------------------------------------------------------------------------- */
+
+.dashboard-wrapper {
+    padding-top: 2rem;
+}
+
+.dashboard-header {
+    margin-bottom: 3.5rem;
+    padding: 0 1rem;
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-text-light);
+    margin-bottom: 0.5rem;
+    border-left: 5px solid var(--color-primary-accent);
+    padding-left: 1rem;
+    /* NEW: Subtle glow for the page title (Royal Gold) */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+
+/* KPI Cards Section */
+.kpi-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 2rem;
+    margin-bottom: 4rem;
+    padding: 0 1rem;
+}
+
+.kpi-card {
+    display: flex;
+    align-items: center;
+    padding: 2rem; 
+    border-top: none; 
+    border-bottom: 5px solid var(--color-primary-accent);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.kpi-card:hover {
+    transform: translateY(-8px);
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow);
+}
+
+.kpi-icon {
+    width: 50px; 
+    height: 50px;
+    margin-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 2rem; 
+}
+
+.kpi-icon::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--color-surface); /* Surface color for icon text */
+    /* NEW: Glow on the KPI icon emoji (Royal Gold) */
+    text-shadow: 0 0 10px var(--color-primary-glow);
+}
+
+.kpi-icon-total { background-color: var(--color-primary-accent); }
+.kpi-icon-total::before { content: "📊"; } 
+
+.kpi-icon-progress { background-color: var(--color-status-info); }
+.kpi-icon-progress::before { content: "🛠️"; } 
+
+.kpi-icon-delivered { background-color: var(--color-status-success); }
+.kpi-icon-delivered::before { content: "✅"; } 
+
+.kpi-icon-add { background-color: var(--color-accent-highlight); }
+.kpi-icon-add::before { content: "➕"; } 
+
+.kpi-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.kpi-value {
+    font-size: 2.5rem; 
+    font-weight: 700;
+    color: var(--color-text-light);
+    line-height: 1.1;
+    margin: 0;
+}
+
+/* CTA Card styling */
+.create-order-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    border-bottom: 5px solid var(--color-accent-highlight);
+    /* Uses subtle gradient for effect over the surface card (Royal Gold) */
+    background: linear-gradient(135deg, var(--color-surface), rgba(255, 215, 0, 0.05));
+}
+
+.kpi-title-cta {
+    color: var(--color-primary-accent);
+    font-weight: 700;
+}
+
+.create-order-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.05rem;
+    margin-top: 0.75rem;
+    box-shadow: none;
+    animation: none;
+    border-radius: 8px;
+}
+
+
+/* Orders List Section */
+.orders-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+.orders-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.order-card {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 8px solid var(--color-primary-accent);
+    border-top: none; 
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep); 
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow);
+}
+
+.order-card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--color-border);
+}
+
+.order-id {
+    font-weight: 700;
+    color: var(--color-primary-accent);
+}
+
+.order-date {
+    color: var(--color-text-muted);
+}
+
+.order-store {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-accent-highlight);
+    margin: 0 0 0.75rem 0;
+}
+
+.order-description {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+}
+
+.order-status {
+    margin-bottom: 1.5rem;
+}
+
+/* Consolidated Status/Badge Styles */
+.status-badge, .badge {
+    display: inline-block;
+    padding: 0.5rem 1rem; 
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease; 
+}
+
+/* Status Colors - Added subtle glow to badges (Royal Gold) */
+.status-primary {
+    background-color: var(--color-primary-accent);
+    color: var(--color-surface);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+.status-success {
+    background-color: var(--color-status-success);
+    color: var(--color-surface);
+    box-shadow: 0 0 10px rgba(0, 166, 81, 0.8); 
+}
+.status-warning {
+    background-color: var(--color-status-warning);
+    color: var(--color-surface); 
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.8);
+}
+.status-info {
+    background-color: var(--color-status-info);
+    color: var(--color-surface);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+}
+.status-secondary {
+    background-color: var(--color-status-secondary);
+    color: var(--color-surface);
+}
+.status-accent {
+    background-color: var(--color-accent-highlight);
+    color: var(--color-surface);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+
+.order-card-footer {
+    text-align: right;
+    margin-top: 1.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--color-border);
+}
+
+.details-link {
+    color: var(--color-primary-accent);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.details-link:hover {
+    color: var(--color-accent-highlight);
+    /* NEW: Subtle glow on the link text (Royal Gold) */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+}
+
+/* No Orders State */
+.no-orders-wrapper {
+    text-align: center;
+    padding: 5rem 3rem;
+    margin-top: 3rem;
+    background-color: var(--color-surface); 
+    border-radius: var(--border-radius);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
+    border: 3px dashed var(--color-border); 
+}
+
+/* --------------------------------------------------------------------------
+ ORDER DETAIL STYLES
+ -------------------------------------------------------------------------- */
+
+.order-page-wrapper {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* 1. Header Card */
+.order-header-card {
+    background-color: var(--color-surface); 
+    border-left: 10px solid var(--color-accent-highlight); /* Royal Gold accent */
+    border-radius: var(--border-radius);
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.order-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary-accent);
+    margin: 0 0 0.75rem 0;
+}
+
+.order-status {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+
+.order-status .status-accent {
+    font-weight: 700;
+    color: var(--color-accent-highlight);
+}
+
+/* 2. Progress Timeline Card */
+.timeline-card {
+    background-color: var(--color-surface); 
+    padding: 2.5rem; 
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
+}
+
+.timeline-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary-accent);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding: 1.5rem 0;
+}
+
+/* Timeline connecting line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px; 
+    background-color: var(--color-border);
+    width: 100%;
+    z-index: 1;
+}
+
+.timeline-step {
+    flex-basis: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+}
+
+.step-circle {
+    width: 35px; 
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--color-border);
+    color: var(--color-text-muted);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    border: 4px solid var(--color-surface); /* Surface border for contrast */
+    transition: all 0.4s ease;
+}
+
+.timeline-step.active .step-circle {
+    background-color: var(--color-primary-accent);
+    color: var(--color-surface);
+    /* NEW: Intense glow on the active step (Royal Gold) */
+    box-shadow: 0 0 0 6px var(--color-surface), var(--shadow-intense-glow);
+}
+
+.timeline-step.active .step-label {
+    color: var(--color-primary-accent);
+    font-weight: 700;
+}
+
+.step-label {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.3;
+}
+
+/* 3. Details Section (Two Columns) */
+.details-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.details-card {
+    padding: 2.5rem; 
+    background-color: var(--color-surface); 
+    border-radius: var(--border-radius);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
+}
+
+.details-card .card-title {
+    font-size: 1.5rem;
+    color: var(--color-primary-accent);
+    margin-top: 0;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--color-border); 
+    padding-bottom: 0.75rem;
+}
+
+/* Specifications List */
+.specifications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.specifications-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed var(--color-border);
+    font-size: 1.05rem;
+}
+
+.spec-label {
+    font-weight: 700;
+    color: var(--color-text-light);
+}
+
+.spec-value {
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+.order-logo {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed var(--color-border);
+}
+
+.logo-image {
+    max-width: 180px;
+    height: auto;
+    display: block;
+    margin-top: 1rem;
+    border: 2px solid var(--color-border);
+    padding: 8px;
+    border-radius: 8px;
+    /* NEW: Subtle glow for the logo image (Royal Gold) */
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+}
+
+/* Handover/Status Card */
+.assigned-builder {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 2px solid var(--color-primary-accent);
+    border-radius: 10px;
+    background-color: rgba(255, 215, 0, 0.1); /* Light accent background (Royal Gold) */
+    /* NEW: Subtle glow for the assigned builder card (Royal Gold) */
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
+}
+
+.builder-label {
+    font-weight: 700;
+    color: var(--color-primary-accent);
+    margin-bottom: 0.75rem;
+}
+
+.builder-info {
+    display: flex;
+    align-items: center;
+}
+
+.builder-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-status-info);
+    border-radius: 50%;
+    margin-right: 15px;
+    /* NEW: Subtle glow on the avatar */
+    box-shadow: 0 0 10px var(--color-status-info);
+}
+
+.builder-name {
+    font-weight: 700;
+    color: var(--color-text-light);
+}
+
+.completion-notification {
+    padding: 2rem;
+    background-color: var(--color-status-success);
+    border-radius: 10px;
+    color: var(--color-surface);
+    text-align: center;
+    margin-bottom: 2rem;
+    /* NEW: Intense glow for completion notification (Success Green) */
+    box-shadow: 0 0 30px rgba(0, 166, 81, 0.8);
+}
+
+.completion-title {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-weight: 800;
+}
+
+.completion-text {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.completion-notification .btn-accent {
+    background-color: var(--color-surface);
+    color: var(--color-status-success);
+    box-shadow: none;
+}
+.completion-notification .btn-accent:hover {
+    background-color: var(--color-border);
+}
+
+/* Notes Section */
+.notes-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed var(--color-border);
+}
+.notes-title {
+    font-size: 1.25rem;
+    color: var(--color-primary-accent);
+    margin-bottom: 0.75rem;
+}
+.notes-content {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+ STAFF ORDER DETAIL STYLES
+ -------------------------------------------------------------------------- */
+.staff-order-page .order-header-card {
+    border-left: 10px solid var(--color-primary-accent);
+}
+
+.staff-order-page .order-content-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.staff-order-page .order-specs-card {
+    padding: 2.5rem;
+    background-color: var(--color-surface);
+}
+
+.staff-order-page .order-action-panel {
+    background-color: var(--color-surface);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
+}
+
+.current-status-card {
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    background-color: var(--color-primary-dark);
+    color: var(--color-surface);
+    /* NEW: Intense glow on current status card (Royal Gold) */
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+}
+
+.current-status-card .status-label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.current-status-card .status-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--color-accent-highlight);
+    /* NEW: Glow on the status value text */
+    text-shadow: 0 0 10px var(--color-primary-glow);
+}
+
+.progress-form .form-select {
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.progress-form .full-width-btn {
+    width: 100%;
+}
+
+.staff-order-page .client-logo {
+    max-width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+ STAFF DASHBOARD STYLES (Tables)
+ -------------------------------------------------------------------------- */
+
+.staff-dashboard-page .dashboard-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-surface);
+    padding: 2rem 2.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2.5rem;
+    border-left: 8px solid var(--color-primary-accent);
+}
+
+.staff-dashboard-page .dashboard-title {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 800;
+}
+
+.summary-card {
+    text-align: right;
+}
+
+.summary-text {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.summary-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--color-accent-highlight);
+    line-height: 1;
+    /* NEW: Glow on summary number (Royal Gold) */
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+.orders-table thead th {
+    background-color: rgba(255, 215, 0, 0.1); /* Light Accent header (Royal Gold) */
+    color: var(--color-primary-accent);
+    font-weight: 800;
+    padding: 1.25rem;
+    text-align: left;
+    border-bottom: 3px solid var(--color-primary-accent);
+}
+
+.orders-table tbody td {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-light);
+}
+
+.orders-table tbody tr:hover {
+    background-color: rgba(255, 215, 0, 0.05); /* Very light accent hover (Royal Gold) */
+    cursor: pointer;
+    /* NEW: Subtle inner glow on table row hover */
+    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.action-link {
+    color: var(--color-primary-accent);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+/* Specific Badge Colors for Staff Table - inherited status-badge glow */
+.badge-assigned { background-color: var(--color-status-info); color: var(--color-surface); }
+.badge-branding { background-color: var(--color-primary-accent); color: var(--color-surface); }
+.badge-review { background-color: var(--color-status-warning); color: var(--color-surface); } 
+.badge-completed { background-color: var(--color-status-success); color: var(--color-surface); }
+.badge-default { background-color: var(--color-text-muted); color: var(--color-surface); }
+
+.no-orders-text {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+ CREATE ORDER FORM STYLES
+ -------------------------------------------------------------------------- */
+
+.order-form-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+}
+
+.form-header-card {
+    padding: 2.5rem;
+    border-left: 10px solid var(--color-primary-accent);
+    margin-bottom: 2.5rem;
+}
+
+.form-title {
+    font-size: 2.5rem;
+    color: var(--color-primary-accent);
+    margin: 0 0 0.75rem 0;
+    /* NEW: Subtle glow on form title (Royal Gold) */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.form-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+}
+
+.step-cards-container {
+    position: relative;
+}
+
+.step-card {
+    padding: 3rem;
+    margin-bottom: 2rem;
+}
+
+.step-card.hidden {
+    display: none;
+}
+
+.step-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary-accent);
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.75rem;
+}
+
+.form-field {
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: 0.75rem;
+}
+
+.form-input, .form-select {
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background); /* Rich Black */
+    color: var(--color-text-light);
+    transition: all 0.2s ease;
+}
+
+.form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--color-primary-glow);
+    /* ENHANCED: Intense glow on focus (Royal Gold) */
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3), 0 0 15px var(--color-primary-accent);
+}
+
+.form-select {
+    appearance: none;
+    /* Updated SVG fill to new primary accent color (#FFD700) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23FFD700' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3Cpath fill='%23FFD700' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E"); 
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.25rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    gap: 1.5rem;
+}
+
+.form-actions .btn {
+    min-width: 180px;
+}
+
+.form-field .full-width {
+    grid-column: 1 / -1;
+}
+
+.domain-status {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 0.75rem 0;
+}
+
+.checkbox-group label {
+    font-weight: normal;
+    color: var(--color-text-light);
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+    accent-color: var(--color-primary-accent);
+}
+
+/* Toast Notification (Royal Gold) */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--color-surface);
+    color: var(--color-text-light);
+    padding: 1.25rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+    z-index: 5000;
+    max-width: 400px;
+    text-align: center;
+    border-left: 5px solid var(--color-accent-highlight);
+    /* NEW: Subtle glow on the toast (Royal Gold) */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.7);
+}
+
+
+/* --------------------------------------------------------------------------
+ FOOTER
+ -------------------------------------------------------------------------- */
+
+.footer {
+    padding: 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+    margin-top: 3rem;
+    font-size: 1rem;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.footer-links {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-link {
+    color: var(--color-primary-accent); /* Royal Gold for links */
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--color-text-light); /* Soft White on hover */
+    text-decoration: underline;
+}
+
+.link-separator {
+    color: var(--color-text-muted); /* Steel Grey separator */
+    font-size: 1rem;
+}
+
+.footer-text {
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+ NEW: SUPPORT AND SUCCESS PAGE STYLES
+ -------------------------------------------------------------------------- */
+
+.confirmation-wrapper {
+    text-align: center;
+    padding: 7rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    border-top: 8px solid var(--color-status-success);
+}
+
+.success-icon {
+    font-size: 6rem;
+    color: var(--color-status-success);
+    margin-bottom: 1.5rem;
+    display: block;
+    /* NEW: Glow on success icon (Success Green) */
+    text-shadow: 0 0 25px rgba(0, 166, 81, 0.9);
+}
+
+.success-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-text-light);
+    margin-bottom: 0.75rem;
+}
+
+.success-subtitle {
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+}
+
+.support-page-wrapper {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 3rem;
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
+    border-left: 8px solid var(--color-primary-accent);
+}
+
+.support-form h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-primary-accent);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-border);
+}
+
+/* Django form rendering adjustments (p tags) */
+.support-form p {
+    margin-bottom: 2rem;
+}
+
+.support-form label {
+    display: block;
+    font-weight: 700;
+    color: var(--color-text-light);
+    margin-bottom: 0.75rem;
+}
+
+.support-form input[type="text"],
+.support-form input[type="email"],
+.support-form textarea {
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background); /* Rich Black */
+    color: var(--color-text-light);
+    transition: all 0.2s ease;
+    box-sizing: border-box; 
+}
+
+.support-form input:focus, .support-form textarea:focus {
+    outline: none;
+    border-color: var(--color-primary-glow);
+    /* ENHANCED: Intense glow on focus */
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3), 0 0 15px var(--color-primary-accent);
+}
+
+.support-form button[type="submit"] {
+    /* Uses primary button styling for consistency */
+    display: block;
+    width: 100%;
+    padding: 1.25rem 3rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.2rem;
+    background: var(--color-primary-accent);
+    color: var(--color-surface);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.support-form button[type="submit"]:hover {
+    background-color: var(--color-primary-dark);
+    /* NEW: Glow on submit button hover */
+    box-shadow: var(--shadow-intense-glow);
+}
+
+
+/* --------------------------------------------------------------------------
+ RESPONSIVE LAYOUT ADJUSTMENTS
+ -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+    .hero-headline {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile Layout: Stack Sidebar into Horizontal Navbar */
+    .main-layout {
+        flex-direction: column;
+    }
+
+    .navbar {
+        width: 100%;
+        position: static;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0.75rem 1rem;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .navbar-header {
+        width: 100%;
+        padding: 0.5rem 0;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+    .navbar .brand-logo {
+        text-align: left;
+    }
+    
+    .user-greeting {
+        text-align: left;
+        padding-bottom: 0.5rem;
+    }
+
+
+    .nav-link {
+        padding: 0.75rem 1rem;
+        flex-basis: auto;
+        border-left: none;
+        border-bottom: 3px solid transparent; 
+    }
+    
+    .nav-link:hover, .nav-link.active {
+        background-color: transparent;
+        border-bottom: 3px solid var(--color-primary-accent);
+        border-left: none;
+        transform: none;
+        color: var(--color-primary-accent);
+        box-shadow: none; 
+    }
+
+    .content-area {
+        margin-left: 0;
+    }
+
+    /* Home Page Adjustments */
+    .hero-headline {
+        font-size: 3rem;
+    }
+    
+    .hero-stats-bar {
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    .how-card, .feature-card {
+        width: 100%;
+    }
+
+    .kpi-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Order Detail Adjustments */
+    .details-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .staff-order-page .order-content-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* Table adjustments for mobile */
+    .orders-table {
+        border: 0;
+    }
+    .orders-table thead {
+        display: none;
+    }
+    .orders-table tr {
+        display: block;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+        background-color: var(--color-surface);
+        padding: 1.5rem;
+        border-left: 8px solid var(--color-primary-accent);
+        box-shadow: var(--shadow-deep);
+    }
+    .orders-table td {
+        display: block;
+        text-align: right;
+        border-bottom: 1px dashed var(--color-border);
+        padding: 0.75rem 0;
+    }
+    .orders-table td:last-child {
+        border-bottom: 0;
+        text-align: center;
+        padding-top: 1.5rem;
+    }
+    .orders-table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: 700;
+        color: var(--color-primary-accent);
+        margin-right: 1.5rem;
+    }
+}
+
+
+/* DAILY PROGRESS (REVISED FOR DARK THEME) */
+
+.daily-progress-wrapper {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.daily-progress-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: var(--color-text-light);
+}
+
+.daily-progress-bar {
+    width: 90%;
+    max-width: 450px;
+    height: 15px; 
+    background: var(--color-border); 
+    border-radius: 12px;
+    margin: 0 auto;
+    overflow: hidden;
+    /* NEW: Subtle glow around the progress bar (Royal Gold) */
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+}
+
+.daily-progress-fill {
+    height: 100%;
+    /* Uses on-brand Royal Gold to a slightly darker shade gradient */
+    background: linear-gradient(90deg, var(--color-primary-accent), #A67C00); 
+    width: 0%;
+    transition: width 0.7s ease-in-out;
+}
+
+.daily-progress-text {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+
+
+/* --------------------------------------------------------------------------
+ PORTFOLIO STYLES (New Section)
+ -------------------------------------------------------------------------- */
+
+.portfolio-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+.project, .project-card {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    /* ENHANCED: Base card shadow */
+    box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    max-width: 380px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.project:hover, .project-card:hover {
+    transform: translateY(-8px);
+    /* ENHANCED: Use intense glow on hover */
+    box-shadow: var(--shadow-deep), var(--shadow-intense-glow);
+}
+
+.project h2, .project-content h2 {
+    font-size: 1.8rem;
+    color: var(--color-primary-accent);
+    margin: 0 0 1rem 0;
+    font-weight: 800;
+}
+
+.project-image img {
+    width: 100%;
+    height: 220px; 
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--color-border);
+}
+
+.project-content { 
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.project p, .project-content p {
+    color: var(--color-text-light);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+.project a, .project-content a {
+    align-self: flex-start;
+    margin-top: 1rem;
+    padding: 0.8rem 1.8rem;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 50px;
+    
+    /* Use primary button styling for project links */
+    background: var(--color-primary-accent); 
+    color: var(--color-surface);
+    transition: background-color 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.project a:hover, .project-content a:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* Page Header Styling for the template */
+.content-container > h1:first-child {
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-align: center;
+    color: var(--color-primary-accent);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid var(--color-border);
+    /* NEW: Subtle glow on main page header (Royal Gold) */
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+}
+
+
+/* Styling for get now button, prebuilt store page */
+
+.project-order-btn {
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.8rem;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 50px;
+    background-color: var(--color-primary-accent);
+    color: var(--color-surface);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.project-order-btn:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* --------------------------------------------------------------------------
+ loading animation styles
+ -------------------------------------------------------------------------- */
+
+ #loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95); 
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Your SVG should stay centered and glowing */
+.svg-frame {
+    scale: 1; 
+    /* ENHANCED: Intense glow on the loading element (Royal Gold) */
+    filter: drop-shadow(0 0 20px var(--color-primary-glow)) drop-shadow(0 0 40px var(--color-primary-accent));
+}
