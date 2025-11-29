@@ -602,7 +602,7 @@ body::after {
     margin-bottom: 1.5rem; 
     border-top: 5px solid var(--color-primary-accent);
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
     background-color: var(--color-surface); 
     border-radius: var(--border-radius);
     /* ENHANCED: Base card shadow */
@@ -636,13 +636,12 @@ body::after {
 }
 
 .faq-answer {
-    padding: 0 2rem;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    transition: max-height 0.4s ease, padding 0.3s ease;
     color: var(--color-text-muted);
     line-height: 1.6;
-    padding-bottom: 0;
+    padding: 0 2rem; /* keep horizontal padding only */
 }
 
 .faq-item.open .faq-answer {

@@ -261,24 +261,52 @@
 
 <script>
     // Simple script to handle the FAQ accordion
-    function toggleAnswer(button) {
-        const answer = button.nextElementSibling;
-        const parentItem = button.closest('.faq-item');
-        
-        if (answer.style.maxHeight) {
-            answer.style.maxHeight = null;
-            parentItem.classList.remove('open');
-        } else {
-            // Close other open answers
-            document.querySelectorAll('.faq-item.open').forEach(item => {
-                item.classList.remove('open');
-                item.querySelector('.faq-answer').style.maxHeight = null;
-            });
+function toggleAnswer(button) {
+    const answer = button.nextElementSibling;
+    const parentItem = button.closest('.faq-item');
 
-            answer.style.maxHeight = answer.scrollHeight + "px";
-            parentItem.classList.add('open');
-        }
+    if (!answer || !parentItem) return;
+
+    if (parentItem.classList.contains('open')) {
+        // CLOSE
+        // Explicitly set max-height to 0 to trigger the CSS transition
+        answer.style.maxHeight = "0px";
+        parentItem.classList.remove('open');
+    } else {
+        // CLOSE all others first (exclusive accordion)
+        document.querySelectorAll('.faq-item.open').forEach(item => {
+            item.classList.remove('open');
+            const otherAnswer = item.querySelector('.faq-answer');
+            if (otherAnswer) {
+                otherAnswer.style.maxHeight = "0px";
+            }
+        });
+
+        // OPEN current
+        
+        // 1. Temporarily remove max-height to measure the true height
+        answer.style.maxHeight = "none";
+        
+        // 2. Get the real height of the content
+        const contentHeight = answer.scrollHeight; 
+        
+        // 3. FIX: Add a generous buffer (e.g., 100px) to account for the
+        // padding (1rem + 2rem = approx 48px) added by the CSS .open state.
+        const buffer = 100;
+        const finalHeight = contentHeight + buffer; 
+
+        // 4. Re-collapse to 0, then immediately start the transition
+        answer.style.maxHeight = "0px";
+        
+        setTimeout(() => {
+            // Set max-height to the calculated height + buffer
+            answer.style.maxHeight = finalHeight + "px"; 
+        }, 10);
+
+        parentItem.classList.add('open');
     }
+}
+
 
 function updateDailyOrders() {
     fetch('/order/daily-order-status-json/')
