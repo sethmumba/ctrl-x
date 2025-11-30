@@ -46,15 +46,10 @@ def update_order_progress(request, order_id):
                 message = f"""Hi {order.user.username},\n\nYour dropshipping store '{order.store_name}' is now complete! 🎉\n\nFollow the steps to take ownership of your Shopify store..."""
 
             try:
-                send_mail(
-                    subject=subject,
-                    message=message,
-                    from_email='support@empxautomations.site',  # must be verified in SendGrid
-                    recipient_list=[order.user.email],
-                    fail_silently=False,  # will show errors if it fails
-                )
+                from staff.views import send_email_via_sendgrid
+                send_email_via_sendgrid(subject, message, order.user.email)
             except Exception as e:
-                print("Email failed:", e)
+                print("SendGrid email failed:", e)
 
     return redirect('staff-order-detail', order_id=order_id)
 
