@@ -22,7 +22,7 @@ def create_store_order(request):
 
 # PayPal payment completion + order creation
 
-
+@login_required
 @csrf_exempt
 def paypal_complete(request):
     if request.method != "POST":
