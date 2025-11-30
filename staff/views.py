@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from orders.models import Order, PROGRESS_STEPS
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.mail import send_mail
+from django.conf import settings
 
 def staff_required(user):
     return user.is_staff
@@ -67,5 +68,11 @@ Thank you for choosing us!
                 recipient_list=[order.user.email],
                 fail_silently=True,
             )
+        print("EMAIL_HOST:", settings.EMAIL_HOST)
+        print("EMAIL_HOST_USER:", settings.EMAIL_HOST_USER)
+        print("EMAIL_HOST_PASSWORD:", settings.EMAIL_HOST_PASSWORD)
+
 
     return redirect('staff-order-detail', order_id=order_id)
+        
+
