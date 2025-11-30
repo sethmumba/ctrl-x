@@ -103,3 +103,13 @@ def daily_order_status(request):
         "remaining": remaining,
         "limit_reached": remaining == 0
     })
+
+
+
+#policies
+def privacy_policy(request):
+    return render(request, 'orders/privacy_policy.html')
+def terms_of_service(request):
+    return render(request, 'orders/terms.html')
+def refund_policy(request):
+    return render(request, 'orders/refund_policy.html')
