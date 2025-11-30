@@ -532,9 +532,6 @@ function checkDomain() {
         }
     }).render('#paypal-button-container');
 
-    fetch("/order/paypal-complete/").then(r => console.log(r.status));
-
-
 //check limit
 document.addEventListener('DOMContentLoaded', () => {
     checkDailyLimit();
