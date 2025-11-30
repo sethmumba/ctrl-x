@@ -63,7 +63,7 @@ def paypal_complete(request):
 
     try:
         order = Order.objects.create(
-            user_id=form_data["user_id"],    # <-- your JS must send this
+            user=request.user,    # <-- your JS must send this
             is_paid=True,
             paypal_order_id=paypal_order_id,
             store_name=form_data["store_name"],
