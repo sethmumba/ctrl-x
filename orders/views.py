@@ -6,6 +6,7 @@ from .utils.dns_check import shopify_subdomain_available
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import json
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 
@@ -20,13 +21,13 @@ def create_store_order(request):
 
 
 # PayPal payment completion + order creation
+
+
 @csrf_exempt
-@login_required
 def paypal_complete(request):
     if request.method != "POST":
         return JsonResponse({"status": "invalid_method"}, status=400)
 
-    # Parse JSON
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
@@ -35,53 +36,40 @@ def paypal_complete(request):
     paypal_order_id = data.get("paypal_order_id")
     form_data = data.get("form_data")
 
-    # Missing PayPal ID
     if not paypal_order_id:
         return JsonResponse({"status": "missing_paypal_id"}, status=400)
 
-    # Missing form data entire block
     if not form_data:
         return JsonResponse({"status": "missing_form_data"}, status=400)
 
-    # Validate required fields
     required_fields = ["store_name", "niche", "supplier", "theme"]
 
     for field in required_fields:
         if field not in form_data or not form_data[field]:
             return JsonResponse({
                 "status": "missing_field",
-                "error": f"{field} is required but missing"
+                "error": f"{field} is required"
             }, status=400)
 
-    # -------------------
-    # DAILY ORDER LIMIT CHECK
-    # -------------------
-    from django.utils import timezone
+    # DAILY LIMIT
     today = timezone.now().date()
     orders_today = Order.objects.filter(created_at__date=today).count()
 
     if orders_today >= 6:
         return JsonResponse({
             "status": "daily_limit_reached",
-            "message": "Sorry, only 6 store orders can be placed per day. Please try again tomorrow."
+            "message": "Only 6 orders per day allowed."
         }, status=400)
 
-    # -------------------
-    # Create order safely
-    # -------------------
     try:
         order = Order.objects.create(
-            user=request.user,
+            user_id=form_data["user_id"],    # <-- your JS must send this
             is_paid=True,
             paypal_order_id=paypal_order_id,
-
-            # Required fields (validated above)
             store_name=form_data["store_name"],
             niche=form_data["niche"],
             supplier=form_data["supplier"],
             theme=form_data["theme"],
-
-            # Optional fields
             full_name=form_data.get("full_name", ""),
             country=form_data.get("country", ""),
             phone=form_data.get("phone", ""),
@@ -89,7 +77,6 @@ def paypal_complete(request):
             markets=form_data.get("markets", []),
         )
 
-        # Optional logo
         logo_filename = form_data.get("logo_filename")
         if logo_filename:
             order.logo = logo_filename
@@ -99,10 +86,8 @@ def paypal_complete(request):
 
     except Exception as e:
         print("ORDER CREATION ERROR:", e)
-        return JsonResponse({
-            "status": "error",
-            "detail": str(e)
-        }, status=500)
+        return JsonResponse({"status": "error", "detail": str(e)}, status=500)
+
 
 
 

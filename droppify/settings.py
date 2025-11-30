@@ -172,8 +172,7 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 
 # settings.py
-PAYPAL_CLIENT_ID = "AW2-9_YuGY99d0RbqNuDfM899SjY-vpKKN1XjpnV0QaZdLDwdodgTN891OISLlx50qkBdrGKx6CtYmU4"
-
+PAYPAL_CLIENT_ID = os.getenv("PAYPAL_CLIENT_ID")``
 
 
 MEDIA_URL = '/media/'
