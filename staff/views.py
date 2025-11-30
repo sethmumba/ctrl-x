@@ -28,12 +28,6 @@ def staff_order_detail(request, order_id):
 @login_required
 @user_passes_test(staff_required)
 def update_order_progress(request, order_id):
-
-    from django.conf import settings
-    print("EMAIL_HOST:", settings.EMAIL_HOST)
-    print("EMAIL_HOST_USER:", settings.EMAIL_HOST_USER)
-    print("EMAIL_HOST_PASSWORD:", settings.EMAIL_HOST_PASSWORD)
-
     if request.method == 'POST':
         order = get_object_or_404(Order, id=order_id, assigned_staff=request.user)
         new_progress = request.POST.get('progress')
@@ -47,14 +41,17 @@ def update_order_progress(request, order_id):
             if new_progress != 'completed':
                 message = f"Hi {order.user.username},\n\nYour store '{order.store_name}' status has been updated to: {new_progress}"
             else:
-                message = f"""..."""
+                message = f"""Hi {order.user.username},\n\nYour dropshipping store '{order.store_name}' is now complete! 🎉\n\nFollow the steps to take ownership of your Shopify store..."""
 
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=None,
-                recipient_list=[order.user.email],
-                fail_silently=True,
-            )
+            try:
+                send_mail(
+                    subject=subject,
+                    message=message,
+                    from_email='support@empxautomations.site',  # must be verified in SendGrid
+                    recipient_list=[order.user.email],
+                    fail_silently=False,  # will show errors if it fails
+                )
+            except Exception as e:
+                print("Email failed:", e)
 
     return redirect('staff-order-detail', order_id=order_id)
