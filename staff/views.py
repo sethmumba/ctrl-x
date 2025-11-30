@@ -3,7 +3,9 @@ from orders.models import Order, PROGRESS_STEPS
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.mail import send_mail
 from django.conf import settings
-
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 def staff_required(user):
     return user.is_staff
 
@@ -55,3 +57,15 @@ def update_order_progress(request, order_id):
                 print("Email failed:", e)
 
     return redirect('staff-order-detail', order_id=order_id)
+
+
+def send_email_via_sendgrid(subject, message, to_email):
+    msg = Mail(
+        from_email='support@empxautomations.site',
+        to_emails=to_email,
+        subject=subject,
+        plain_text_content=message
+    )
+    sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+    response = sg.send(msg)
+    return response.status_code
