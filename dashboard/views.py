@@ -1,7 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from orders.models import Order
 from orders.models import Order, PROGRESS_STEPS
+from .forms import SupportForm
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @login_required
@@ -20,13 +26,8 @@ def dashboard_home(request):
 
 @login_required
 def order_detail(request, order_id):
-    # Fetch the order for this user
     order = get_object_or_404(Order, id=order_id, user=request.user)
-
-    # Human-readable status
     human_status = dict(PROGRESS_STEPS).get(order.progress, "")
-
-    # Determine index of current progress
     step_keys = [step[0] for step in PROGRESS_STEPS]
     try:
         order_progress_index = step_keys.index(order.progress)
@@ -41,12 +42,29 @@ def order_detail(request, order_id):
     })
 
 
+# -------------------------------
+# SendGrid Email Helper
+# -------------------------------
+def send_email_via_sendgrid(subject, message, to_email):
+    msg = Mail(
+        from_email='support@empxautomations.site',
+        to_emails=to_email,
+        subject=subject,
+        plain_text_content=message
+    )
+    try:
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(msg)
+        logger.info(f"SendGrid Email Sent: {response.status_code}")
+        return response.status_code
+    except Exception as e:
+        logger.error(f"SendGrid Error: {e}")
+        return None
 
 
-from django.core.mail import send_mail
-from django.shortcuts import render
-from .forms import SupportForm
-
+# -------------------------------
+# Support View (Updated to SendGrid)
+# -------------------------------
 def support(request):
     if request.method == "POST":
         form = SupportForm(request.POST)
@@ -64,15 +82,10 @@ Message:
 {message}
 """
 
-            send_mail(
-                subject,
-                final_message,
-                "empxautomations@gmail.com",      # your sending address
-                ["empxautomations@gmail.com"],    # where YOU receive support requests
-            )
+            # Send support email via SendGrid
+            send_email_via_sendgrid(subject, final_message, "empxautomations@gmail.com")
 
             return render(request, "dashboard/success.html")
-
     else:
         form = SupportForm()
 
