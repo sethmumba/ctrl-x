@@ -74,27 +74,42 @@ def order_prebuilt_store(request):
         store_id = request.POST.get("store_id")
         store = get_object_or_404(PrebuiltStore, id=store_id)
 
-        # Email to Admin
+        logger.info(f"Processing prebuilt store order. Store ID: {store.id}, User: {request.user.username}")
+
+        # --- Email to Admin ---
         admin_subject = f"New Prebuilt Store Order: {store.name}"
         admin_message = (
             f"User {request.user.username} ({request.user.email}) "
             f"ordered the prebuilt store: {store.name}"
         )
-        if not send_email_via_sendgrid(admin_subject, admin_message, settings.ADMIN_EMAIL):
+        admin_email = settings.ADMIN_EMAIL
+        logger.info(f"Attempting to send admin email to: {admin_email}")
+
+        admin_status = send_email_via_sendgrid(admin_subject, admin_message, admin_email)
+        if admin_status:
+            logger.info(f"Admin email sent successfully: {admin_status}")
+        else:
             logger.error(f"Failed to send admin email for store {store.id}")
 
-        # Email to User
+        # --- Email to User ---
         user_subject = "Your Prebuilt Store Order Confirmation"
         user_message = (
             f"Hi {request.user.username},\n\n"
             f"Thank you for ordering '{store.name}'. Our seller will contact you shortly.\n\n"
             f"Regards,\nEmpx Automations Team"
         )
-        if not send_email_via_sendgrid(user_subject, user_message, request.user.email):
-            logger.error(f"Failed to send confirmation email to user {request.user.email}")
+        user_email = request.user.email
+        logger.info(f"Attempting to send confirmation email to user: {user_email}")
+
+        user_status = send_email_via_sendgrid(user_subject, user_message, user_email)
+        if user_status:
+            logger.info(f"User confirmation email sent successfully: {user_status}")
+        else:
+            logger.error(f"Failed to send confirmation email to user {user_email}")
 
         return redirect("prebuilt_order_success")
 
+    logger.warning("Non-POST request received for prebuilt store order")
     return redirect("dashboard_home")
 
 
