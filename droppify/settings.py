@@ -164,7 +164,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'  # literally the string "apikey"
 EMAIL_HOST_PASSWORD = os.environ.get("SENDGRID_API_KEY")  # store your API key in env
-DEFAULT_FROM_EMAIL = 'support@empxautomations.site'  # must be verified in SendGrid
+DEFAULT_FROM_EMAIL = 'support@empxautomations.site'  # must be verified in SendGrid\
+ADMIN_EMAIL = DEFAULT_FROM_EMAIL
 
 
 LOGIN_URL = '/accounts/login/'
