@@ -1,18 +1,30 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
+from django.http import HttpResponse
 from .models import PrebuiltStore
-
-def prebuilt_home(request):
-    stores = PrebuiltStore.objects.all()
-    return render(request, "prebuilt/prebuilt.html", {"stores": stores})
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PrebuiltStoreSerializer
 
+import logging
+logger = logging.getLogger(__name__)
+
+
+# -----------------------------------------
+# PAGE: Prebuilt stores home
+# -----------------------------------------
+def prebuilt_home(request):
+    stores = PrebuiltStore.objects.all()
+    return render(request, "prebuilt/prebuilt.html", {"stores": stores})
+
+
+# -----------------------------------------
+# API: List + Create Prebuilt Stores
+# -----------------------------------------
 @api_view(['GET', 'POST'])
 def prebuilt_list_create(request):
     if request.method == 'GET':
@@ -27,35 +39,51 @@ def prebuilt_list_create(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+# -----------------------------------------
+# ORDER: Handle prebuilt store order
+# -----------------------------------------
 @login_required
 def order_prebuilt_store(request):
     if request.method == "POST":
         store_id = request.POST.get("store_id")
         store = get_object_or_404(PrebuiltStore, id=store_id)
 
-        # Send email to admin
-        send_mail(
-            subject=f"New Prebuilt Store Order: {store.name}",
-            message=f"User {request.user.username} ({request.user.email}) ordered the store: {store.name}",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.ADMIN_EMAIL],
-        )
+        # ADMIN NOTIFICATION EMAIL
+        try:
+            send_mail(
+                subject=f"New Prebuilt Store Order: {store.name}",
+                message=f"User {request.user.username} ({request.user.email}) ordered the store: {store.name}",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.ADMIN_EMAIL],
+                fail_silently=False,
+            )
+        except Exception as e:
+            logger.error(f"Admin email failed: {e}")
 
-        # Send confirmation email to user
-        send_mail(
-            subject="Your Prebuilt Store Order",
-            message=(
-                f"Hi {request.user.username},\n\n"
-                f"Thank you for ordering '{store.name}'. Our seller will contact you shortly."
-            ),
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[request.user.email],
-        )
+        # USER CONFIRMATION EMAIL
+        try:
+            send_mail(
+                subject="Your Prebuilt Store Order",
+                message=(
+                    f"Hi {request.user.username},\n\n"
+                    f"Thank you for ordering '{store.name}'. Our seller will contact you shortly.\n\n"
+                    f"Regards,\nEmpx Automations Team"
+                ),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[request.user.email],
+                fail_silently=False,
+            )
+        except Exception as e:
+            logger.error(f"User email failed: {e}")
 
-        # Redirect to success page
         return redirect("prebuilt_order_success")
 
     return redirect("dashboard_home")
 
+
+# -----------------------------------------
+# SUCCESS PAGE
+# -----------------------------------------
 def prebuilt_order_success(request):
     return render(request, "prebuilt/order_success.html")
