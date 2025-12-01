@@ -13,46 +13,66 @@
 <!-- The 'body' class now includes a toggleable 'sidebar-open' state -->
 <body class="body">
 
-    <div class="main-layout" id="main-layout">
-        
-        <!-- NEW: Mobile Menu Toggle Button (Visible only on mobile) -->
-        <button id="mobile-menu-open" class="mobile-menu-btn" aria-label="Toggle navigation menu">
-            &#9776; <!-- Hamburger Icon -->
+<div class="main-layout" id="main-layout">
+
+    <!-- Mobile Toggle -->
+    <button id="mobile-menu-open" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+        &#9776;
+    </button>
+
+    <nav class="navbar" id="app-sidebar">
+        <div class="navbar-header">
+            <h1 class="brand-logo">EmpxAutomations</h1>
+
+            {% if user.is_authenticated %}
+                <p class="user-greeting">Welcome, {{ user.username }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Mobile Close -->
+        <button id="mobile-menu-close" class="mobile-menu-close-btn" aria-label="Close navigation menu">
+            &times;
         </button>
 
-        <nav class="navbar" id="app-sidebar">
-            <div class="navbar-header">
-                <h1 class="brand-logo">EmpxAutomations</h1>
-                {% if user.is_authenticated %}
-                    <p class="user-greeting">Welcome, {{ user.username }}</p>
-                {% endif %}
-            </div>
-            
-            <!-- NEW: Close Button (Visible only inside the mobile sidebar) -->
-            <button id="mobile-menu-close" class="mobile-menu-close-btn" aria-label="Close navigation menu">
-                &times; 
-            </button>
-            
-            <a href="/" class="nav-link nav-home active">Home</a>
-            <a href="{% url 'portfolio_home' %}" class="nav-link nav-learn">Our Portfolio</a>
-            <a href="{% url 'prebuilt_home' %}" class="nav-link nav-learn">Prebuilt Stores</a>
-            <a href="{% url 'learn-more' %}" class="nav-link nav-learn">How It Works</a>
-            {% if user.is_authenticated %}
-            <a href="/dashboard/support/" class="nav-link nav-learn">support</a>
+        <!-- ========================= -->
+        <!-- PUBLIC NAVIGATION (Not Logged In) -->
+        <!-- ========================= -->
+        <a href="/" class="nav-link">Home</a>
+        <a href="{% url 'portfolio_home' %}" class="nav-link">Our Portfolio</a>
+        <a href="{% url 'prebuilt_home' %}" class="nav-link">Prebuilt Stores</a>
+        <a href="{% url 'services_list' %}" class="nav-link">Custom Services</a>
+        <a href="{% url 'learn-more' %}" class="nav-link">How It Works</a>
+
+        {% if not user.is_authenticated %}
+            <a href="/accounts/login/" class="nav-link nav-login">Login</a>
+            <a href="/accounts/signup/" class="nav-link nav-signup">Signup</a>
+        {% endif %}
+
+        <!-- ========================= -->
+        <!-- LOGGED-IN USERS -->
+        <!-- ========================= -->
+        {% if user.is_authenticated %}
+
+            <!-- ===== CLIENT NAVIGATION ===== -->
+            {% if not user.is_staff %}
+                <a href="/dashboard/" class="nav-link">My Dashboard</a>
+                <a href="/custom/my-orders/" class="nav-link">My Custom Orders</a>
+                <a href="/dashboard/support/" class="nav-link">Support</a>
             {% endif %}
-            
-            {% if user.is_authenticated %}
-                {% if user.is_staff %}
-                    <a href="/staff/dashboard/" class="nav-link nav-dashboard">Staff Hub</a>
-                {% else %}
-                    <a href="/dashboard/" class="nav-link nav-dashboard">My Dashboard</a>
-                {% endif %}
-                <a href="/accounts/logout/" class="nav-link nav-logout">Logout</a>
-            {% else %}
-                <a href="/accounts/login/" class="nav-link nav-login">Login</a>
-                <a href="/accounts/signup/" class="nav-link nav-signup">Signup</a>
+
+            <!-- ===== STAFF NAVIGATION ===== -->
+            {% if user.is_staff %}
+                <a href="/staff/dashboard/" class="nav-link">Staff Dashboard</a>
+                <a href="{% url 'staff_orders' %}" class="nav-link">Assigned Orders</a>
+                <a href="/dashboard/support/" class="nav-link">Support</a>
             {% endif %}
-        </nav>
+
+            <a href="/accounts/logout/" class="nav-link nav-logout">Logout</a>
+
+        {% endif %}
+    </nav>
+
+
 
         <div class="content-area" id="content-area">
             

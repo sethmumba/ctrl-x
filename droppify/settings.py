@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'portfolio',
     'rest_framework',
     'prebuilt',
+    'custom_services',
 
 
 

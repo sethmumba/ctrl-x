@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Create Custom Order - Droppify{% endblock %}
+{% block content %}
+<h1 class="create-order-title">Create Custom Order</h1>
+
+<form method="post" class="create-order-form">
+    {% csrf_token %}
+
+    <div class="create-order-fields">
+        {{ form.as_p }}
+    </div>
+
+    <button type="submit" class="create-order-submit-btn">
+        Submit Order
+    </button>
+</form>
+
+
+{% endblock %}

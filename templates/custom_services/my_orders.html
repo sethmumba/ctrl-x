@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}My Custom Orders - Droppify{% endblock %}
+
+{% block content   %}
+<h1 class="page-title">My Custom Orders</h1>
+
+<div class="orders-container">
+    {% for order in orders %}
+    <div class="order-card">
+        <div class="order-header">
+            <h2 class="order-title">{{ order.service.title }}</h2>
+            <span class="order-status status-{{ order.status|lower }}">
+                {{ order.status }}
+            </span>
+        </div>
+
+        <div class="order-body">
+            <p><strong>Budget:</strong> ${{ order.budget }}</p>
+            <p><strong>Date Created:</strong> {{ order.created_at|date:"M d, Y" }}</p>
+            <p><strong>Description:</strong> {{ order.description|truncatewords:20 }}</p>
+        </div>
+
+        <div class="order-footer">
+            <a href="#" class="btn-order-details">View Details</a>
+        </div>
+    </div>
+    {% empty %}
+        <p class="no-orders">You have not created any custom orders yet.</p>
+    {% endfor %}
+</div>
+    {% endblock %}

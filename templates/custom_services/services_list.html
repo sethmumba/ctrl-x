@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Services List{% endblock %}
+
+{% block content %}
+<h1 class="services-title">All Services</h1>
+
+<ul class="services-list">
+    {% for service in services %}
+        <li class="service-item">
+            
+            {% if service.image_url %}
+                <img src="{{ service.image_url }}" 
+                     alt="{{ service.title }}" 
+                     class="service-image">
+            {% endif %}
+
+            <a href="{% url 'create_order' service.id %}" class="service-title">
+                {{ service.title }}
+            </a>
+
+            <span class="service-price">
+                {{ service.min_price }} - {{ service.max_price }}
+            </span>
+
+        </li>
+    {% endfor %}
+</ul>
+{% if services|length == 0 %}
+    <p class="no-services">No services are available at the moment. Please check back later.</p>
+{% endif %}
+{% endblock %}

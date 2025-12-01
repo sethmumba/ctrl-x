@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Staff Assigned Orders - Droppify{% endblock %}
+{% block content %}
+<h1 class="staff-orders-title">My Assigned Orders</h1>
+
+<table class="staff-orders-table">
+    <thead class="staff-orders-head">
+        <tr>
+            <th class="staff-orders-heading">Service</th>
+            <th class="staff-orders-heading">User</th>
+            <th class="staff-orders-heading">Budget</th>
+            <th class="staff-orders-heading">Status</th>
+            <th class="staff-orders-heading">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody class="staff-orders-body">
+        {% for order in orders %}
+        <tr class="staff-order-row">
+            <td class="staff-order-service">{{ order.service.title }}</td>
+            <td class="staff-order-user">{{ order.user.username }}</td>
+            <td class="staff-order-budget">{{ order.budget }}</td>
+            <td class="staff-order-status">{{ order.status }}</td>
+
+            <td class="staff-order-actions">
+                <a href="#" class="action-btn action-progress">Mark In Progress</a>
+                <a href="#" class="action-btn action-complete">Mark Completed</a>
+                <a href="#" class="action-btn action-cancel">Cancel</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if orders|length == 0 %}
+    <p class="no-assigned-orders">You have no assigned orders at the moment.</p>
+{% endif %}
+{% endblock %}
