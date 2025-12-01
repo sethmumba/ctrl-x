@@ -7,4 +7,6 @@ urlpatterns = [
     path('order/create/', views.create_order, name='create_order_no_service'),
     path('my-orders/', views.my_orders, name='my_orders'),
     path('staff/orders/', views.staff_orders, name='staff_orders'),
+    path('api/custom-services/create/', views.api_create_service, name='api_create_service'),
+
 ]
