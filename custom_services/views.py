@@ -104,4 +104,4 @@ def api_create_service(request):
 @login_required
 def custom_order_detail(request, order_id):
     order = get_object_or_404(CustomOrder, id=order_id, user=request.user)
-    return render(request, "custom/custom_order_detail.html", {"order": order})
+    return render(request, "custom_services/custom_order_detail.html", {"order": order})
