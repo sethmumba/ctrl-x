@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import CustomService, CustomOrder
 from .forms import CustomOrderForm
@@ -98,3 +98,10 @@ def api_create_service(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@login_required
+def custom_order_detail(request, order_id):
+    order = get_object_or_404(CustomOrder, id=order_id, user=request.user)
+    return render(request, "custom/custom_order_detail.html", {"order": order})

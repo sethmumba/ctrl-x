@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Order Details - EmpxAutomations{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Order Details</h1>
+
+<div class="order-details-card">
+    <h2>{{ order.service.title }}</h2>
+
+    <p><strong>Status:</strong> {{ order.status }}</p>
+    <p><strong>Budget:</strong> ${{ order.budget }}</p>
+    <p><strong>Date Created:</strong> {{ order.created_at|date:"M d, Y" }}</p>
+    <p><strong>Description:</strong> {{ order.description }}</p>
+
+    <a href="{% url 'my_orders' %}" class="btn-back">← Back to My Orders</a>
+</div>
+{% endblock %}
