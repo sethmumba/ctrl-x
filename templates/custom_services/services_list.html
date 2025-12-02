@@ -18,7 +18,7 @@
             <a href="{% url 'create_order' service.id %}" class="service-title">
                 {{ service.title }}
             </a>
-
+            <p>{{service.description}}</p>
             <span class="service-price">
                 {{ service.min_price }} - {{ service.max_price }}
             </span>
