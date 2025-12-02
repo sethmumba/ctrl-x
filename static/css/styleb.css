@@ -43,15 +43,20 @@ GLOBAL STYLES & BLACK & GOLD ROYAL PALETTE (BOLD & PREMIUM) THEME VARIABLES
 box-sizing: border-box;
 }
 
+/* FIX 1: Implement Sticky Footer Flexbox on the body */
 body {
 font-family: var(--font-family-luxury);
 background-color: var(--color-background);
 color: var(--color-text-light);
 margin: 0;
-min-height: 100vh;
+min-height: 100vh; /* Set minimum height to fill the viewport */
 position: relative;
 z-index: 1;
 transition: background-color 0.3s ease;
+
+/* STICKY FOOTER SETUP */
+display: flex;
+flex-direction: column;
 }
 
 /* --------------------------------------------------------------------------
@@ -108,8 +113,10 @@ LAYOUT: SIDEBAR NAVIGATION AND MAIN CONTENT
 -------------------------------------------------------------------------- */
 
 .main-layout {
+/* FIX 1: Allow the layout container to grow and take up remaining space */
 display: flex;
-min-height: 100vh;
+flex-grow: 1; /* This is key to pushing the footer down! */
+width: 100%;
 }
 
 /* Left-Side Navigation Bar (Desktop Fixed State) */
@@ -210,7 +217,8 @@ HERO SECTION (Luxury Typography & Animated CTA)
 -------------------------------------------------------------------------- */
 
 .hero-section {
-min-height: 85vh;
+/* Adjusted min-height to ensure content fits the viewport correctly when combined with sidebar */
+min-height: calc(100vh - 100px);
 display: flex;
 align-items: center;
 justify-content: center;
@@ -1607,15 +1615,18 @@ FOOTER
 -------------------------------------------------------------------------- */
 
 .footer {
+/* FIX 1: Footer correctly positioned by Flexbox on the body, no need for complex positioning */
 padding: 1.5rem;
 text-align: center;
 border-top: 1px solid var(--color-border);
-margin-top: 3rem;
+/* margin-top: 3rem; REMOVED as flexbox handles the spacing */
 font-size: 1rem;
 display: flex;
 flex-direction: column;
 align-items: center;
 gap: 10px;
+/* Add background color to match the surface/body transition */
+background-color: var(--color-background);
 }
 
 .footer-links {
@@ -1790,13 +1801,14 @@ font-size: 3.5rem;
 
 /* Hide the button when the sidebar is open to prevent accidental closing or visual clutter */
 .main-layout.sidebar-open .mobile-menu-btn {
+    /* FIX 2: Hide the hamburger icon when the sidebar is open */
     opacity: 0;
     pointer-events: none;
 }
 
 /* 2. Mobile Menu Close Button */
 .mobile-menu-close-btn {
-    display: block; /* Shown only on mobile, hidden on desktop via general styles */
+    display: none; /* Hidden by default until JS/HTML opens the sidebar */
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -1810,6 +1822,11 @@ font-size: 3.5rem;
     z-index: 1003;
     padding: 0.5rem;
 }
+/* FIX 2: Show the close button when the sidebar is open */
+.main-layout.sidebar-open .mobile-menu-close-btn {
+    display: block;
+}
+
 .mobile-menu-close-btn:hover {
     color: var(--color-primary-accent);
 }
