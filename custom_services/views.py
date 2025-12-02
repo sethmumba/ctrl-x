@@ -3,12 +3,14 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomService, CustomOrder
 from .forms import CustomOrderForm
 from django.conf import settings
-from django.core.mail import send_mail
+from .email_utils import send_email  # <---- IMPORTANT
 from .serializers import CustomServiceSerializer
 from rest_framework.permissions import IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.response import Response
+
+
 # -------------------
 # List all services
 # -------------------
@@ -16,9 +18,7 @@ def services_list(request):
     services = CustomService.objects.filter(is_active=True)
     return render(request, 'custom_services/services_list.html', {'services': services})
 
-# -------------------
-# Create custom order
-# -------------------
+
 # -------------------
 # Create custom order with email notifications
 # -------------------
@@ -32,36 +32,42 @@ def create_order(request, service_id=None):
             order.save()
 
             # -------- Email to Client --------
-            send_mail(
+            send_email(
+                to_email=order.user.email,
                 subject="Your Custom Order has been received",
-                message=f"Hi {order.user.username},\n\n"
-                        f"Your order for '{order.service.title}' has been received.\n"
-                        f"Budget: {order.budget}\n"
-                        f"Status: {order.status}\n\nThank you!",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[order.user.email],
+                html_content=f"""
+                    <p>Hi {order.user.username},</p>
+                    <p>Your order for <strong>{order.service.title}</strong> has been received.</p>
+                    <p>Budget: {order.budget}</p>
+                    <p>Status: {order.status}</p>
+                    <p>Thank you!</p>
+                """
             )
 
             # -------- Email to Admin --------
-            send_mail(
+            send_email(
+                to_email=settings.ADMIN_EMAIL,
                 subject="New Custom Order Submitted",
-                message=f"Admin,\n\n"
-                        f"User '{order.user.username}' submitted a new order:\n"
-                        f"Service: {order.service.title}\n"
-                        f"Budget: {order.budget}\n"
-                        f"Description: {order.description}\n"
-                        f"Assigned Staff: {order.assigned_staff}\n",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.ADMIN_EMAIL],
+                html_content=f"""
+                    <p>Admin, a new order was submitted:</p>
+                    <p><strong>User:</strong> {order.user.username}</p>
+                    <p><strong>Service:</strong> {order.service.title}</p>
+                    <p><strong>Budget:</strong> {order.budget}</p>
+                    <p><strong>Description:</strong> {order.description}</p>
+                    <p><strong>Assigned Staff:</strong> {order.assigned_staff}</p>
+                """
             )
 
             return redirect('my_orders')
+
     else:
         initial = {}
         if service_id:
             initial['service'] = service_id
         form = CustomOrderForm(initial=initial)
+
     return render(request, 'custom_services/create_order.html', {'form': form})
+
 
 # -------------------
 # User's orders
@@ -70,6 +76,7 @@ def create_order(request, service_id=None):
 def my_orders(request):
     orders = CustomOrder.objects.filter(user=request.user)
     return render(request, 'custom_services/my_orders.html', {'orders': orders})
+
 
 # -------------------
 # Staff dashboard
@@ -80,7 +87,7 @@ def staff_orders(request):
     return render(request, 'custom_services/staff_orders.html', {'orders': orders})
 
 
-
+# -------------------
 # API: Create Custom Service (Admin only)
 # -------------------
 @api_view(['POST'])
