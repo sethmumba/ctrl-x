@@ -80,24 +80,27 @@
                 {% block content %}{% endblock %}
             </div>
 
-            <footer class="footer container">
-                <div class="footer-links">
-                    <a href="{% url 'privacy-policy' %}" class="stat-label">Policy</a>
-                    <span class="link-separator">|</span>
-                    <a href="{% url 'terms-of-service' %}" class="stat-label">Terms of Service</a>
-                    <span class="link-separator">|</span>
-                    <a href="{% url 'refund-policy' %}" class="stat-label">Refund Policy</a>
-                    <span class="link-separator">|</span>
-                    <a href="https://www.fiverr.com/s/qDB7RPp" class="stat-label" target="_blank" >Fiver</a>
-                    <span class="link-separator">|</span>
-                    <a href="https://www.fiverr.com/s/qDB7RPp" class="stat-label" target="_blank" >Upwork</a>
-                </div>
-                </div>
-                <p class="footer-text">&copy; 2025 EmpxAutomations. All rights reserved.</p>
-            </footer>
+
 
         </div>
     </div>
+    
+    <!-- START: FOOTER CONTENT -->
+    <footer class="footer container">
+        <div class="footer-links">
+            <a href="{% url 'privacy-policy' %}" class="stat-label">Policy</a>
+            <span class="link-separator">|</span>
+            <a href="{% url 'terms-of-service' %}" class="stat-label">Terms of Service</a>
+            <span class="link-separator">|</span>
+            <a href="{% url 'refund-policy' %}" class="stat-label">Refund Policy</a>
+            <span class="link-separator">|</span>
+            <a href="https://www.fiverr.com/s/qDB7RPp" class="stat-label" target="_blank" >Fiverr</a>
+            <span class="link-separator">|</span>
+            <a href="https://www.fiverr.com/s/qDB7RPp" class="stat-label" target="_blank" >Upwork</a>
+        </div>
+        <p class="footer-text">&copy; 2025 EmpxAutomations. All rights reserved.</p>
+    </footer>
+    <!-- END: FOOTER CONTENT -->
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
