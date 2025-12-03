@@ -1,40 +1,40 @@
 /* --------------------------------------------------------------------------
-GLOBAL STYLES & SOLAR MODERN PALETTE THEME VARIABLES
+GLOBAL STYLES & INDIGO & CYAN MODERN PALETTE THEME VARIABLES
 -------------------------------------------------------------------------- */
 
-/* Define the color palette for a clean, Solar Modern (Sky Blue & Gold) Theme */
+/* Define the color palette for a clean, Indigo and Cyan Modern Theme */
 :root {
-/* Solar Modern Palette (Light Mode Optimized) */
---color-background: #F8FAFC; /* Base Layer: Soft Background */
---color-surface: #FFFFFF; /* Cards/Containers: Card White */
+/* Indigo & Cyan Palette (Light Mode Optimized) */
+--color-background: #F9FAFB; /* Base Layer: Light Background */
+--color-surface: #FFFFFF; /* Cards/Containers: Card Background */
 
---color-text-light: #0F172A; /* Main Text Color: Dark Text (used for high contrast) */
---color-text-muted: #64748B; /* Muted Text/Subtitle: Gray */
---color-border: #64748B; /* Subtle Borders/Dividers: Gray (Note: This is darker than the old border color) */
+--color-text-light: #111827; /* Main Text Color: Text Dark (used for high contrast) */
+--color-text-muted: #4B5563; /* Muted Text/Subtitle: Text Medium */
+--color-border: #E5E7EB; /* Subtle Borders/Dividers: Border Gray */
 
-/* Accent Colors - Highlighting with Primary Sky Blue and Secondary Gold */
---color-primary-accent: #0EA5E9; /* Primary Accent (Sky Blue) */
---color-primary-glow: #0EA5E9; /* Glow Source: Matches Primary Sky Blue */
---color-primary-dark: #0284C7; /* Calculated Darker Sky Blue (Primary Hover) */
---color-accent-highlight: #FACC15; /* Secondary Accent (Gold) */
+/* Accent Colors - Highlighting with Primary Indigo and Accent Cyan */
+--color-primary-accent: #4F46E5; /* Primary Accent (Indigo) */
+--color-primary-glow: #4F46E5; /* Glow Source: Matches Primary Indigo */
+--color-primary-dark: #4338CA; /* Primary Hover (Darker Indigo) */
+--color-accent-highlight: #06B6D4; /* Accent Cyan */
 
 --color-error: #EF4444; /* Error */
 
-/* Semantic Colors for Statuses - Standard Hues Retained */
+/* Semantic Colors for Statuses - Adapted to Theme */
 --color-status-success: #10B981; /* Success */
 --color-status-warning: #F59E0B; /* Warning */
 --color-status-info: #3B82F6; /* Info */
---color-status-secondary: #64748B; /* Gray (Matches Muted Text) */
+--color-status-secondary: #6B7280; /* Text Light */
 
 
 --font-family-luxury: 'Inter', sans-serif;
 --border-radius: 12px;
 
-/* Enhanced Shadow Variables for Luxury Glow Theme (RGBA values adjusted for PRIMARY SKY BLUE) */
+/* Enhanced Shadow Variables for Luxury Glow Theme (RGBA values adjusted for PRIMARY INDIGO) */
 --shadow-deep: 0 10px 40px rgba(0, 0, 0, 0.2); /* Reduced opacity for light theme deep shadow */
---shadow-inner-glow: inset 0 0 5px rgba(14, 165, 233, 0.15); /* Subtle inner glow (Primary Sky Blue) */
-/* Intense, multi-layered glow using the primary accent (Primary Sky Blue) */
---shadow-intense-glow: 0 0 10px var(--color-primary-glow), 0 0 30px var(--color-primary-accent), 0 0 60px rgba(14, 165, 233, 0.4);
+--shadow-inner-glow: inset 0 0 5px rgba(79, 70, 229, 0.15); /* Subtle inner glow (Primary Indigo) */
+/* Intense, multi-layered glow using the primary accent (Primary Indigo) */
+--shadow-intense-glow: 0 0 10px var(--color-primary-glow), 0 0 30px var(--color-primary-accent), 0 0 60px rgba(79, 70, 229, 0.4);
 
 }
 
@@ -97,8 +97,8 @@ top: 50%;
 left: 50%;
 width: 100vw;
 height: 100vh;
-/* Soft, centered glow using the primary accent (Primary Sky Blue) */
-background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.05) 0%, transparent 65%);
+/* Soft, centered glow using the primary accent (Primary Indigo) */
+background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.05) 0%, transparent 65%);
 opacity: 0.7; /* **Increased aura visibility for dramatic effect** */
 transform: translate(-50%, -50%);
 z-index: -2;
@@ -123,9 +123,9 @@ position: fixed;
 top: 0;
 left: 0;
 height: 100%;
-background-color: var(--color-surface); /* Uses Card White */
+background-color: var(--color-surface); /* Uses Card Background */
 padding: 0 0 2rem 0;
-box-shadow: 0 0 20px rgba(14, 165, 233, 0.1), var(--shadow-deep);
+box-shadow: 0 0 20px rgba(79, 70, 229, 0.15), var(--shadow-deep);
 z-index: 1000;
 display: flex;
 flex-direction: column;
@@ -141,10 +141,10 @@ margin-bottom: 1rem;
 }
 
 .navbar .brand-logo {
-color: var(--color-primary-accent); /* Primary Sky Blue */
+color: var(--color-primary-accent); /* Primary Indigo */
 font-size: 1.2rem;
 font-weight: 900;
-text-shadow: 0 0 10px var(--color-primary-glow), 0 0 25px rgba(14, 165, 233, 0.7);
+text-shadow: 0 0 10px var(--color-primary-glow), 0 0 25px rgba(79, 70, 229, 0.7);
 margin: 0;
 }
 
@@ -165,11 +165,11 @@ border-left: 5px solid transparent;
 }
 
 .nav-link:hover, .nav-link.active {
-background-color: rgba(14, 165, 233, 0.1);
+background-color: rgba(79, 70, 229, 0.1);
 border-left: 5px solid var(--color-primary-accent);
-color: var(--color-primary-accent); /* Use Primary Sky Blue for active text */
+color: var(--color-primary-accent); /* Use Primary Indigo for active text */
 transform: translateX(5px);
-box-shadow: inset 0 0 10px rgba(14, 165, 233, 0.15);
+box-shadow: inset 0 0 10px rgba(79, 70, 229, 0.1);
 }
 
 /* Content Area - shifted to the right to clear the fixed sidebar on desktop */
@@ -242,7 +242,7 @@ top: 0;
 left: 0;
 right: 0;
 bottom: 0;
-background: radial-gradient(circle at 50% 10%, rgba(248, 250, 252, 0.98), var(--color-background) 70%);
+background: radial-gradient(circle at 50% 10%, rgba(249, 250, 251, 0.98), var(--color-background) 70%);
 opacity: 1;
 z-index: 1;
 }
@@ -271,9 +271,9 @@ color: var(--color-text-muted);
 }
 
 .highlight {
-color: var(--color-accent-highlight); /* Secondary Gold highlight */
+color: var(--color-accent-highlight); /* Accent Cyan highlight */
 font-weight: 900;
-text-shadow: 0 0 10px rgba(250, 204, 21, 0.7);
+text-shadow: 0 0 10px rgba(6, 182, 212, 0.7);
 }
 
 .hero-image-container {
@@ -283,7 +283,7 @@ margin-bottom: 2.5rem;
 .hero-image {
 max-width: 200px;
 height: auto;
-filter: drop-shadow(0 0 25px var(--color-primary-glow)) drop-shadow(0 0 50px rgba(14, 165, 233, 0.8));
+filter: drop-shadow(0 0 25px var(--color-primary-glow)) drop-shadow(0 0 50px rgba(79, 70, 229, 0.8));
 opacity: 1;
 transition: transform 0.6s ease;
 }
@@ -315,15 +315,15 @@ padding: 0.5rem 0;
 .stat-value {
 font-size: 2.2rem;
 font-weight: 900;
-color: var(--color-accent-highlight); /* Secondary Gold */
+color: var(--color-accent-highlight); /* Accent Cyan */
 line-height: 1;
-text-shadow: 0 0 10px rgba(250, 204, 21, 0.9);
+text-shadow: 0 0 10px rgba(6, 182, 212, 0.9);
 }
 
 .stat-label {
 font-size: 0.9rem;
 font-weight: 500;
-color: var(--color-primary-accent); /* Primary Sky Blue for emphasis */
+color: var(--color-primary-accent); /* Primary Indigo for emphasis */
 text-transform: uppercase;
 letter-spacing: 0.1em;
 margin-top: 0.4rem;
@@ -347,8 +347,8 @@ cursor: pointer;
 }
 
 .btn-primary {
-background: var(--color-primary-accent); /* Primary Sky Blue */
-color: var(--color-surface); /* Card White text for contrast (White) */
+background: var(--color-primary-accent); /* Primary Indigo */
+color: var(--color-surface); /* Card Background text for contrast (White) */
 position: relative;
 overflow: hidden;
 z-index: 20;
@@ -377,9 +377,9 @@ box-shadow: var(--shadow-intense-glow);
 }
 
 @keyframes pulseGlow {
-0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.3); }
-70% { box-shadow: 0 0 0 20px rgba(14, 165, 233, 0); }
-100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
+0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.3); }
+70% { box-shadow: 0 0 0 20px rgba(79, 70, 229, 0); }
+100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
 }
 
 .hero-cta {
@@ -411,24 +411,24 @@ transition: all 0.2s ease;
 }
 
 .btn-outline:hover {
-background-color: rgba(14, 165, 233, 0.08); /* Light accent hover (Primary Sky Blue) */
+background-color: rgba(79, 70, 229, 0.08); /* Light accent hover (Primary Indigo) */
 border-color: var(--color-primary-accent);
-box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
 }
 
 .btn-accent {
-background: var(--color-accent-highlight); /* Secondary Gold */
+background: var(--color-accent-highlight); /* Accent Cyan */
 color: var(--color-surface);
 padding: 0.85rem 1.75rem;
 border-radius: 8px;
 font-weight: 700;
 text-decoration: none;
 transition: background-color 0.3s ease;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(250, 204, 21, 0.7);
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(6, 182, 212, 0.7);
 }
 
 .btn-accent:hover {
-background-color: #B45309; /* Darker Gold for contrast */
+background-color: var(--color-primary-dark); /* Darker Indigo for contrast */
 }
 
 /* --------------------------------------------------------------------------
@@ -442,7 +442,7 @@ text-align: center;
 margin-bottom: 4rem;
 padding-top: 1rem;
 color: var(--color-primary-accent);
-text-shadow: 0 0 12px rgba(14, 165, 233, 0.6);
+text-shadow: 0 0 12px rgba(79, 70, 229, 0.6);
 }
 
 .cards-horizontal {
@@ -499,7 +499,7 @@ position: relative;
 .card-icon::before, .feature-icon::before {
 font-size: 2.5rem;
 line-height: 1;
-text-shadow: 0 0 15px var(--color-primary-glow), 0 0 40px rgba(14, 165, 233, 0.6);
+text-shadow: 0 0 15px var(--color-primary-glow), 0 0 40px rgba(79, 70, 229, 0.6);
 }
 
 /* How It Works Icons (Emojis unchanged) */
@@ -550,7 +550,7 @@ padding: 0 1rem;
 
 .testimonial-card {
 padding: 2.5rem;
-border-top: 5px solid var(--color-accent-highlight); /* Secondary Gold accent */
+border-top: 5px solid var(--color-accent-highlight); /* Accent Cyan accent */
 }
 
 .testimonial-card:hover { /* Inheriting general card hover */
@@ -618,14 +618,14 @@ display: block;
 }
 
 .faq-question:hover {
-background-color: rgba(14, 165, 233, 0.08); /* Light accent hover (Primary Sky Blue) */
+background-color: rgba(79, 70, 229, 0.08); /* Light accent hover (Primary Indigo) */
 }
 
 .faq-item.open .faq-question {
 color: var(--color-primary-glow);
-background-color: rgba(14, 165, 233, 0.1);
+background-color: rgba(79, 70, 229, 0.1);
 border-bottom: 1px solid var(--color-border);
-text-shadow: 0 0 8px rgba(14, 165, 233, 0.4);
+text-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
 }
 
 .faq-answer {
@@ -640,7 +640,7 @@ padding: 0 2rem; /* keep horizontal padding only */
 .faq-item.open .faq-answer {
 padding: 1rem 2rem 2rem 2rem;
 /* Background matches the open question */
-background-color: rgba(14, 165, 233, 0.1);
+background-color: rgba(79, 70, 229, 0.1);
 }
 
 /* --------------------------------------------------------------------------
@@ -663,7 +663,7 @@ max-width: 500px;
 background-color: var(--color-surface);
 border-radius: var(--border-radius);
 padding: 4rem 3rem;
-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 -5px 25px rgba(14, 165, 233, 0.5);
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 -5px 25px rgba(79, 70, 229, 0.4);
 border-top: 5px solid var(--color-primary-accent);
 position: relative;
 }
@@ -682,7 +682,7 @@ font-size: 2rem;
 font-weight: 900;
 text-align: right;
 margin-bottom: 2.5rem;
-text-shadow: 0 0 10px var(--color-primary-glow), 0 0 25px rgba(14, 165, 233, 0.7);
+text-shadow: 0 0 10px var(--color-primary-glow), 0 0 25px rgba(79, 70, 229, 0.7);
 }
 
 .auth-title {
@@ -712,7 +712,7 @@ opacity: 1;
 .auth-form input[type="password"] {
 width: 100%;
 padding: 0.9rem 1.25rem;
-background-color: var(--color-background); /* Soft Background */
+background-color: var(--color-background); /* Background Light */
 border: 1px solid var(--color-border);
 border-radius: 8px;
 color: var(--color-text-light);
@@ -722,7 +722,7 @@ transition: border-color 0.3s, box-shadow 0.3s;
 .auth-form input:focus {
 outline: none;
 border-color: var(--color-primary-glow);
-box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2), 0 0 15px var(--color-primary-accent);
+box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2), 0 0 15px var(--color-primary-accent);
 }
 
 .auth-error {
@@ -781,7 +781,7 @@ color: var(--color-text-light);
 margin-bottom: 0.5rem;
 border-left: 5px solid var(--color-primary-accent);
 padding-left: 1rem;
-text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+text-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
 margin-top: 2rem;
 }
 
@@ -828,7 +828,7 @@ font-size: 2rem;
 .kpi-icon::before {
 font-family: 'Font Awesome 5 Free';
 font-weight: 900;
-color: var(--color-surface); /* Card White for icon text */
+color: var(--color-surface); /* Surface color for icon text (White) */
 text-shadow: 0 0 10px var(--color-primary-glow);
 }
 
@@ -948,7 +948,7 @@ margin-top: 0.5rem;
 margin-bottom: 1.5rem;
 }
 
-/* Status Colors - Added subtle glow to badges (Primary Sky Blue/Secondary Gold) */
+/* Status Colors - Added subtle glow to badges (Primary Indigo) */
 .status-badge, .badge {
 display: inline-block;
 padding: 0.5rem 1rem;
@@ -961,7 +961,7 @@ transition: background-color 0.2s ease, box-shadow 0.2s ease;
 .status-primary {
 background-color: var(--color-primary-accent);
 color: var(--color-surface);
-box-shadow: 0 0 10px rgba(14, 165, 233, 0.6);
+box-shadow: 0 0 10px rgba(79, 70, 229, 0.6);
 }
 .status-success {
 background-color: var(--color-status-success);
@@ -985,7 +985,7 @@ color: var(--color-surface);
 .status-accent {
 background-color: var(--color-accent-highlight);
 color: var(--color-surface);
-box-shadow: 0 0 10px rgba(250, 204, 21, 0.6);
+box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
 }
 
 .order-card-footer {
@@ -1004,7 +1004,7 @@ transition: color 0.2s ease;
 
 .details-link:hover {
 color: var(--color-accent-highlight);
-text-shadow: 0 0 8px rgba(250, 204, 21, 0.7);
+text-shadow: 0 0 8px rgba(6, 182, 212, 0.7);
 }
 
 .no-orders-wrapper {
@@ -1094,7 +1094,7 @@ margin: 0 auto;
 /* 1. Header Card */
 .order-header-card {
 background-color: var(--color-surface);
-border-left: 10px solid var(--color-accent-highlight); /* Secondary Gold accent */
+border-left: 10px solid var(--color-accent-highlight); /* Accent Cyan accent */
 border-radius: var(--border-radius);
 padding: 2rem 2.5rem;
 margin-bottom: 2rem;
@@ -1192,7 +1192,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 margin-bottom: 0.75rem;
-border: 4px solid var(--color-surface); /* Card White border for contrast */
+border: 4px solid var(--color-surface); /* Surface border for contrast */
 transition: all 0.4s ease;
 }
 
@@ -1280,7 +1280,7 @@ margin-top: 1rem;
 border: 2px solid var(--color-border);
 padding: 8px;
 border-radius: 8px;
-box-shadow: 0 0 12px rgba(14, 165, 233, 0.3);
+box-shadow: 0 0 12px rgba(79, 70, 229, 0.3);
 }
 
 /* Handover/Status Card */
@@ -1289,8 +1289,8 @@ margin-bottom: 2rem;
 padding: 1.5rem;
 border: 2px solid var(--color-primary-accent);
 border-radius: 10px;
-background-color: rgba(14, 165, 233, 0.08); /* Light accent background (Primary Sky Blue) */
-box-shadow: 0 0 18px rgba(14, 165, 233, 0.2);
+background-color: rgba(79, 70, 229, 0.08); /* Light accent background (Primary Indigo) */
+box-shadow: 0 0 18px rgba(79, 70, 229, 0.2);
 }
 
 .builder-label {
@@ -1385,7 +1385,7 @@ margin-bottom: 2rem;
 border-radius: 10px;
 background-color: var(--color-primary-dark);
 color: var(--color-surface);
-box-shadow: 0 0 30px rgba(14, 165, 233, 0.6);
+box-shadow: 0 0 30px rgba(79, 70, 229, 0.6);
 }
 
 .current-status-card .status-label {
@@ -1456,7 +1456,7 @@ font-size: 3rem;
 font-weight: 900;
 color: var(--color-accent-highlight);
 line-height: 1;
-text-shadow: 0 0 12px rgba(250, 204, 21, 0.8);
+text-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
 }
 
 .orders-table, .staff-orders-table { /* Added .staff-orders-table */
@@ -1466,7 +1466,7 @@ margin-top: 2rem;
 }
 
 .orders-table thead th, .staff-orders-table thead th { /* Added .staff-orders-table */
-background-color: rgba(14, 165, 233, 0.05); /* Light Accent header (Primary Sky Blue) */
+background-color: rgba(79, 70, 229, 0.05); /* Light Accent header (Primary Indigo) */
 color: var(--color-primary-accent);
 font-weight: 800;
 padding: 1.25rem;
@@ -1481,9 +1481,9 @@ color: var(--color-text-light);
 }
 
 .orders-table tbody tr:hover, .staff-orders-table tbody tr:hover { /* Added .staff-orders-table */
-background-color: rgba(14, 165, 233, 0.03); /* Very light accent hover (Primary Sky Blue) */
+background-color: rgba(79, 70, 229, 0.03); /* Very light accent hover (Primary Indigo) */
 cursor: pointer;
-box-shadow: inset 0 0 10px rgba(14, 165, 233, 0.2);
+box-shadow: inset 0 0 10px rgba(79, 70, 229, 0.2);
 }
 
 .action-link {
@@ -1529,7 +1529,7 @@ margin-bottom: 2.5rem;
 font-size: 2.5rem;
 color: var(--color-primary-accent);
 margin: 0 0 0.75rem 0;
-text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+text-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
 }
 
 .form-subtitle {
@@ -1576,7 +1576,7 @@ width: 100%;
 padding: 0.9rem 1.25rem;
 border-radius: 8px;
 border: 1px solid var(--color-border);
-background-color: var(--color-background); /* Soft Background */
+background-color: var(--color-background); /* Background Light */
 color: var(--color-text-light);
 transition: all 0.2s ease;
 }
@@ -1584,13 +1584,13 @@ transition: all 0.2s ease;
 .form-input:focus, .form-select:focus {
 outline: none;
 border-color: var(--color-primary-glow);
-box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2), 0 0 15px var(--color-primary-accent);
+box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2), 0 0 15px var(--color-primary-accent);
 }
 
 .form-select {
 appearance: none;
-/* Updated SVG fill to new primary accent color (#0EA5E9) */
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%230EA5E9' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3Cpath fill='%230EA5E9' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E");
+/* Updated SVG fill to new primary accent color (#4F46E5) */
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%234F46E5' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3Cpath fill='%234F46E5' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E");
 background-repeat: no-repeat;
 background-position: right 0.75rem center;
 background-size: 1.25rem;
@@ -1642,7 +1642,7 @@ margin-right: 0.5rem;
 accent-color: var(--color-primary-accent);
 }
 
-/* Toast Notification (Secondary Gold) */
+/* Toast Notification (Primary Indigo) */
 .toast {
 position: fixed;
 bottom: 20px;
@@ -1656,7 +1656,7 @@ z-index: 5000;
 max-width: 400px;
 text-align: center;
 border-left: 5px solid var(--color-accent-highlight);
-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(250, 204, 21, 0.7);
+box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(6, 182, 212, 0.7);
 }
 
 /* --------------------------------------------------------------------------
@@ -1693,19 +1693,19 @@ gap: 15px;
 }
 
 .footer-link {
-color: var(--color-primary-accent); /* Primary Sky Blue for links */
+color: var(--color-primary-accent); /* Primary Indigo for links */
 text-decoration: none;
 font-size: 1rem;
 transition: color 0.3s ease;
 }
 
 .footer-link:hover {
-color: var(--color-text-light); /* Dark Text on hover */
+color: var(--color-text-light); /* Text Dark on hover */
 text-decoration: underline;
 }
 
 .link-separator {
-color: var(--color-text-muted); /* Gray separator */
+color: var(--color-text-muted); /* Text Muted separator */
 font-size: 1rem;
 }
 
@@ -1783,7 +1783,7 @@ width: 100%;
 padding: 0.9rem 1.25rem;
 border-radius: 8px;
 border: 1px solid var(--color-border);
-background-color: var(--color-background); /* Soft Background */
+background-color: var(--color-background); /* Background Light */
 color: var(--color-text-light);
 transition: all 0.2s ease;
 box-sizing: border-box;
@@ -1792,7 +1792,7 @@ box-sizing: border-box;
 .support-form input:focus, .support-form textarea:focus {
 outline: none;
 border-color: var(--color-primary-glow);
-box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2), 0 0 15px var(--color-primary-accent);
+box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2), 0 0 15px var(--color-primary-accent);
 }
 
 .support-form button[type="submit"] {
@@ -1859,7 +1859,7 @@ object-fit: cover;
 border-radius: 10px;
 margin-bottom: 1.5rem;
 border: 2px solid var(--color-border);
-box-shadow: 0 0 12px rgba(14, 165, 233, 0.3);
+box-shadow: 0 0 12px rgba(79, 70, 229, 0.3);
 }
 
 .project-content {
@@ -1907,7 +1907,7 @@ color: var(--color-primary-accent);
 padding-bottom: 1.5rem;
 margin-bottom: 2rem;
 border-bottom: 3px solid var(--color-border);
-text-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+text-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
 }
 
 /* Styling for get now button, prebuilt store page */
@@ -1975,7 +1975,7 @@ margin-bottom: 1.8rem;
 .create-order-fields label {
 display: block;
 font-weight: 600;
-color: var(--color-primary-accent); /* Primary Sky Blue label for visual separation */
+color: var(--color-primary-accent); /* Primary Indigo label for visual separation */
 margin-bottom: 0.5rem;
 font-size: 1.1rem;
 }
@@ -1988,7 +1988,7 @@ width: 100%;
 padding: 1rem 1.25rem;
 border-radius: 8px;
 border: 1px solid var(--color-border);
-background-color: var(--color-background); /* Soft Background input */
+background-color: var(--color-background); /* Background Light input */
 color: var(--color-text-light);
 transition: all 0.2s ease;
 box-sizing: border-box;
@@ -2000,7 +2000,7 @@ font-size: 1rem;
 .create-order-fields select:focus {
 outline: none;
 border-color: var(--color-primary-glow);
-box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2), 0 0 15px var(--color-primary-accent);
+box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2), 0 0 15px var(--color-primary-accent);
 }
 
 .create-order-submit-btn {
@@ -2050,7 +2050,7 @@ height: 100%; /* Ensures equal height in the grid */
 
 .service-item:hover {
 transform: translateY(-8px);
-box-shadow: var(--shadow-deep), var(--shadow-intense-glow); /* Intense Primary Sky Blue Glow */
+box-shadow: var(--shadow-deep), var(--shadow-intense-glow); /* Intense Primary Indigo Glow */
 }
 
 .service-image {
@@ -2060,7 +2060,7 @@ object-fit: cover;
 border-radius: 8px;
 margin-bottom: 1.5rem;
 border: 2px solid var(--color-border);
-box-shadow: 0 0 12px rgba(14, 165, 233, 0.1);
+box-shadow: 0 0 12px rgba(79, 70, 229, 0.1);
 }
 
 .service-title {
@@ -2074,17 +2074,17 @@ line-height: 1.2;
 }
 
 .service-title:hover {
-color: var(--color-primary-accent); /* Primary Sky Blue text on hover */
-text-shadow: 0 0 10px rgba(14, 165, 233, 0.4); /* Text glow */
+color: var(--color-primary-accent); /* Primary Indigo text on hover */
+text-shadow: 0 0 10px rgba(79, 70, 229, 0.4); /* Text glow */
 }
 
 .service-price {
 font-size: 1.2rem;
 font-weight: 700;
-color: var(--color-primary-accent); /* Primary Sky Blue for pricing */
+color: var(--color-primary-accent); /* Primary Indigo for pricing */
 margin-top: 0.75rem;
 padding: 0.5rem 1rem;
-background-color: rgba(14, 165, 233, 0.05); /* Very light Primary Sky Blue background */
+background-color: rgba(79, 70, 229, 0.05); /* Very light Primary Indigo background */
 border-radius: 50px;
 }
 
@@ -2306,6 +2306,7 @@ font-size: 3.5rem;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     background-color: var(--color-surface);
+    padding: 1.5rem;
     border-left: 8px solid var(--color-primary-accent);
     box-shadow: var(--shadow-deep);
 }
@@ -2388,12 +2389,12 @@ background: var(--color-border);
 border-radius: 12px;
 margin: 0 auto;
 overflow: hidden;
-box-shadow: 0 0 12px rgba(14, 165, 233, 0.3);
+box-shadow: 0 0 12px rgba(79, 70, 229, 0.3);
 }
 
 .daily-progress-fill {
 height: 100%;
-background: linear-gradient(90deg, var(--color-primary-accent), #0284C7);
+background: linear-gradient(90deg, var(--color-primary-accent), #4338CA);
 width: 0%;
 transition: width 0.7s ease-in-out;
 }
@@ -2422,7 +2423,7 @@ LEARN MORE SPECIFIC STYLES (Inline CSS Extracted)
     font-size: 3rem;
     font-weight: 800;
     color: var(--color-primary-accent);
-    text-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+    text-shadow: 0 0 10px rgba(79, 70, 229, 0.2);
     margin-bottom: 0.5rem;
 }
 .lm-subtitle {
@@ -2443,7 +2444,7 @@ LEARN MORE SPECIFIC STYLES (Inline CSS Extracted)
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 3rem;
-    color: var(--color-primary-accent); /* Primary Sky Blue */
+    color: var(--color-primary-accent); /* Primary Indigo */
     text-align: center;
 }
 .lm-intro-text, .lm-note-small {
@@ -2505,14 +2506,14 @@ LEARN MORE SPECIFIC STYLES (Inline CSS Extracted)
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: var(--color-primary-accent); /* Primary Sky Blue Dot */
+    background-color: var(--color-primary-accent); /* Primary Indigo Dot */
     color: var(--color-surface);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 1rem;
-    box-shadow: 0 0 0 5px var(--color-surface), 0 0 10px rgba(14, 165, 233, 0.4);
+    box-shadow: 0 0 0 5px var(--color-surface), 0 0 10px rgba(79, 70, 229, 0.4);
     z-index: 1;
 }
 
@@ -2540,7 +2541,7 @@ LEARN MORE SPECIFIC STYLES (Inline CSS Extracted)
     padding: 0.75rem 1rem;
     background-color: var(--color-surface);
     border-radius: var(--border-radius);
-    border-left: 5px solid var(--color-accent-highlight); /* Secondary Gold accent */
+    border-left: 5px solid var(--color-accent-highlight); /* Accent Cyan accent */
     box-shadow: var(--shadow-inner-glow);
 }
 
@@ -2596,7 +2597,7 @@ LEARN MORE SPECIFIC STYLES (Inline CSS Extracted)
 .lm-cta {
     text-align: center;
     padding: 4rem 20px;
-    background: var(--color-surface); /* Card White */
+    background: var(--color-surface); /* Card Background */
     color: var(--color-text-light);
     border-top: 5px solid var(--color-primary-accent);
 }
@@ -2647,7 +2648,7 @@ STAFF ORDERS TABLE STYLES (New)
 }
 
 .staff-orders-body .staff-order-row:hover {
-    background-color: rgba(14, 165, 233, 0.05);
+    background-color: rgba(79, 70, 229, 0.05);
 }
 
 .staff-order-service {
