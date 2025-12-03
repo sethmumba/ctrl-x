@@ -9,6 +9,9 @@ urlpatterns = [
     path('staff/orders/', views.staff_orders, name='staff_orders'),
     path('api/custom-services/create/', views.api_create_service, name='api_create_service'),
     path("order/<int:order_id>/", views.custom_order_detail, name="custom_order_detail"),
+    path('staff/order/<int:order_id>/update/<str:new_status>/', 
+     views.update_order_status, 
+     name='update_order_status'),
 
 
 ]

@@ -62,8 +62,8 @@
 
             <!-- ===== STAFF NAVIGATION ===== -->
             {% if user.is_staff %}
-                <a href="/staff/dashboard/" class="nav-link">Staff Dashboard</a>
-                <a href="{% url 'staff_orders' %}" class="nav-link">Assigned Orders</a>
+                <a href="/staff/dashboard/" class="nav-link">Assigned Preorders /a>
+                <a href="{% url 'staff_orders' %}" class="nav-link">Assigned Custom orders</a>
                 <a href="/dashboard/support/" class="nav-link">Support</a>
             {% endif %}
 

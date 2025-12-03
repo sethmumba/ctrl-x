@@ -22,11 +22,17 @@
             <td class="staff-order-budget">{{ order.budget }}</td>
             <td class="staff-order-status">{{ order.status }}</td>
 
-            <td class="staff-order-actions">
-                <a href="#" class="action-btn action-progress">Mark In Progress</a>
-                <a href="#" class="action-btn action-complete">Mark Completed</a>
-                <a href="#" class="action-btn action-cancel">Cancel</a>
-            </td>
+<td class="staff-order-actions">
+    <a href="{% url 'update_order_status' order.id 'in_progress' %}" 
+       class="action-btn action-progress">Mark In Progress</a>
+
+    <a href="{% url 'update_order_status' order.id 'completed' %}" 
+       class="action-btn action-complete">Mark Completed</a>
+
+    <a href="{% url 'update_order_status' order.id 'cancelled' %}" 
+       class="action-btn action-cancel">Cancel</a>
+</td>
+
         </tr>
         {% endfor %}
     </tbody>

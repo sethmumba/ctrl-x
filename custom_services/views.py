@@ -105,3 +105,17 @@ def api_create_service(request):
 def custom_order_detail(request, order_id):
     order = get_object_or_404(CustomOrder, id=order_id, user=request.user)
     return render(request, "custom_services/custom_order_detail.html", {"order": order})
+
+
+
+@login_required
+def update_order_status(request, order_id, new_status):
+    order = get_object_or_404(CustomOrder, id=order_id, assigned_staff=request.user)
+
+    if new_status not in ['in_progress', 'completed', 'cancelled']:
+        return redirect('staff_orders')
+
+    order.status = new_status
+    order.save()
+
+    return redirect('staff_orders')
