@@ -11,7 +11,7 @@
 </head>
 
 <!-- The 'body' class now includes a toggleable 'sidebar-open' state -->
-<body class="body">
+<body class="body page-transition">
 
 <div class="main-layout" id="main-layout">
 
@@ -145,5 +145,43 @@
             });
         });
     </script>
+
+
+<script>
+// Page fade transition
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Fade in when page loads
+    setTimeout(() => {
+        document.body.classList.add("page-transition-active");
+    }, 10);
+
+    // Fade out when clicking normal links
+    document.querySelectorAll("a[href]:not(.nav-link)").forEach(function (link) {
+        link.addEventListener("click", function (e) {
+            const url = this.getAttribute("href");
+
+            // ignore external, new-tab, anchor links
+            if (
+                url.startsWith("http") ||
+                url.startsWith("#") ||
+                this.target === "_blank"
+            ) {
+                return;
+            }
+
+            e.preventDefault();
+
+            document.body.classList.remove("page-transition-active");
+
+            setTimeout(() => {
+                window.location.href = url;
+            }, 300);
+        });
+    });
+});
+</script>
+
+
 </body>
 </html>

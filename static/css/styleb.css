@@ -2724,3 +2724,12 @@ STAFF ORDERS TABLE STYLES (New)
         text-align: center;
     }
 }
+/* Page fade-in when loaded */
+body.page-transition {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+body.page-transition-active {
+    opacity: 1;
+}
