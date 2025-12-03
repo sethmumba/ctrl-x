@@ -54,12 +54,13 @@
 
     <!-- Orders Table as Cards -->
     <div class="orders-container">
+        <!-- Moved title outside the orders-list div to match the image structure -->
         <h2 class="orders-title">Your Store Build History</h2>
 
         {% if orders %}
             <div class="orders-list">
                 {% for order in orders %}
-                    <div class="order-card card">
+                    <a href="{% url 'order-detail' order.id %}" class="order-card card">
                         
                         <!-- Header: ID and Date -->
                         <div class="order-card-header">
@@ -76,7 +77,7 @@
                                 data-created="{{ order.created_at|date:'Y-m-d H:i:s' }}"
                                 data-status="{{ order.progress }}"
                                 id="countdown-{{ order.id }}">
-                                </p>
+                            </p>
 
 
                             <div class="order-status">
@@ -96,15 +97,15 @@
                         
                         <!-- Footer: CTA -->
                         <div class="order-card-footer">
-                            <a href="{% url 'order-detail' order.id %}" class="details-link btn-outline">View Details →</a>
+                            <span class="details-link btn-outline">View Details →</span>
                         </div>
                         
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         {% else %}
             <div class="no-orders-wrapper">
-                 <div class="no-orders-icon"></div>
+                <div class="no-orders-icon"></div>
                 <p class="no-orders-message">You haven't placed any store build orders yet.</p>
                 <a href="{% url 'create-order' %}" class="btn btn-primary">Start Your First Order</a>
             </div>
@@ -114,7 +115,7 @@
 </div>
 
 <!-- ============================= -->
-<!--      COUNTDOWN JS LOGIC       -->
+<!--      COUNTDOWN JS LOGIC       -->
 <!-- ============================= -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -124,13 +125,13 @@ document.addEventListener("DOMContentLoaded", function () {
     countdownElements.forEach(el => {
 
         const createdAt = new Date(el.dataset.created.replace(/-/g, '/'));
-        const status = el.dataset.status;   // order progress
+        const status = el.dataset.status;   // order progress
         const targetTime = createdAt.getTime() + 24 * 60 * 60 * 1000; // 24 hours
 
         // ✅ If order is already completed, show positive message immediately
         if (status === "completed") {
             el.innerHTML = "🎉 Store Delivered — Thank You!";
-            el.style.color = "limegreen";
+            el.style.color = "var(--color-status-success)";
             return; // STOP — do not start countdown
         }
 
@@ -141,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // When timer finishes and store is NOT completed
             if (difference <= 0) {
                 el.innerHTML = "⛔ Delivery overdue";
-                el.style.color = "red";
+                el.style.color = "var(--color-error)";
                 return;
             }
 
@@ -150,12 +151,84 @@ document.addEventListener("DOMContentLoaded", function () {
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
             el.innerHTML = `⏳ Time left: ${hours}h ${minutes}m ${seconds}s`;
-            el.style.color = "gold";
+            el.style.color = "var(--color-primary-accent)";
         }
 
         updateTimer();
         setInterval(updateTimer, 1000);
     });
+    
+    // Logic for the Progress Bar Trailing Line (Needs to run on order-detail page)
+    // We add a listener for the whole document in case this script is included globally.
+    function updateTimelineProgress(container) {
+        if (!container) return;
+
+        const steps = container.querySelectorAll('.timeline-step');
+        if (steps.length === 0) return;
+        
+        const activeSteps = container.querySelectorAll('.timeline-step.active');
+        const numActive = activeSteps.length;
+        const numTotal = steps.length;
+        
+        let progressWidth = 0;
+
+        if (numActive > 0) {
+            // Calculate width needed to reach the center of the last active circle
+            // 1. Calculate the percentage based on the number of completed segments.
+            // (numActive - 1) segments + half a segment for the circle center.
+            const totalSegments = numTotal - 1;
+            
+            // If the last step is active, the line should extend 100%
+            if (numActive === numTotal) {
+                progressWidth = 100;
+            } else {
+                // Determine the center position of the last active step
+                // The steps are centered horizontally.
+                const stepIndex = numActive - 1; 
+                // Assuming steps are spaced evenly, calculate percentage based on index
+                // (Index / Total Segments) * 100. Need to adjust for the start point of the first step.
+                // Since the first circle is at the start (0%), we only need to account for subsequent steps.
+                
+                // Example: 5 steps (0, 1, 2, 3, 4). 4 segments (0-1, 1-2, 2-3, 3-4).
+                // If 1st active (index 0): should be 0% at the start, maybe 1/8th of total width to the center.
+                // If 2nd active (index 1): should be 1/4th of total width.
+                
+                // Simple calculation based on flex-basis for now (15% per step, approx 1/6th of total width per step center)
+                // This rough calculation works fine if we assume steps are 20% width centered.
+                // For a robust solution, we use the bounding box positions.
+                
+                const lastActiveStep = activeSteps[stepIndex];
+                
+                // Get the center X position of the last active step's circle relative to the timeline container
+                const stepRect = lastActiveStep.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                // Center of the circle relative to the start of the container
+                const centerX = (stepRect.left + stepRect.right) / 2 - containerRect.left;
+                
+                // Convert to percentage
+                progressWidth = (centerX / containerRect.width) * 100;
+            }
+        }
+        
+        // Apply the calculated width to the ::after pseudo-element
+        const trailingLine = container.querySelector('.timeline::after');
+        if (trailingLine) {
+            trailingLine.style.width = `${progressWidth}%`;
+        }
+    }
+    
+    // Since this script is in the dashboard template, let's look for the timeline on the order-detail page
+    // where this script might also be included, or call it manually if needed elsewhere.
+    const timelineContainer = document.querySelector('.timeline');
+    if (timelineContainer) {
+        // Run once on load
+        updateTimelineProgress(timelineContainer);
+        
+        // Set up observer to check if the timeline contents change (though usually static)
+        const observer = new MutationObserver(() => updateTimelineProgress(timelineContainer));
+        observer.observe(timelineContainer, { childList: true, subtree: true, attributes: true });
+    }
 
 });
 </script>
