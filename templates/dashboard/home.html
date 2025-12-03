@@ -52,9 +52,8 @@
         
     </div>
 
-    <!-- Orders Table as Cards -->
-    <div class="orders-container">
-        <!-- Moved title outside the orders-list div to match the image structure -->
+    <!-- Orders History Section -->
+    <div class="orders-section-wrapper">
         <h2 class="orders-title">Your Store Build History</h2>
 
         {% if orders %}
@@ -173,41 +172,26 @@ document.addEventListener("DOMContentLoaded", function () {
         let progressWidth = 0;
 
         if (numActive > 0) {
-            // Calculate width needed to reach the center of the last active circle
-            // 1. Calculate the percentage based on the number of completed segments.
-            // (numActive - 1) segments + half a segment for the circle center.
-            const totalSegments = numTotal - 1;
-            
             // If the last step is active, the line should extend 100%
             if (numActive === numTotal) {
                 progressWidth = 100;
             } else {
-                // Determine the center position of the last active step
-                // The steps are centered horizontally.
-                const stepIndex = numActive - 1; 
-                // Assuming steps are spaced evenly, calculate percentage based on index
-                // (Index / Total Segments) * 100. Need to adjust for the start point of the first step.
-                // Since the first circle is at the start (0%), we only need to account for subsequent steps.
+                // To accurately calculate the position relative to the container width:
+                const lastActiveStep = activeSteps[numActive - 1];
                 
-                // Example: 5 steps (0, 1, 2, 3, 4). 4 segments (0-1, 1-2, 2-3, 3-4).
-                // If 1st active (index 0): should be 0% at the start, maybe 1/8th of total width to the center.
-                // If 2nd active (index 1): should be 1/4th of total width.
-                
-                // Simple calculation based on flex-basis for now (15% per step, approx 1/6th of total width per step center)
-                // This rough calculation works fine if we assume steps are 20% width centered.
-                // For a robust solution, we use the bounding box positions.
-                
-                const lastActiveStep = activeSteps[stepIndex];
-                
-                // Get the center X position of the last active step's circle relative to the timeline container
+                // Use DOMRect to find relative position, ensuring responsiveness.
                 const stepRect = lastActiveStep.getBoundingClientRect();
                 const containerRect = container.getBoundingClientRect();
                 
-                // Center of the circle relative to the start of the container
-                const centerX = (stepRect.left + stepRect.right) / 2 - containerRect.left;
+                // Calculate the position of the center of the active circle relative to the container's start.
+                // We assume the circle is visually centered within its 15% flex-basis.
+                // For the purpose of the shining line, we need to extend to the center of the active step.
+                // Since the steps have `justify-content: space-between` and the first is at 0, 
+                // we calculate the percentage distance to the center of the step's space.
+                const stepCenterRelative = (stepRect.left + stepRect.width / 2) - containerRect.left;
                 
                 // Convert to percentage
-                progressWidth = (centerX / containerRect.width) * 100;
+                progressWidth = (stepCenterRelative / containerRect.width) * 100;
             }
         }
         

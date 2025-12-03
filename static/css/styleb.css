@@ -860,27 +860,38 @@ margin: 0;
 }
 
 /* Orders List Section */
-.orders-title {
-font-size: 2rem;
-font-weight: 700;
-color: var(--color-text-light);
-margin-bottom: 2rem;
-padding: 0 1rem;
+.orders-section-wrapper {
+    /* New wrapper for the orders section content */
+    padding: 0 1rem;
+    margin-bottom: 4rem;
 }
+
+.orders-title {
+/* Fix 1: Separate and Center the Dashboard Title */
+font-size: 2.5rem;
+font-weight: 800;
+color: var(--color-text-light);
+margin-bottom: 2.5rem; /* Increased margin to separate it from cards */
+padding: 0; /* Remove padding if it was causing offset */
+text-align: center; /* Center the title */
+border-left: none; /* Remove border-left for centering */
+}
+
 
 /* Dashboard Order Card Grid */
 .orders-container {
-    /* Use padding instead of margin to align with the .orders-title padding */
-    padding: 0 1rem;
+    /* We are removing this container and using .orders-section-wrapper instead for padding/margin */
+    display: block;
+    padding: 0;
 }
 
 .orders-list {
     display: grid;
-    /* Use repeat/auto-fill for realistic, wrapping card layout (320px minimum width) */
+    /* Fix 2: Explicitly set up 3+ column responsive grid */
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
-    padding: 0; /* Remove padding here, use .orders-container padding */
-    margin-bottom: 4rem;
+    padding: 0;
+    margin: 0;
 }
 
 .order-card {
@@ -893,6 +904,8 @@ border-top: none;
 transition: transform 0.2s ease;
 cursor: pointer;
 box-shadow: var(--shadow-inner-glow), var(--shadow-deep);
+/* Ensure height is set correctly for flex column fill */
+height: 100%;
 }
 
 .order-card:hover {
