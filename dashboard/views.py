@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from orders.models import Order, PROGRESS_STEPS
 from .forms import SupportForm
+import requests
+from django.http import JsonResponse
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import os
